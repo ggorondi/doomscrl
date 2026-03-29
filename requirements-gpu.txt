@@ -1,0 +1,9 @@
+torch>=2.2
+numpy>=1.26
+pandas>=2.1
+transformers>=4.50
+torchcodec>=0.2
+torchaudio>=2.2
+huggingface-hub>=0.25
+scikit-learn>=1.4
+pyyaml>=6.0
