@@ -1,0 +1,30 @@
+{
+  "name": "brainrotmaxxer-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10",
+    "@react-three/fiber": "^9",
+    "@react-three/postprocessing": "^3",
+    "framer-motion": "^12",
+    "next": "^15",
+    "react": "^19",
+    "react-dom": "^19",
+    "simplex-noise": "^4",
+    "three": "^0.174",
+    "postprocessing": "^6"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/three": "^0.174",
+    "typescript": "^5",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4"
+  }
+}

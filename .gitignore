@@ -22,4 +22,6 @@ artifacts/features/
 runs/
 wandb/
 
+node_modules/
+.next/
 .env
