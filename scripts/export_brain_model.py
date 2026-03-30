@@ -11,7 +11,33 @@ import argparse
 from pathlib import Path
 
 import torch
-import yaml
+
+DEFAULT_LOCAL_CKPT = Path("models/tribev2/best.ckpt")
+
+
+def infer_export_config(state_dict: dict[str, torch.Tensor]) -> dict[str, int]:
+    hidden = state_dict["time_pos_embed"].shape[-1]
+    max_seq_len = state_dict["time_pos_embed"].shape[1]
+    low_rank_head = state_dict.get("low_rank_head.weight")
+    low_rank = low_rank_head.shape[0] if low_rank_head is not None else 0
+    predictor = state_dict["predictor.weights"]
+    n_outputs = predictor.shape[-1]
+    n_subjects = predictor.shape[0]
+    layer_ids = {
+        int(k.split(".")[2])
+        for k in state_dict
+        if k.startswith("encoder.layers.")
+    }
+    head_dim = state_dict["encoder.rotary_pos_emb.inv_freq"].shape[0] * 2
+    return {
+        "n_outputs": n_outputs,
+        "hidden": hidden,
+        "n_heads": hidden // head_dim,
+        "n_layers": len(layer_ids),
+        "max_seq_len": max_seq_len,
+        "low_rank": low_rank,
+        "n_subjects": n_subjects,
+    }
 
 
 def main():
@@ -28,6 +54,8 @@ def main():
 
     if args.checkpoint and args.checkpoint.exists():
         ckpt_path = args.checkpoint
+    elif DEFAULT_LOCAL_CKPT.exists():
+        ckpt_path = DEFAULT_LOCAL_CKPT
     else:
         from huggingface_hub import hf_hub_download
         ckpt_path = hf_hub_download(args.repo_id, "best.ckpt")
@@ -49,26 +77,20 @@ def main():
     print(f"Outputs: {n_outputs} vertices, {n_output_timesteps} timesteps")
     print(f"State dict keys: {len(state_dict)}")
 
+    config = infer_export_config(state_dict)
+    config["n_output_timesteps"] = n_output_timesteps
+
     export = {
         "feature_dims": feature_dims,
-        "config": {
-            "n_outputs": n_outputs,
-            "n_output_timesteps": n_output_timesteps,
-            "hidden": 1152,
-            "n_heads": 8,
-            "n_layers": 8,
-            "max_seq_len": 1024,
-            "low_rank": 2048,
-            "n_subjects": 25,
-        },
+        "config": config,
         "state_dict": state_dict,
         "build_args": build_args,
+        "format": "tribev2-export",
     }
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     torch.save(export, args.output)
     print(f"Exported to {args.output}")
-    print("Note: weight key mapping may need adjustment in src/brain.py")
 
 
 if __name__ == "__main__":

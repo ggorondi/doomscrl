@@ -1,8 +1,6 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useRef, useMemo, useState, useEffect } from "react";
 import * as THREE from "three";
 import { createNoise3D } from "simplex-noise";
@@ -18,9 +16,13 @@ interface BrainMeshData {
 function BrainMesh({
   meshData,
   activation = 0.5,
+  spin = true,
+  yRotation = 0,
 }: {
   meshData: BrainMeshData;
   activation?: number;
+  spin?: boolean;
+  yRotation?: number;
 }) {
   const groupRef = useRef<THREE.Group>(null!);
   const activationRef = useRef(activation);
@@ -87,7 +89,10 @@ function BrainMesh({
   useFrame(({ clock }) => {
     if (!groupRef.current) return;
     const t = clock.getElapsedTime();
-    groupRef.current.rotation.y = t * 0.15;
+
+    if (spin) {
+      groupRef.current.rotation.y = t * 0.15;
+    }
 
     const act = activationRef.current;
     const colors = geometry.attributes.color as THREE.BufferAttribute;
@@ -119,14 +124,12 @@ function BrainMesh({
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} rotation={[0, spin ? 0 : yRotation, 0]}>
       <mesh geometry={geometry} rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
         <meshStandardMaterial
           vertexColors
-          roughness={0.55}
+          roughness={0.5}
           metalness={0.05}
-          transparent
-          opacity={0.60}
           emissive={new THREE.Color(0.03, 0.0, 0.02)}
           emissiveIntensity={activation * 1.5}
           side={THREE.DoubleSide}
@@ -136,7 +139,23 @@ function BrainMesh({
   );
 }
 
-function BrainContent({ activation }: { activation: number }) {
+function SetBackground({ color }: { color: string }) {
+  const { scene } = useThree();
+  useEffect(() => {
+    scene.background = new THREE.Color(color);
+  }, [scene, color]);
+  return null;
+}
+
+function BrainContent({
+  activation,
+  spin,
+  yRotation,
+}: {
+  activation: number;
+  spin: boolean;
+  yRotation: number;
+}) {
   const [meshData, setMeshData] = useState<BrainMeshData | null>(null);
 
   useEffect(() => {
@@ -150,42 +169,42 @@ function BrainContent({ activation }: { activation: number }) {
 
   if (!meshData) return null;
 
-  return <BrainMesh meshData={meshData} activation={activation} />;
+  return (
+    <BrainMesh
+      meshData={meshData}
+      activation={activation}
+      spin={spin}
+      yRotation={yRotation}
+    />
+  );
 }
 
 export default function BrainScene({
   activation = 0.4,
+  bg = "#111111",
+  spin = true,
+  yRotation = 0,
 }: {
   activation?: number;
+  bg?: string;
+  spin?: boolean;
+  yRotation?: number;
 }) {
   return (
-    <Canvas camera={{ position: [0, 1, 7], fov: 40 }}>
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 5, 5]} intensity={0.7} />
-      <directionalLight
-        position={[-3, -2, -5]}
-        intensity={0.25}
-        color="#7c3aed"
+    <Canvas
+      camera={{ position: [0, 1, 7], fov: 40 }}
+      style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+    >
+      <SetBackground color={bg} />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[5, 5, 5]} intensity={0.9} />
+      <directionalLight position={[-3, -2, -5]} intensity={0.35} />
+
+      <BrainContent
+        activation={activation}
+        spin={spin}
+        yRotation={yRotation}
       />
-
-      <BrainContent activation={activation} />
-
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        autoRotate
-        autoRotateSpeed={0.4}
-        maxPolarAngle={Math.PI * 0.65}
-        minPolarAngle={Math.PI * 0.35}
-      />
-
-      <EffectComposer>
-        <Bloom
-          luminanceThreshold={0.3}
-          luminanceSmoothing={0.9}
-          intensity={0.6}
-        />
-      </EffectComposer>
     </Canvas>
   );
 }

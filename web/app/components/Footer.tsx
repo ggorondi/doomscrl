@@ -1,12 +1,10 @@
-"use client";
-
 export default function Footer() {
   return (
-    <footer className="border-t border-[var(--card-border)] py-16 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+    <footer className="py-10 md:py-12 px-6 md:px-10 bg-[var(--surface)]">
+      <div className="max-w-3xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
-            <h3 className="font-bold text-lg gradient-text mb-3">
+            <h3 className="font-semibold text-base mb-2">
               brainrotmaxxer
             </h3>
             <p className="text-sm text-[var(--muted)]">
@@ -24,7 +22,7 @@ export default function Footer() {
                 <a
                   href="https://github.com/ggorondi/brainrotmaxxer"
                   target="_blank"
-                  className="text-gray-400 hover:text-[var(--accent)] transition"
+                  className="text-[var(--muted)] hover:text-[var(--fg)] transition"
                 >
                   GitHub Repository
                 </a>
@@ -33,7 +31,7 @@ export default function Footer() {
                 <a
                   href="https://huggingface.co/facebook/tribev2"
                   target="_blank"
-                  className="text-gray-400 hover:text-[var(--accent)] transition"
+                  className="text-[var(--muted)] hover:text-[var(--fg)] transition"
                 >
                   TRIBE v2 Model
                 </a>
@@ -42,7 +40,7 @@ export default function Footer() {
                 <a
                   href="https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/"
                   target="_blank"
-                  className="text-gray-400 hover:text-[var(--accent)] transition"
+                  className="text-[var(--muted)] hover:text-[var(--fg)] transition"
                 >
                   TRIBE v2 Blog Post
                 </a>
@@ -54,7 +52,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider text-[var(--muted)]">
               Built with
             </h4>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-[var(--muted)]">
               <li>TRIBE v2 (Meta FAIR)</li>
               <li>V-JEPA 2 + Wav2Vec-BERT</li>
               <li>Stable-Baselines3 (PPO)</li>
@@ -64,7 +62,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="text-center text-xs text-gray-600">
+        <div className="text-center text-xs text-[var(--muted)]">
           <p>
             This is a satirical hackathon project. Please doomscroll
             responsibly.

@@ -1,14 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
-const fadeUp = {
-  initial: { opacity: 0, y: 40 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-100px" },
-  transition: { duration: 0.6 },
-};
-
 const placeholderResults = [
   {
     title: "Policy 1: Scroll Timing",
@@ -30,71 +19,65 @@ const placeholderResults = [
   },
 ];
 
+function barHeight(i: number) {
+  return 10 + Math.log(i + 1) * 20 + Math.sin(i * 0.5) * 8 + ((i * 17) % 6);
+}
+
 export default function Results() {
   return (
-    <section className="py-32 px-4">
-      <div className="max-w-4xl mx-auto">
-        <motion.h2
-          {...fadeUp}
-          className="text-4xl md:text-5xl font-bold mb-4"
-        >
+    <section className="py-20 md:py-24 px-6 md:px-10 bg-[var(--surface)]">
+      <div className="max-w-3xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-3 tracking-tight">
           Results
-        </motion.h2>
-        <motion.p
-          {...fadeUp}
-          className="text-[var(--muted)] text-lg mb-12"
-        >
+        </h2>
+        <p className="text-[var(--muted)] text-sm md:text-base mb-10">
           Training in progress. Results will appear here once the RL agents
           have been trained on the GPU.
-        </motion.p>
+        </p>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 gap-4 mb-10">
           {placeholderResults.map((result) => (
-            <motion.div key={result.title} {...fadeUp} className="card p-6">
-              <h3 className="text-xl font-semibold mb-3">{result.title}</h3>
+            <div key={result.title} className="card p-5">
+              <h3 className="text-base font-semibold mb-2">{result.title}</h3>
               <p className="text-sm text-[var(--muted)] mb-6">{result.desc}</p>
               <div className="grid grid-cols-3 gap-3">
                 {result.metrics.map((m) => (
                   <div key={m.label} className="text-center">
-                    <p className="text-2xl font-mono font-bold text-[var(--muted)]">
+                    <p className="text-2xl mono font-bold text-[var(--border-strong)]">
                       {m.value}
                     </p>
-                    <p className="text-xs text-gray-600 mt-1">{m.label}</p>
+                    <p className="text-xs text-[var(--muted)] mt-1">{m.label}</p>
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          {...fadeUp}
-          className="card p-8 text-center border-dashed border-[var(--card-border)]"
-        >
+        <div className="card p-8 text-center">
           <p className="text-[var(--muted)] mb-2">
             Training reward curve (placeholder)
           </p>
           <div className="h-48 flex items-end justify-center gap-1">
             {Array.from({ length: 40 }).map((_, i) => {
-              const h =
-                10 + Math.log(i + 1) * 20 + Math.sin(i * 0.5) * 8 + Math.random() * 5;
+              const h = barHeight(i);
               return (
                 <div
                   key={i}
                   className="w-2 rounded-t"
                   style={{
                     height: `${h}%`,
-                    background: `linear-gradient(to top, var(--accent2), var(--accent))`,
+                    background: `var(--border-strong)`,
                     opacity: 0.4 + (i / 40) * 0.6,
                   }}
                 />
               );
             })}
           </div>
-          <p className="text-xs text-gray-600 mt-4">
+          <p className="text-xs text-[var(--muted)] mt-4">
             Simulated. Real results pending GPU training run.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68.0"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "brainrotmaxxer"
@@ -9,12 +9,15 @@ requires-python = ">=3.10"
 dependencies = [
     "gymnasium>=1.0",
     "stable-baselines3>=2.3",
+    "sb3-contrib>=2.3",
     "torch>=2.2",
     "numpy>=1.26",
     "pandas>=2.1",
     "scikit-learn>=1.4",
     "pyyaml>=6.0",
     "tensorboard>=2.16",
+    "matplotlib>=3.8",
+    "gdown>=5.2",
 ]
 
 [project.optional-dependencies]

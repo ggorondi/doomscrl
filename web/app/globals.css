@@ -1,13 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #050508;
-  --fg: #e8e8ed;
-  --accent: #ff3366;
-  --accent2: #7c3aed;
-  --muted: #6b7280;
-  --card: #0d0d12;
-  --card-border: #1a1a24;
+  --bg: #FFFFFF;
+  --fg: #111827;
+  --primary: #111111;
+  --secondary: #8B5CF6;
+  --success: #16A34A;
+  --warning: #D97706;
+  --danger: #DC2626;
+  --surface: #FFFFFF;
+  --surface-alt: #F9FAFB;
+  --muted: #6B7280;
+  --border: #E5E7EB;
+  --border-strong: #D1D5DB;
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+
+  --font-body: 'Roboto', system-ui, sans-serif;
+  --font-display: 'Montserrat', system-ui, sans-serif;
+  --font-mono: 'PT Mono', ui-monospace, monospace;
 }
 
 * {
@@ -21,25 +31,27 @@ html {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-body);
   overflow-x: hidden;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, #ff3366 0%, #7c3aed 50%, #06b6d4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
 }
 
-.glow-accent {
-  box-shadow: 0 0 40px rgba(255, 51, 102, 0.15), 0 0 80px rgba(124, 58, 237, 0.1);
+.accent-text {
+  color: var(--danger);
 }
 
 .card {
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: var(--card-shadow);
+}
+
+.mono {
+  font-family: var(--font-mono);
 }
 
 @keyframes pulse-glow {

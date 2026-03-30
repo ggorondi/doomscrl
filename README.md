@@ -1,6 +1,6 @@
 # brainrotmaxxer
 
-RL policies trained to maximize simulated dopamine during doomscrolling, using Meta's TRIBE v2 brain model as the reward signal.
+RL policies trained to maximize simulated dopamine usage and 'brain-frying' during doomscrolling, using Meta's TRIBE v2 brain model as the reward signal for a tiktok-feed controlling RL agent.
 
 Built for Silly Hacks 2026.
 
@@ -44,12 +44,54 @@ pip install -e .
 
 ## GPU precompute (vast.ai or similar)
 
-Copy the repo + downloaded videos to a GPU instance, then:
+Before renting the GPU, you can prepare the transfer-friendly video corpus locally:
+
+```bash
+python3 scripts/check_training_ready.py
+python3 scripts/prepare_videos.py \
+  --videos-dir \
+    artifacts/tiktok-final-top200/videos \
+    artifacts/tiktok-final-high300/videos \
+    artifacts/tiktok-final-random500/videos \
+  --output-root artifacts/prepared-videos \
+  --workers 6
+```
+
+This creates `artifacts/prepared-videos/.../videos/*.mp4` with:
+- 16 fps video
+- 256x256 center-cropped frames matching the current V-JEPA2 spatial preprocessing
+- mono 16 kHz audio
+
+Copy the repo + videos to a GPU instance, then:
 
 ```bash
 bash scripts/gpu_setup.sh
 bash scripts/run_precompute.sh
 ```
+
+For the current Runpod pods, the SSH commands are:
+
+```bash
+# RTX PRO 4500 pod: Runpod managed SSH
+ssh 4ymuft75os9jfr-64412042@ssh.runpod.io -i ~/.ssh/id_ed25519
+
+# RTX PRO 4500 pod: direct TCP SSH
+ssh root@213.173.110.47 -p 12130 -i ~/.ssh/id_ed25519
+
+# RTX 5090 pod: Runpod managed SSH
+ssh 67jl7m6znyfxze-64410f5e@ssh.runpod.io -i ~/.ssh/id_ed25519
+
+# RTX 5090 pod: direct TCP SSH
+ssh root@213.173.111.155 -p 46247 -i ~/.ssh/id_ed25519
+
+# 3x RTX 4090 pod: Runpod managed SSH
+ssh f9gesr5bdoznkp-64410e34@ssh.runpod.io -i ~/.ssh/id_ed25519
+
+# 3x RTX 4090 pod: direct TCP SSH
+ssh root@213.173.102.171 -p 15595 -i ~/.ssh/id_ed25519
+```
+
+`run_precompute.sh` will automatically use `artifacts/prepared-videos/...` if it exists, otherwise it falls back to the raw TikTok videos.
 
 Copy artifacts back:
 ```bash
@@ -75,6 +117,8 @@ Monitor with TensorBoard:
 ```bash
 tensorboard --logdir runs/
 ```
+
+If you train on the GPU instance, the brain model now defaults to `device: auto`, so it will use CUDA automatically when available.
 
 ## Project structure
 
