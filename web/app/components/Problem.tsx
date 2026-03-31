@@ -40,7 +40,7 @@ export default function Problem() {
         <div style={{ height: "2rem" }} />
         <p style={{ color: "var(--muted)" }}>
           We can leverage Reinforcement Learning to train an agent to optimize the scrolling pattern with the explicit objective of maximizing predicted
-          cortical activation across 20,484 brain surface vertices during a tiktok session.
+          cortical activation across brain surface vertices during a tiktok session.
         </p>
         <p style={{ color: "var(--muted)" }}>
           Bye bye manual scrolling.
