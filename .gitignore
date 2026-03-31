@@ -29,3 +29,7 @@ web/public/videos/
 
 artifacts/
 .agents/
+
+doomscollmaxxer_rl_20260330/
+exports/
+artifacts/replays_final_20260330/

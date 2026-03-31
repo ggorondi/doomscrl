@@ -3,6 +3,7 @@ import Problem from "./components/Problem";
 import Architecture from "./components/Architecture";
 import Demo from "./components/Demo";
 import Results from "./components/Results";
+import Conclusion from "./components/Conclusion";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <Architecture />
       <Demo />
       <Results />
+      <Conclusion />
       <Footer />
     </main>
   );

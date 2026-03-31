@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Problem() {
   return (
     <section className="relative py-20 md:py-24 px-6 md:px-10 bg-[var(--surface)]">
@@ -31,6 +33,28 @@ export default function Problem() {
             predicted cortical activation across 20,484 brain surface vertices
             while doomscrolling through TikTok.
           </p>
+        </div>
+
+        {/* Monkey stimulus diagram */}
+        <div className="mb-10 flex justify-center">
+          <div className="relative max-w-md w-full">
+            <div className="card overflow-hidden">
+              <Image
+                src="/monkey-stimulus.png"
+                alt="Classic neuroscience experiment setup: monkey with recording electrode watching a stimulus screen, with juice reward mechanism — except we're doing this to ourselves, voluntarily, for free"
+                width={600}
+                height={500}
+                className="w-full h-auto"
+              />
+              <div className="p-4 bg-[var(--surface-alt)]">
+                <p className="text-xs text-[var(--muted)] text-center italic">
+                  &ldquo;What if we did this but the monkey is you and the
+                  stimulus screen is TikTok and the juice reward is
+                  dopamine?&rdquo;
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-4">

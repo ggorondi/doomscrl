@@ -13,16 +13,44 @@ interface BrainMeshData {
   nFaces: number;
 }
 
+/* ── Inferno colormap (black → purple → red → orange → yellow → white) ── */
+const INFERNO_STOPS: [number, number, number][] = [
+  [0.001, 0.000, 0.014],
+  [0.122, 0.006, 0.315],
+  [0.329, 0.039, 0.490],
+  [0.533, 0.134, 0.421],
+  [0.735, 0.267, 0.265],
+  [0.891, 0.434, 0.126],
+  [0.981, 0.645, 0.039],
+  [0.993, 0.871, 0.318],
+  [0.988, 0.998, 0.645],
+];
+
+function sampleInferno(t: number): [number, number, number] {
+  const n = INFERNO_STOPS.length - 1;
+  const idx = Math.min(Math.floor(t * n), n - 1);
+  const frac = t * n - idx;
+  const a = INFERNO_STOPS[idx];
+  const b = INFERNO_STOPS[idx + 1];
+  return [
+    a[0] + (b[0] - a[0]) * frac,
+    a[1] + (b[1] - a[1]) * frac,
+    a[2] + (b[2] - a[2]) * frac,
+  ];
+}
+
 function BrainMesh({
   meshData,
   activation = 0.5,
   spin = true,
   yRotation = 0,
+  mouseOffset,
 }: {
   meshData: BrainMeshData;
   activation?: number;
   spin?: boolean;
   yRotation?: number;
+  mouseOffset?: { x: number; y: number };
 }) {
   const groupRef = useRef<THREE.Group>(null!);
   const activationRef = useRef(activation);
@@ -64,7 +92,8 @@ function BrainMesh({
     const base = new Float32Array(n);
     for (let i = 0; i < n; i++) {
       const norm = (sulc[i] - sMin) / sRange;
-      base[i] = 0.35 + (1 - norm) * 0.25;
+      // Lighter, more opaque grey base
+      base[i] = 0.55 + (1 - norm) * 0.15;
     }
 
     const noise3D = createNoise3D();
@@ -92,6 +121,12 @@ function BrainMesh({
 
     if (spin) {
       groupRef.current.rotation.y = t * 0.15;
+    } else if (mouseOffset) {
+      // Smoothly follow mouse
+      const targetY = yRotation + mouseOffset.x * 0.4;
+      const targetX = mouseOffset.y * 0.15;
+      groupRef.current.rotation.y += (targetY - groupRef.current.rotation.y) * 0.05;
+      groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.05;
     }
 
     const act = activationRef.current;
@@ -111,14 +146,12 @@ function BrainMesh({
       const intensity = wave * act;
       const base = sulcalBase[i];
 
-      const t2 = intensity * intensity;
-      const hr = 0.02 + t2 * 3.0;
-      const hg = t2 * t2 * 2.5;
-      const hb = intensity * t2 * t2 * 3.0;
+      // Sample inferno colormap
+      const [hr, hg, hb] = sampleInferno(Math.min(intensity * 1.3, 1.0));
 
-      colors.array[i * 3] = base * (1 - intensity) + Math.min(hr, 1.0) * intensity;
-      colors.array[i * 3 + 1] = base * (1 - intensity) + Math.min(hg, 1.0) * intensity;
-      colors.array[i * 3 + 2] = base * (1 - intensity) + Math.min(hb, 1.0) * intensity;
+      colors.array[i * 3] = base * (1 - intensity) + hr * intensity;
+      colors.array[i * 3 + 1] = base * (1 - intensity) + hg * intensity;
+      colors.array[i * 3 + 2] = base * (1 - intensity) + hb * intensity;
     }
     colors.needsUpdate = true;
   });
@@ -130,8 +163,8 @@ function BrainMesh({
           vertexColors
           roughness={0.5}
           metalness={0.05}
-          emissive={new THREE.Color(0.03, 0.0, 0.02)}
-          emissiveIntensity={activation * 1.5}
+          emissive={new THREE.Color(0.02, 0.0, 0.03)}
+          emissiveIntensity={activation * 1.2}
           side={THREE.DoubleSide}
         />
       </mesh>
@@ -151,10 +184,12 @@ function BrainContent({
   activation,
   spin,
   yRotation,
+  mouseOffset,
 }: {
   activation: number;
   spin: boolean;
   yRotation: number;
+  mouseOffset?: { x: number; y: number };
 }) {
   const [meshData, setMeshData] = useState<BrainMeshData | null>(null);
 
@@ -175,6 +210,7 @@ function BrainContent({
       activation={activation}
       spin={spin}
       yRotation={yRotation}
+      mouseOffset={mouseOffset}
     />
   );
 }
@@ -184,11 +220,13 @@ export default function BrainScene({
   bg = "#111111",
   spin = true,
   yRotation = 0,
+  mouseOffset,
 }: {
   activation?: number;
   bg?: string;
   spin?: boolean;
   yRotation?: number;
+  mouseOffset?: { x: number; y: number };
 }) {
   return (
     <Canvas
@@ -204,6 +242,7 @@ export default function BrainScene({
         activation={activation}
         spin={spin}
         yRotation={yRotation}
+        mouseOffset={mouseOffset}
       />
     </Canvas>
   );
