@@ -263,7 +263,7 @@ export default function Results() {
           videos, each for 500K timesteps.
         </p>
         <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
-          They basically learned to reward hack the env by scrolling as fast as possible, which conveniently seems to fry the brain the most.
+          They basically learned to reward hack the env by scrolling as fast as possible, which conveniently seems to fry the brain the most. They learn this behavior even when they have explicit penalties for fast-video switching.
         </p>
 
         <div style={{ marginBottom: "2rem", textAlign: "center" }}>

@@ -54,6 +54,7 @@ function BrainMesh({
 }) {
   const groupRef = useRef<THREE.Group>(null!);
   const activationRef = useRef(activation);
+  const lastUpdateRef = useRef(0);
   activationRef.current = activation;
 
   const { geometry, sulcalBase, noisePatterns } = useMemo(() => {
@@ -92,8 +93,7 @@ function BrainMesh({
     const base = new Float32Array(n);
     for (let i = 0; i < n; i++) {
       const norm = (sulc[i] - sMin) / sRange;
-      // Lighter, more opaque grey base
-      base[i] = 0.55 + (1 - norm) * 0.15;
+      base[i] = 0.18 + (1 - norm) * 0.12;
     }
 
     const noise3D = createNoise3D();
@@ -129,6 +129,9 @@ function BrainMesh({
       groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.05;
     }
 
+    if (t - lastUpdateRef.current < 1 / 15) return;
+    lastUpdateRef.current = t;
+
     const act = activationRef.current;
     const colors = geometry.attributes.color as THREE.BufferAttribute;
     const n = meshData.nVertices;
@@ -143,28 +146,27 @@ function BrainMesh({
 
     for (let i = 0; i < n; i++) {
       const wave = p0[i] * (1 - blend) + p1[i] * blend;
-      const intensity = wave * act;
+      const intensity = Math.min(1, Math.pow(wave, 0.72) * (0.38 + act * 1.7));
       const base = sulcalBase[i];
+      const colorMix = Math.min(1, 0.5 + intensity * 0.7);
+      const [hr, hg, hb] = sampleInferno(Math.min(0.12 + intensity * 1.05, 1.0));
 
-      // Sample inferno colormap
-      const [hr, hg, hb] = sampleInferno(Math.min(intensity * 1.3, 1.0));
-
-      colors.array[i * 3] = base * (1 - intensity) + hr * intensity;
-      colors.array[i * 3 + 1] = base * (1 - intensity) + hg * intensity;
-      colors.array[i * 3 + 2] = base * (1 - intensity) + hb * intensity;
+      colors.array[i * 3] = base * (1 - colorMix) + hr * colorMix;
+      colors.array[i * 3 + 1] = base * (1 - colorMix) + hg * colorMix;
+      colors.array[i * 3 + 2] = base * (1 - colorMix) + hb * colorMix;
     }
     colors.needsUpdate = true;
   });
 
   return (
-    <group ref={groupRef} rotation={[0, spin ? 0 : yRotation, 0]}>
+    <group ref={groupRef} rotation={[0, spin ? 0 : yRotation, 0]} scale={0.5}>
       <mesh geometry={geometry} rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
         <meshStandardMaterial
           vertexColors
-          roughness={0.5}
-          metalness={0.05}
-          emissive={new THREE.Color(0.02, 0.0, 0.03)}
-          emissiveIntensity={activation * 1.2}
+          roughness={0.42}
+          metalness={0.08}
+          emissive={new THREE.Color(0.14, 0.02, 0.06)}
+          emissiveIntensity={0.45 + activation * 2.2}
           side={THREE.DoubleSide}
         />
       </mesh>
@@ -231,6 +233,8 @@ export default function BrainScene({
   return (
     <Canvas
       camera={{ position: [0, 1, 7], fov: 40 }}
+      dpr={[1, 1.25]}
+      gl={{ antialias: false, powerPreference: "low-power" }}
       style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
     >
       <SetBackground color={bg} />

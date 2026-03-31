@@ -42,7 +42,7 @@ FALLBACK_ROOT = PROJECT_ROOT / "artifacts" / "prepared-videos"
 BRAIN_CKPT = PROJECT_ROOT / "models" / "tribev2" / "fmri_encoder.pt"
 
 SECONDS = 30.0
-SEED = 42
+DEFAULT_SEED = 42
 ENV_FPS = 2.0
 VIDEO_FPS = 24
 PHONE_SIZE = (288, 624)
@@ -50,11 +50,13 @@ PHONE_SIZE = (288, 624)
 VARIANTS = {
     "baseline": {
         "variant": "a",
+        "seed": 42,
         "policy_path": ARCHIVE_RUNS / "select_baseline" / "best_model" / "best_model.zip",
         "title": "Baseline",
     },
     "cortisol": {
         "variant": "e",
+        "seed": 48,
         "policy_path": ARCHIVE_RUNS / "select_cortisol" / "best_model" / "best_model.zip",
         "title": "Cortisol",
     },
@@ -112,6 +114,7 @@ def trace_to_payload(trace: StepTrace) -> dict:
 
 def export_variant(shared_cfg: dict, catalog_path: Path, slug: str, spec: dict) -> dict:
     _, cfg = resolve_variant_cfg(shared_cfg, spec["variant"])
+    seed = int(spec.get("seed", DEFAULT_SEED))
 
     catalog = VideoCatalog(catalog_path)
     brain = BrainModel(
@@ -120,8 +123,8 @@ def export_variant(shared_cfg: dict, catalog_path: Path, slug: str, spec: dict) 
         context_window=cfg["brain"].get("max_seq_len", 1024),
     )
     model = load_model(spec["policy_path"], recurrent=cfg["agent"].get("recurrent", False))
-    env = make_env(cfg, catalog, brain, seed=SEED)
-    traces = rollout_traces(model, env, cfg, SEED, SECONDS, PREPARED_ROOT, FALLBACK_ROOT)
+    env = make_env(cfg, catalog, brain, seed=seed)
+    traces = rollout_traces(model, env, cfg, seed, SECONDS, PREPARED_ROOT, FALLBACK_ROOT)
 
     video_name = f"{slug}.mp4"
     video_out = OUT_DIR / video_name
@@ -137,7 +140,7 @@ def export_variant(shared_cfg: dict, catalog_path: Path, slug: str, spec: dict) 
     return {
         "title": spec["title"],
         "variant": VARIANT_NAMES[spec["variant"]],
-        "seed": SEED,
+        "seed": seed,
         "duration_seconds": len(traces) / ENV_FPS,
         "feature_rate_hz": ENV_FPS,
         "video_fps": VIDEO_FPS,

@@ -122,7 +122,7 @@ export default function Architecture() {
         </div>
 
         <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
-          The PPO agent uses the Reward signal to learn to model the tiktok feeds expected brain activation.
+          The PPO agent uses the brain-activation-derived reward signal to learn to model the tiktok feeds expected brain activation, and scroll accordingly.
         </p>
 
         <div
@@ -218,7 +218,7 @@ export default function Architecture() {
         <div style={{ height: "2rem" }} />
 
         <p style={{ fontSize: "0.9rem", color: "var(--muted)", marginBottom: "1rem" }}>
-          Training was done on 5x RTX PRO 4500 instances for about 12 hours. Totalling to about $30.
+          Training was done on 5x RTX PRO 4500 instances for about 12 hours. About $30.
         </p>
         {/* RunPod training screenshot */}
         <div style={{ marginTop: "1.5rem", textAlign: "center" }}>

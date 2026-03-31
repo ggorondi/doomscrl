@@ -83,8 +83,18 @@ function sampleInferno(t: number): [number, number, number] {
   ];
 }
 
-function BrainRotMeter({ level }: { level: number }) {
-  const displayPct = Math.min(level * 2000, 100);
+function BrainRotMeter({
+  level,
+  minLevel,
+  maxLevel,
+}: {
+  level: number;
+  minLevel: number;
+  maxLevel: number;
+}) {
+  const range = Math.max(maxLevel - minLevel, 1e-6);
+  const normalized = Math.max(0, Math.min((level - minLevel) / range, 1));
+  const displayPct = 70 + normalized * 20;
   const label =
     displayPct < 20
       ? "MINIMAL"
@@ -114,7 +124,7 @@ function BrainRotMeter({ level }: { level: number }) {
             color: `hsl(${(1 - displayPct / 100) * 120}, 70%, 40%)`,
           }}
         >
-          {label}
+          {label} {Math.round(displayPct)}%
         </span>
       </div>
       <div
@@ -190,10 +200,16 @@ function RegionHeatmap({ regions }: { regions: number[] }) {
 
 function ActivationPlot({
   steps,
+  comparisonSteps,
   currentIndex,
+  currentLabel,
+  comparisonLabel,
 }: {
   steps: SessionStep[];
+  comparisonSteps?: SessionStep[];
   currentIndex: number;
+  currentLabel: string;
+  comparisonLabel?: string;
 }) {
   if (!steps.length) return null;
 
@@ -201,7 +217,8 @@ function ActivationPlot({
   const height = 140;
   const pad = 12;
   const maxY = Math.max(
-    ...steps.map((step) => Math.max(step.activation, step.weighted_activation)),
+    ...steps.map((step) => step.activation),
+    ...(comparisonSteps?.map((step) => step.activation) ?? []),
     0.001
   );
   const usableW = width - pad * 2;
@@ -217,7 +234,10 @@ function ActivationPlot({
       .join(" ");
 
   const activationPath = toPath(steps.map((step) => step.activation));
-  const weightedPath = toPath(steps.map((step) => step.weighted_activation));
+  const comparisonPath =
+    comparisonSteps && comparisonSteps.length
+      ? toPath(comparisonSteps.map((step) => step.activation))
+      : null;
   const markerX = pad + (currentIndex / Math.max(steps.length - 1, 1)) * usableW;
 
   return (
@@ -250,7 +270,9 @@ function ActivationPlot({
             strokeWidth="1"
           />
         ))}
-        <path d={weightedPath} fill="none" stroke="#932567" strokeWidth="2.5" />
+        {comparisonPath && (
+          <path d={comparisonPath} fill="none" stroke="#b8b8b8" strokeWidth="2" />
+        )}
         <path d={activationPath} fill="none" stroke="#DD513A" strokeWidth="2.5" />
         <line
           x1={markerX}
@@ -271,8 +293,8 @@ function ActivationPlot({
           color: "var(--muted)",
         }}
       >
-        <span className="mono">orange: mean activation</span>
-        <span className="mono">purple: weighted activation</span>
+        {comparisonLabel && <span className="mono">grey: {comparisonLabel}</span>}
+        <span className="mono">red: {currentLabel}</span>
       </div>
     </div>
   );
@@ -282,15 +304,18 @@ function DemoPhone({
   videoRef,
   session,
   currentStep,
+  videoPaused,
+  onStartPlayback,
 }: {
   videoRef: RefObject<HTMLVideoElement | null>;
   session: DemoSession;
   currentStep: SessionStep;
+  videoPaused: boolean;
+  onStartPlayback: () => void;
 }) {
   return (
     <div
-      className="card"
-      style={{ padding: "0.25rem", width: "100%", maxWidth: "280px", margin: "0 auto" }}
+      style={{ width: "100%", maxWidth: "196px", margin: "0 auto" }}
     >
       <div
         style={{
@@ -342,6 +367,23 @@ function DemoPhone({
               objectFit: "cover",
             }}
           />
+          {videoPaused && (
+            <button
+              type="button"
+              onClick={onStartPlayback}
+              className="btn btn-primary"
+              style={{
+                position: "absolute",
+                inset: "auto 50% 1.25rem auto",
+                transform: "translateX(50%)",
+                zIndex: 20,
+                pointerEvents: "auto",
+                fontSize: "0.8rem",
+              }}
+            >
+              Start demo
+            </button>
+          )}
           <div
             style={{
               position: "absolute",
@@ -438,11 +480,11 @@ export default function Demo() {
   const [sessions, setSessions] = useState<SessionsData | null>(null);
   const [activeAgent, setActiveAgent] = useState<AgentSlug>("baseline");
   const [currentTime, setCurrentTime] = useState(0);
-  const [isInView, setIsInView] = useState(false);
+  const [videoPaused, setVideoPaused] = useState(true);
 
-  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const shouldPlayRef = useRef(false);
+  const timelineTimeRef = useRef(0);
+  const lastTickAtRef = useRef<number | null>(null);
   const session = sessions?.[activeAgent] ?? null;
 
   useEffect(() => {
@@ -470,86 +512,109 @@ export default function Demo() {
   }, []);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
+    timelineTimeRef.current = 0;
+    lastTickAtRef.current = null;
+    setCurrentTime(0);
+    setVideoPaused(true);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0 }
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     video.defaultMuted = true;
     video.muted = true;
+    video.pause();
     video.currentTime = 0;
     video.load();
   }, [activeAgent, session?.phone_video]);
 
   useEffect(() => {
-    shouldPlayRef.current = isInView;
-    const video = videoRef.current;
-    if (!video) return;
+    if (!session) return;
 
-    const tryPlay = () => {
-      if (!shouldPlayRef.current) return;
-      video.play().catch(() => { });
+    const duration = Math.max(session.duration_seconds, 0.001);
+    const tick = () => {
+      const now = performance.now();
+      if (lastTickAtRef.current == null) {
+        lastTickAtRef.current = now;
+        return;
+      }
+
+      const deltaSeconds = (now - lastTickAtRef.current) / 1000;
+      lastTickAtRef.current = now;
+      timelineTimeRef.current = (timelineTimeRef.current + deltaSeconds) % duration;
+      setCurrentTime(timelineTimeRef.current);
     };
 
-    if (isInView) {
-      tryPlay();
-    } else {
-      video.pause();
-    }
-
-    video.addEventListener("loadeddata", tryPlay);
-    video.addEventListener("canplay", tryPlay);
+    const intervalId = window.setInterval(tick, 100);
 
     return () => {
-      video.removeEventListener("loadeddata", tryPlay);
-      video.removeEventListener("canplay", tryPlay);
+      window.clearInterval(intervalId);
+      lastTickAtRef.current = null;
     };
-  }, [isInView, activeAgent, sessions]);
+  }, [session]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !session) return;
 
-    const sync = () => setCurrentTime(video.currentTime);
-    const reset = () => setCurrentTime(0);
+    const syncVideoToTimeline = () => {
+      const targetTime = timelineTimeRef.current;
+      const maxTime =
+        Number.isFinite(video.duration) && video.duration > 0
+          ? Math.max(video.duration - 0.05, 0)
+          : session.duration_seconds;
+      const clampedTarget = Math.min(targetTime, maxTime);
+
+      if (Math.abs(video.currentTime - clampedTarget) > 0.35) {
+        video.currentTime = clampedTarget;
+      }
+    };
+
+    const tryPlay = () => {
+      syncVideoToTimeline();
+      video.play().catch(() => { });
+    };
+
+    const handlePlay = () => setVideoPaused(false);
+    const handlePause = () => setVideoPaused(true);
+
+    tryPlay();
+
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("playing", handlePlay);
+    video.addEventListener("pause", handlePause);
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("loadedmetadata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+    video.addEventListener("canplaythrough", tryPlay);
+    video.addEventListener("waiting", tryPlay);
+    video.addEventListener("stalled", tryPlay);
+    video.addEventListener("pause", tryPlay);
+
     const intervalId = window.setInterval(() => {
-      sync();
+      syncVideoToTimeline();
       if (
-        shouldPlayRef.current &&
         video.paused &&
         !video.ended &&
         video.readyState >= 2
       ) {
         video.play().catch(() => { });
       }
-    }, 120);
-
-    video.addEventListener("timeupdate", sync);
-    video.addEventListener("seeked", sync);
-    video.addEventListener("loadedmetadata", reset);
-    video.addEventListener("loadeddata", sync);
-    video.addEventListener("ended", reset);
+    }, 200);
 
     return () => {
-      video.removeEventListener("timeupdate", sync);
-      video.removeEventListener("seeked", sync);
-      video.removeEventListener("loadedmetadata", reset);
-      video.removeEventListener("loadeddata", sync);
-      video.removeEventListener("ended", reset);
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("playing", handlePlay);
+      video.removeEventListener("pause", handlePause);
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("loadedmetadata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+      video.removeEventListener("canplaythrough", tryPlay);
+      video.removeEventListener("waiting", tryPlay);
+      video.removeEventListener("stalled", tryPlay);
+      video.removeEventListener("pause", tryPlay);
       window.clearInterval(intervalId);
     };
-  }, [activeAgent, sessions]);
+  }, [session]);
 
   const currentStep = useMemo(() => {
     if (!session || !session.steps.length) return null;
@@ -559,6 +624,26 @@ export default function Demo() {
     );
     return session.steps[idx];
   }, [session, currentTime]);
+
+  const activationStats = useMemo(() => {
+    if (!session || !session.steps.length) {
+      return {
+        activationMin: 0,
+        activationMax: 1,
+        weightedActivationMin: 0,
+        weightedActivationMax: 1,
+      };
+    }
+
+    const activationValues = session.steps.map((step) => step.activation);
+    const weightedActivationValues = session.steps.map((step) => step.weighted_activation);
+    return {
+      activationMin: Math.min(...activationValues),
+      activationMax: Math.max(...activationValues),
+      weightedActivationMin: Math.min(...weightedActivationValues),
+      weightedActivationMax: Math.max(...weightedActivationValues),
+    };
+  }, [session]);
 
   if (!session || !currentStep) {
     return (
@@ -575,14 +660,32 @@ export default function Demo() {
   }
 
   const loadedSessions = sessions as SessionsData;
+  const comparisonAgent = activeAgent === "baseline" ? "cortisol" : "baseline";
+  const comparisonSession = loadedSessions[comparisonAgent];
 
-  const brainDisplayActivation = Math.min(
-    0.9,
-    Math.max(0.1, (currentStep.activation - 0.005) / 0.045 * 0.8 + 0.1)
+  const activationRange = Math.max(
+    activationStats.activationMax - activationStats.activationMin,
+    1e-6
+  );
+  const brainDisplayActivation = Math.max(
+    0.25,
+    Math.min(
+      1,
+      0.25 +
+        ((currentStep.activation - activationStats.activationMin) / activationRange) * 0.75
+    )
   );
 
+  const startPlayback = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.currentTime = Math.min(timelineTimeRef.current, Math.max(session.duration_seconds - 0.05, 0));
+    video.play().catch(() => { });
+  };
+
   return (
-    <section ref={sectionRef} id="demo" style={{ padding: "3rem 0" }}>
+    <section id="demo" style={{ padding: "3rem 0" }}>
       <div className="container-middle" style={{ maxWidth: "900px" }}>
         <p className="separator">✺✺✺</p>
 
@@ -597,45 +700,174 @@ export default function Demo() {
           style={{
             display: "flex",
             justifyContent: "center",
-            gap: "0.75rem",
+            alignItems: "center",
+            gap: "1rem",
             marginBottom: "2rem",
-            flexWrap: "wrap",
           }}
         >
-          {AGENT_ORDER.map((slug) => {
-            const item = loadedSessions[slug];
-            const isActive = slug === activeAgent;
-            return (
-              <button
-                key={slug}
-                onClick={() => {
-                  setActiveAgent(slug);
-                  setCurrentTime(0);
-                }}
-                className={isActive ? "btn btn-primary" : "btn"}
-                style={{ cursor: "pointer" }}
-              >
-                {item.title}
-              </button>
-            );
-          })}
+          <span
+            className="mono"
+            style={{
+              fontSize: "0.82rem",
+              fontWeight: activeAgent === "baseline" ? 700 : 500,
+              color: activeAgent === "baseline" ? "#DD513A" : "var(--muted)",
+            }}
+          >
+            {loadedSessions.baseline.title}
+          </span>
+          <button
+            type="button"
+            aria-label="Toggle between baseline and cortisol demos"
+            onClick={() => {
+              setActiveAgent((prev) => (prev === "baseline" ? "cortisol" : "baseline"));
+              setCurrentTime(0);
+            }}
+            style={{
+              position: "relative",
+              width: "4.15rem",
+              height: "2rem",
+              borderRadius: "9999px",
+              border: "1px solid var(--border)",
+              background:
+                activeAgent === "baseline"
+                  ? "linear-gradient(90deg, #ffe3d7, #ffc7b0)"
+                  : "linear-gradient(90deg, #efe3ff, #d4b7ff)",
+              cursor: "pointer",
+              padding: 0,
+            }}
+          >
+            <span
+              style={{
+                position: "absolute",
+                top: "0.15rem",
+                left: activeAgent === "baseline" ? "0.15rem" : "2.25rem",
+                width: "1.55rem",
+                height: "1.55rem",
+                borderRadius: "50%",
+                background: activeAgent === "baseline" ? "#DD513A" : "#7A3CF0",
+                transition: "left 0.2s ease, background 0.2s ease",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.18)",
+              }}
+            />
+          </button>
+          <span
+            className="mono"
+            style={{
+              fontSize: "0.82rem",
+              fontWeight: activeAgent === "cortisol" ? 700 : 500,
+              color: activeAgent === "cortisol" ? "#7A3CF0" : "var(--muted)",
+            }}
+          >
+            {loadedSessions.cortisol.title}
+          </span>
         </div>
 
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            display: "flex",
+            flexWrap: "wrap",
             gap: "2rem",
             alignItems: "start",
           }}
         >
-          <DemoPhone
-            videoRef={videoRef}
-            session={session}
-            currentStep={currentStep}
-          />
+          <div
+            style={{
+              flex: "0 0 196px",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+            }}
+          >
+            <DemoPhone
+              videoRef={videoRef}
+              session={session}
+              currentStep={currentStep}
+              videoPaused={videoPaused}
+              onStartPlayback={startPlayback}
+            />
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                gap: "0.75rem",
+              }}
+            >
+              <div className="card" style={{ textAlign: "center", padding: "0.85rem 0.6rem" }}>
+                <p
+                  className="mono"
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 700,
+                    color: "var(--danger)",
+                  }}
+                >
+                  {(currentStep.activation * 1000).toFixed(2)}
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.62rem",
+                    color: "var(--muted)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  Mean activation (×10⁻³)
+                </p>
+              </div>
+              <div className="card" style={{ textAlign: "center", padding: "0.85rem 0.6rem" }}>
+                <p
+                  className="mono"
+                  style={{
+                    fontSize: "1rem",
+                    fontWeight: 700,
+                    color: "var(--secondary)",
+                  }}
+                >
+                  {currentStep.cumulative_reward.toFixed(3)}
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.62rem",
+                    color: "var(--muted)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  Cumulative reward
+                </p>
+              </div>
+              <div className="card" style={{ textAlign: "center", padding: "0.85rem 0.6rem" }}>
+                <p className="mono" style={{ fontSize: "1rem", fontWeight: 700 }}>
+                  c{currentStep.cluster_id}
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.62rem",
+                    color: "var(--muted)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  Selected cluster
+                </p>
+              </div>
+              <div className="card" style={{ textAlign: "center", padding: "0.85rem 0.6rem" }}>
+                <p className="mono" style={{ fontSize: "1rem", fontWeight: 700 }}>
+                  {currentStep.scroll ? "YES" : "NO"}
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.62rem",
+                    color: "var(--muted)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  Scroll action
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem", flex: "1 1 420px" }}>
             <div
               style={{
                 display: "grid",
@@ -718,93 +950,21 @@ export default function Demo() {
                   </p>
                   <RegionHeatmap regions={currentStep.region_activation} />
                 </div>
-                <BrainRotMeter level={currentStep.weighted_activation} />
+                <BrainRotMeter
+                  level={currentStep.weighted_activation}
+                  minLevel={activationStats.weightedActivationMin}
+                  maxLevel={activationStats.weightedActivationMax}
+                />
               </div>
             </div>
 
             <ActivationPlot
               steps={session.steps}
+              comparisonSteps={comparisonSession?.steps}
               currentIndex={currentStep.step_idx}
+              currentLabel={session.title.toLowerCase()}
+              comparisonLabel={comparisonSession?.title.toLowerCase()}
             />
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-                gap: "1rem",
-              }}
-            >
-              <div className="card" style={{ textAlign: "center" }}>
-                <p
-                  className="mono"
-                  style={{
-                    fontSize: "1.2rem",
-                    fontWeight: 700,
-                    color: "var(--danger)",
-                  }}
-                >
-                  {(currentStep.activation * 1000).toFixed(2)}
-                </p>
-                <p
-                  style={{
-                    fontSize: "0.65rem",
-                    color: "var(--muted)",
-                    marginTop: "0.25rem",
-                  }}
-                >
-                  Mean activation (×10⁻³)
-                </p>
-              </div>
-              <div className="card" style={{ textAlign: "center" }}>
-                <p
-                  className="mono"
-                  style={{
-                    fontSize: "1.2rem",
-                    fontWeight: 700,
-                    color: "var(--secondary)",
-                  }}
-                >
-                  {currentStep.cumulative_reward.toFixed(4)}
-                </p>
-                <p
-                  style={{
-                    fontSize: "0.65rem",
-                    color: "var(--muted)",
-                    marginTop: "0.25rem",
-                  }}
-                >
-                  Cumulative reward
-                </p>
-              </div>
-              <div className="card" style={{ textAlign: "center" }}>
-                <p className="mono" style={{ fontSize: "1.2rem", fontWeight: 700 }}>
-                  c{currentStep.cluster_id}
-                </p>
-                <p
-                  style={{
-                    fontSize: "0.65rem",
-                    color: "var(--muted)",
-                    marginTop: "0.25rem",
-                  }}
-                >
-                  Selected cluster
-                </p>
-              </div>
-              <div className="card" style={{ textAlign: "center" }}>
-                <p className="mono" style={{ fontSize: "1.2rem", fontWeight: 700 }}>
-                  {currentStep.scroll ? "YES" : "NO"}
-                </p>
-                <p
-                  style={{
-                    fontSize: "0.65rem",
-                    color: "var(--muted)",
-                    marginTop: "0.25rem",
-                  }}
-                >
-                  Scroll action
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
