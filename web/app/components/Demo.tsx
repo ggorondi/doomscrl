@@ -499,7 +499,7 @@ export default function Demo() {
 
     const tryPlay = () => {
       if (!shouldPlayRef.current) return;
-      video.play().catch(() => {});
+      video.play().catch(() => { });
     };
 
     if (isInView) {
@@ -531,7 +531,7 @@ export default function Demo() {
         !video.ended &&
         video.readyState >= 2
       ) {
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       }
     }, 120);
 
@@ -588,8 +588,7 @@ export default function Demo() {
 
         <h2 style={{ fontSize: "1.8rem", marginBottom: "0.5rem" }}>Demo</h2>
         <p style={{ color: "var(--muted)", marginBottom: "2rem", maxWidth: "700px" }}>
-          Real 30-second agent rollouts using the saved PPO checkpoints, the
-          precomputed TikTok embeddings, and the exported TRIBE v2 brain model.
+          Heres a demo of the actual trained agents scrolling for you for a 30-second session.
           Switch between the baseline and cortisol agents and watch the actual
           selected TikToks and synchronized activations.
         </p>
@@ -809,6 +808,8 @@ export default function Demo() {
           </div>
         </div>
       </div>
+
+
     </section>
   );
 }

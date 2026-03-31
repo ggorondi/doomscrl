@@ -35,13 +35,15 @@ export default function Problem() {
           What if we want to optimize for brainrot instead?
         </p>
         <p style={{ color: "var(--muted)" }}>
-          We could fit the same amount of dopamine in half the time!
+          We could fit the same amount of dopamine into half the time!
         </p>
         <div style={{ height: "2rem" }} />
         <p style={{ color: "var(--muted)" }}>
           We can leverage Reinforcement Learning to train an agent to optimize the scrolling pattern with the explicit objective of maximizing predicted
           cortical activation across brain surface vertices during a tiktok session.
         </p>
+        <div style={{ height: "2rem" }} />
+
         <p style={{ color: "var(--muted)" }}>
           Bye bye manual scrolling.
         </p>

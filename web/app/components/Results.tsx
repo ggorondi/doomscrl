@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 
 /* ── Types ── */
@@ -258,9 +259,24 @@ export default function Results() {
           Training Results
         </h2>
         <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
-          They actually learn. Here's the metrics from training on 878 TikTok
+          They actually kinda learn! Here's the metrics from training the agents on 878 TikTok
           videos, each for 500K timesteps.
         </p>
+        <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
+          They basically learned to reward hack the env by scrolling as fast as possible, which conveniently seems to fry the brain the most.
+        </p>
+
+        <div style={{ marginBottom: "2rem", textAlign: "center" }}>
+          <div style={{ maxWidth: "44rem", margin: "0 auto" }}>
+            <Image
+              src="/overfit.png"
+              alt="Training metrics showing the agents overfitting"
+              width={1200}
+              height={700}
+              className="image"
+            />
+          </div>
+        </div>
 
         {!tbData ? (
           <div className="card" style={{ padding: "3rem", textAlign: "center" }}>

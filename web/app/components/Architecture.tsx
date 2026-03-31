@@ -21,8 +21,8 @@ const pipelineNodes = [
   },
   {
     id: "agent",
-    label: "RL Agent Optimizing For Dopamine",
-    detail: "PPO learns when to scroll and what video cluster to bring next",
+    label: "RL Brainrot Agent",
+    detail: "PPO learns when to scroll and what video cluster to select next",
     sub: "Reward = avg activation + delta",
   },
 ];
@@ -124,6 +124,34 @@ export default function Architecture() {
         <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
           The PPO agent uses the Reward signal to learn to model the tiktok feeds expected brain activation.
         </p>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "1rem",
+            marginBottom: "2.5rem",
+          }}
+        >
+          <div className="card" style={{ textAlign: "center" }}>
+            <Image
+              src="/gem.gif"
+              alt="Gem reward visualization"
+              width={640}
+              height={360}
+              className="image"
+            />
+          </div>
+          <div className="card" style={{ textAlign: "center" }}>
+            <Image
+              src="/coal.gif"
+              alt="Coal reward visualization"
+              width={640}
+              height={360}
+              className="image"
+            />
+          </div>
+        </div>
 
         {/* ── Detailed pipeline diagram ── */}
         <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: "0.5rem" }}>Architecture</h3>

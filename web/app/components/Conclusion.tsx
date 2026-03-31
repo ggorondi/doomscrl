@@ -10,8 +10,65 @@ export default function Conclusion() {
           What have we done?
         </h2>
 
-        {/* Pure brainrot image */}
-        <div style={{ marginTop: "1rem", textAlign: "center" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "1rem",
+            marginTop: "1rem",
+            marginBottom: "2rem",
+            textAlign: "left",
+          }}
+        >
+          <div>
+            <p
+              style={{
+                fontSize: "0.8rem",
+                fontWeight: 700,
+                marginBottom: "0.75rem",
+                color: "var(--muted)",
+              }}
+            >
+              how it feels to manually scroll
+            </p>
+            <video
+              src="/before_auto_scroll.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="image"
+              style={{ display: "block", width: "100%" }}
+            />
+          </div>
+          <div>
+            <p
+              style={{
+                fontSize: "0.8rem",
+                fontWeight: 700,
+                marginBottom: "0.75rem",
+                color: "var(--muted)",
+              }}
+            >
+              how it feels when ai scrolls for you
+            </p>
+            <video
+              src="/after_auto_scroll.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="image"
+              style={{ display: "block", width: "100%" }}
+            />
+          </div>
+        </div>
+
+        <p style={{ maxWidth: "42rem", margin: "1.5rem auto 0", color: "var(--muted)" }}>
+          we have created the perfect doomscroller, it can fit your 4 hour sessions into a single hour and a half. Use the model responsibly.
+        </p>
+
+        <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
           <div style={{ maxWidth: "32rem", margin: "0 auto" }}>
             <Image
               src="/pure_slopium.png"
@@ -22,10 +79,6 @@ export default function Conclusion() {
             />
           </div>
         </div>
-
-        <p style={{ maxWidth: "42rem", margin: "1.5rem auto 0", color: "var(--muted)" }}>
-          we have created the perfect doomscroller, it can fit your 4 hour sessions into a single hour and a half. Use the model responsibly.
-        </p>
 
         <div style={{ marginTop: "2rem", display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "center" }}>
           <a
