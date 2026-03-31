@@ -1,53 +1,432 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type RefObject,
+} from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
 const BrainScene = dynamic(() => import("./BrainScene"), { ssr: false });
 
-const DEMO_VIDEOS = [
-  "/videos/v1.mp4",
-  "/videos/v2.mp4",
-  "/videos/v3.mp4",
-  "/videos/v4.mp4",
-  "/videos/v5.mp4",
-  "/videos/v6.mp4",
+const AGENT_ORDER = ["baseline", "cortisol"] as const;
+const REGION_NAMES = ["LAD", "LAV", "LPD", "LPV", "RAD", "RAV", "RPD", "RPV"];
+
+type AgentSlug = (typeof AGENT_ORDER)[number];
+
+const INFERNO_STOPS: [number, number, number][] = [
+  [0.001, 0.000, 0.014],
+  [0.122, 0.006, 0.315],
+  [0.329, 0.039, 0.490],
+  [0.533, 0.134, 0.421],
+  [0.735, 0.267, 0.265],
+  [0.891, 0.434, 0.126],
+  [0.981, 0.645, 0.039],
+  [0.993, 0.871, 0.318],
+  [0.988, 0.998, 0.645],
 ];
 
+interface SessionStep {
+  step_idx: number;
+  time_seconds: number;
+  video_id: string;
+  cluster_id: number;
+  target_cluster: number;
+  scroll: boolean;
+  auto_advanced: boolean;
+  video_step: number;
+  video_length_steps: number;
+  watch_frac: number;
+  session_frac: number;
+  reward: number;
+  cumulative_reward: number;
+  activation: number;
+  delta: number;
+  weighted_activation: number;
+  weighted_delta: number;
+  switch_penalty: number;
+  short_dwell_penalty: number;
+  tier: string;
+  play_count: number;
+  digg_count: number;
+  duration: number;
+  region_activation: number[];
+  region_delta: number[];
+}
+
+interface DemoSession {
+  title: string;
+  variant: string;
+  seed: number;
+  duration_seconds: number;
+  feature_rate_hz: number;
+  video_fps: number;
+  phone_video: string;
+  steps: SessionStep[];
+}
+
+type SessionsData = Record<AgentSlug, DemoSession>;
+
+function sampleInferno(t: number): [number, number, number] {
+  const n = INFERNO_STOPS.length - 1;
+  const idx = Math.min(Math.floor(t * n), n - 1);
+  const frac = t * n - idx;
+  const a = INFERNO_STOPS[idx];
+  const b = INFERNO_STOPS[idx + 1];
+  return [
+    a[0] + (b[0] - a[0]) * frac,
+    a[1] + (b[1] - a[1]) * frac,
+    a[2] + (b[2] - a[2]) * frac,
+  ];
+}
+
 function BrainRotMeter({ level }: { level: number }) {
-  const pct = Math.min(level * 100, 100);
+  const displayPct = Math.min(level * 2000, 100);
   const label =
-    pct < 20
+    displayPct < 20
       ? "MINIMAL"
-      : pct < 40
+      : displayPct < 40
         ? "WARMING UP"
-        : pct < 60
+        : displayPct < 60
           ? "ENGAGED"
-          : pct < 80
+          : displayPct < 80
             ? "LOCKED IN"
             : "BRAIN MELTING";
 
   return (
-    <div className="w-full">
-      <div className="flex justify-between text-xs mb-1">
-        <span className="text-[var(--muted)]">Brain Rot Level</span>
+    <div style={{ width: "100%" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          fontSize: "0.75rem",
+          marginBottom: "0.25rem",
+        }}
+      >
+        <span style={{ color: "var(--muted)" }}>Brain Rot Level</span>
         <span
-          className="mono font-bold"
+          className="mono"
           style={{
-            color: `hsl(${(1 - level) * 120}, 70%, 40%)`,
+            fontWeight: 700,
+            color: `hsl(${(1 - displayPct / 100) * 120}, 70%, 40%)`,
           }}
         >
           {label}
         </span>
       </div>
-      <div className="h-2.5 rounded-full bg-[var(--border)]/40 overflow-hidden border border-[var(--border)]">
+      <div
+        style={{
+          height: "0.6rem",
+          background: "var(--surface-alt)",
+          overflow: "hidden",
+          border: "1px solid var(--border)",
+        }}
+      >
         <motion.div
-          className="h-full rounded-full"
-          animate={{ width: `${pct}%` }}
-          transition={{ type: "spring", stiffness: 60 }}
           style={{
-            background: `linear-gradient(90deg, #000004, #420A68 20%, #932567 40%, #DD513A 60%, #FCA50A 80%, #FCFFA4)`,
+            height: "100%",
+            background:
+              "linear-gradient(90deg, #000004, #420A68 20%, #932567 40%, #DD513A 60%, #FCA50A 80%, #FCFFA4)",
+          }}
+          animate={{ width: `${displayPct}%` }}
+          transition={{ type: "spring", stiffness: 60 }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function RegionHeatmap({ regions }: { regions: number[] }) {
+  const maxVal = Math.max(...regions, 0.001);
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(4, 1fr)",
+        gap: "0.25rem",
+      }}
+    >
+      {REGION_NAMES.map((name, i) => {
+        const val = regions[i] || 0;
+        const intensity = Math.min(val / maxVal, 1);
+        const [r, g, b] = sampleInferno(intensity);
+        return (
+          <div
+            key={name}
+            style={{
+              textAlign: "center",
+              padding: "0.25rem",
+              background: `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${0.25 + intensity * 0.65})`,
+            }}
+          >
+            <p
+              className="mono"
+              style={{
+                fontSize: "0.6rem",
+                fontWeight: 700,
+                color: intensity > 0.5 ? "#fff" : "var(--fg)",
+              }}
+            >
+              {name}
+            </p>
+            <p
+              className="mono"
+              style={{
+                fontSize: "0.55rem",
+                color: intensity > 0.5 ? "#fff" : "var(--muted)",
+              }}
+            >
+              {(val * 1000).toFixed(1)}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ActivationPlot({
+  steps,
+  currentIndex,
+}: {
+  steps: SessionStep[];
+  currentIndex: number;
+}) {
+  if (!steps.length) return null;
+
+  const width = 420;
+  const height = 140;
+  const pad = 12;
+  const maxY = Math.max(
+    ...steps.map((step) => Math.max(step.activation, step.weighted_activation)),
+    0.001
+  );
+  const usableW = width - pad * 2;
+  const usableH = height - pad * 2;
+
+  const toPath = (values: number[]) =>
+    values
+      .map((value, index) => {
+        const x = pad + (index / Math.max(values.length - 1, 1)) * usableW;
+        const y = height - pad - (value / maxY) * usableH;
+        return `${index === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`;
+      })
+      .join(" ");
+
+  const activationPath = toPath(steps.map((step) => step.activation));
+  const weightedPath = toPath(steps.map((step) => step.weighted_activation));
+  const markerX = pad + (currentIndex / Math.max(steps.length - 1, 1)) * usableW;
+
+  return (
+    <div className="card">
+      <p
+        style={{
+          fontSize: "0.7rem",
+          color: "var(--muted)",
+          marginBottom: "0.5rem",
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: "0.1em",
+        }}
+      >
+        Activation Trace
+      </p>
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        style={{ width: "100%", height: "140px", display: "block" }}
+      >
+        <rect x="0" y="0" width={width} height={height} fill="#fff" />
+        {[0.25, 0.5, 0.75].map((ratio) => (
+          <line
+            key={ratio}
+            x1={pad}
+            y1={pad + usableH * ratio}
+            x2={width - pad}
+            y2={pad + usableH * ratio}
+            stroke="#ececec"
+            strokeWidth="1"
+          />
+        ))}
+        <path d={weightedPath} fill="none" stroke="#932567" strokeWidth="2.5" />
+        <path d={activationPath} fill="none" stroke="#DD513A" strokeWidth="2.5" />
+        <line
+          x1={markerX}
+          y1={pad}
+          x2={markerX}
+          y2={height - pad}
+          stroke="#111"
+          strokeWidth="1.5"
+          strokeDasharray="4 4"
+        />
+      </svg>
+      <div
+        style={{
+          display: "flex",
+          gap: "1rem",
+          marginTop: "0.5rem",
+          fontSize: "0.7rem",
+          color: "var(--muted)",
+        }}
+      >
+        <span className="mono">orange: mean activation</span>
+        <span className="mono">purple: weighted activation</span>
+      </div>
+    </div>
+  );
+}
+
+function DemoPhone({
+  videoRef,
+  session,
+  currentStep,
+}: {
+  videoRef: RefObject<HTMLVideoElement | null>;
+  session: DemoSession;
+  currentStep: SessionStep;
+}) {
+  return (
+    <div
+      className="card"
+      style={{ padding: "0.25rem", width: "100%", maxWidth: "280px", margin: "0 auto" }}
+    >
+      <div
+        style={{
+          position: "relative",
+          background: "#000",
+          borderRadius: "2rem",
+          padding: "0.6rem",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "5rem",
+            height: "1.25rem",
+            background: "#000",
+            borderRadius: "0 0 0.75rem 0.75rem",
+            zIndex: 20,
+          }}
+        />
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            borderRadius: "1.5rem",
+            overflow: "hidden",
+            background: "#000",
+            aspectRatio: "9/19.5",
+            userSelect: "none",
+          }}
+        >
+          <video
+            ref={videoRef}
+            key={session.phone_video}
+            src={session.phone_video}
+            muted
+            autoPlay
+            playsInline
+            loop
+            preload="auto"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: "0.5rem",
+              left: 0,
+              right: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "0 1rem",
+              zIndex: 10,
+              pointerEvents: "none",
+            }}
+          >
+            <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.6rem" }}>
+              9:41
+            </span>
+            <span style={{ color: "#fff", fontSize: "0.7rem", fontWeight: 700 }}>
+              {session.title}
+            </span>
+            <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.6rem" }}>
+              100%
+            </span>
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              top: "2.5rem",
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 10,
+              pointerEvents: "none",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "0.6rem",
+                background: "var(--danger)",
+                color: "#fff",
+                padding: "0.15rem 0.5rem",
+                borderRadius: "9999px",
+                fontWeight: 700,
+              }}
+            >
+              {session.title.toUpperCase()} AGENT
+            </span>
+          </div>
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              padding: "0.75rem",
+              background:
+                "linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.35), transparent)",
+              zIndex: 10,
+              pointerEvents: "none",
+            }}
+          >
+            <p style={{ color: "#fff", fontSize: "0.6rem", fontWeight: 700 }}>
+              @{session.title.toLowerCase()}_agent
+            </p>
+            <p
+              style={{
+                color: "rgba(255,255,255,0.78)",
+                fontSize: "0.55rem",
+                marginTop: "0.15rem",
+              }}
+            >
+              vid {currentStep.video_id.slice(-6)} · cluster {currentStep.cluster_id} ·{" "}
+              {currentStep.scroll ? "scroll" : "hold"}
+            </p>
+          </div>
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            bottom: "0.25rem",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "6rem",
+            height: "0.2rem",
+            background: "rgba(255,255,255,0.3)",
+            borderRadius: "9999px",
           }}
         />
       </div>
@@ -55,273 +434,375 @@ function BrainRotMeter({ level }: { level: number }) {
   );
 }
 
-/* ── Swipeable iPhone for Demo ── */
-function DemoPhone({
-  videoIdx,
-  onNext,
-  isAgent,
-}: {
-  videoIdx: number;
-  onNext: () => void;
-  isAgent: boolean;
-}) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const dragStart = useRef<number | null>(null);
-  const [dragY, setDragY] = useState(0);
-  const [transitioning, setTransitioning] = useState(false);
-
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    const handler = () => onNext();
-    el.addEventListener("ended", handler);
-    el.play().catch(() => {});
-    return () => el.removeEventListener("ended", handler);
-  }, [videoIdx, onNext]);
-
-  const THRESHOLD = 80;
-
-  const onPointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      if (transitioning || isAgent) return;
-      dragStart.current = e.clientY;
-      (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
-    },
-    [transitioning, isAgent]
-  );
-
-  const onPointerMove = useCallback(
-    (e: React.PointerEvent) => {
-      if (dragStart.current === null || transitioning) return;
-      const delta = dragStart.current - e.clientY;
-      if (delta > 0) setDragY(delta);
-    },
-    [transitioning]
-  );
-
-  const onPointerUp = useCallback(() => {
-    if (dragStart.current === null) return;
-    if (dragY > THRESHOLD) {
-      setTransitioning(true);
-      setDragY(600);
-      setTimeout(() => {
-        onNext();
-        setDragY(0);
-        setTransitioning(false);
-      }, 280);
-    } else {
-      setDragY(0);
-    }
-    dragStart.current = null;
-  }, [dragY, onNext]);
-
-  const nextIdx = (videoIdx + 1) % DEMO_VIDEOS.length;
-
-  return (
-    <div className="card p-1 max-w-[280px] mx-auto lg:mx-0">
-      <div className="relative bg-black rounded-[2rem] p-2.5 overflow-hidden">
-        {/* Notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-b-xl z-20" />
-
-        {/* Screen */}
-        <div
-          className="relative rounded-[1.5rem] overflow-hidden bg-black select-none"
-          style={{ aspectRatio: "9/19.5", touchAction: "none" }}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
-        >
-          {/* Next video underneath */}
-          <video
-            key={`demo-next-${nextIdx}`}
-            src={DEMO_VIDEOS[nextIdx]}
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-
-          {/* Current video */}
-          <div
-            className="absolute inset-0 w-full h-full"
-            style={{
-              transform: `translateY(-${dragY}px)`,
-              transition: transitioning
-                ? "transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1)"
-                : dragStart.current !== null
-                  ? "none"
-                  : "transform 0.2s ease-out",
-            }}
-          >
-            <video
-              ref={videoRef}
-              key={`demo-${videoIdx}`}
-              src={DEMO_VIDEOS[videoIdx % DEMO_VIDEOS.length]}
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Status bar */}
-          <div className="absolute top-2 left-0 right-0 flex items-center justify-between px-4 z-10 pointer-events-none">
-            <span className="text-white/60 text-[10px]">9:41</span>
-            <span className="text-white text-xs font-bold">brainrotmaxxer</span>
-            <span className="text-white/60 text-[10px]">100%</span>
-          </div>
-
-          {/* Agent indicator */}
-          {isAgent && (
-            <div className="absolute top-10 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
-              <span className="text-[10px] bg-[var(--danger)] text-white px-2 py-0.5 rounded-full font-semibold animate-pulse">
-                🤖 AGENT SCROLLING
-              </span>
-            </div>
-          )}
-
-          {/* Bottom overlay */}
-          <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10 pointer-events-none">
-            <p className="text-white text-[10px] font-bold">@brainrotmaxxer</p>
-            <p className="text-white/70 text-[9px] mt-0.5">
-              {isAgent ? "agent is optimizing your cortex..." : "↑ swipe to scroll"}
-            </p>
-          </div>
-        </div>
-
-        {/* Home indicator */}
-        <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/30 rounded-full" />
-      </div>
-    </div>
-  );
-}
-
 export default function Demo() {
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [activation, setActivation] = useState(0.2);
-  const [isAgent, setIsAgent] = useState(false);
-  const [totalReward, setTotalReward] = useState(0);
-  const [videoTime, setVideoTime] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [sessions, setSessions] = useState<SessionsData | null>(null);
+  const [activeAgent, setActiveAgent] = useState<AgentSlug>("baseline");
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isInView, setIsInView] = useState(false);
 
-  const scroll = useCallback(() => {
-    setCurrentIdx((prev) => (prev + 1) % DEMO_VIDEOS.length);
-    setVideoTime(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const shouldPlayRef = useRef(false);
+  const session = sessions?.[activeAgent] ?? null;
+
+  useEffect(() => {
+    fetch("/data/demo_sessions.json")
+      .then((r) => r.json())
+      .then((data: SessionsData) => {
+        const withCumulative = Object.fromEntries(
+          Object.entries(data).map(([slug, session]) => {
+            let running = 0;
+            return [
+              slug,
+              {
+                ...session,
+                steps: session.steps.map((step) => {
+                  running += step.reward;
+                  return { ...step, cumulative_reward: running };
+                }),
+              },
+            ];
+          })
+        ) as SessionsData;
+        setSessions(withCumulative);
+      })
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
-    // Simulate activation based on video + time
-    const baseActivation = [0.7, 0.55, 0.75, 0.4, 0.65, 0.5][currentIdx % 6];
-    const novelty = videoTime < 3 ? 0.2 : videoTime < 6 ? 0.1 : -0.05;
-    const jitter = (Math.random() - 0.5) * 0.08;
-    const newAct = Math.max(0.05, Math.min(1, baseActivation + novelty + jitter));
-    setActivation(newAct);
-    setTotalReward((r) => r + newAct * 0.01);
-  }, [currentIdx, videoTime]);
+    const section = sectionRef.current;
+    if (!section) return;
 
-  useEffect(() => {
-    const timer = setInterval(() => setVideoTime((t) => t + 1), 500);
-    return () => clearInterval(timer);
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
   }, []);
 
-  // Agent auto-scroll
   useEffect(() => {
-    if (!isAgent) {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.defaultMuted = true;
+    video.muted = true;
+    video.currentTime = 0;
+    video.load();
+  }, [activeAgent, session?.phone_video]);
+
+  useEffect(() => {
+    shouldPlayRef.current = isInView;
+    const video = videoRef.current;
+    if (!video) return;
+
+    const tryPlay = () => {
+      if (!shouldPlayRef.current) return;
+      video.play().catch(() => {});
+    };
+
+    if (isInView) {
+      tryPlay();
+    } else {
+      video.pause();
     }
 
-    intervalRef.current = setInterval(() => {
-      const shouldScroll = activation < 0.45 || videoTime > 8;
-      if (shouldScroll) {
-        scroll();
-      }
-    }, 1500);
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
     };
-  }, [isAgent, activation, videoTime, scroll]);
+  }, [isInView, activeAgent, sessions]);
 
-  return (
-    <section id="demo" className="py-20 md:py-24 px-6 md:px-10 bg-[var(--surface)]">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-2 tracking-tight">
-          Demo
-        </h2>
-        <p className="text-[var(--muted)] text-sm md:text-base mb-8 max-w-xl">
-          Watch the brain light up as the agent optimizes your doomscrolling
-          experience. Toggle between manual scrolling and letting the RL agent
-          take control.
-        </p>
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
 
-        {/* Toggle */}
-        <div className="flex items-center justify-center mb-8">
-          <div className="inline-flex rounded-lg border border-[var(--border)] overflow-hidden">
-            <button
-              onClick={() => setIsAgent(false)}
-              className={`px-5 py-2.5 text-sm font-medium transition-colors ${
-                !isAgent
-                  ? "bg-[var(--primary)] text-white"
-                  : "bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--fg)]"
-              }`}
-            >
-              Scroll manually
-            </button>
-            <button
-              onClick={() => setIsAgent(true)}
-              className={`px-5 py-2.5 text-sm font-medium transition-colors ${
-                isAgent
-                  ? "bg-[var(--danger)] text-white"
-                  : "bg-[var(--surface)] text-[var(--muted)] hover:text-[var(--fg)]"
-              }`}
-            >
-              Let the agent scroll
-            </button>
+    const sync = () => setCurrentTime(video.currentTime);
+    const reset = () => setCurrentTime(0);
+    const intervalId = window.setInterval(() => {
+      sync();
+      if (
+        shouldPlayRef.current &&
+        video.paused &&
+        !video.ended &&
+        video.readyState >= 2
+      ) {
+        video.play().catch(() => {});
+      }
+    }, 120);
+
+    video.addEventListener("timeupdate", sync);
+    video.addEventListener("seeked", sync);
+    video.addEventListener("loadedmetadata", reset);
+    video.addEventListener("loadeddata", sync);
+    video.addEventListener("ended", reset);
+
+    return () => {
+      video.removeEventListener("timeupdate", sync);
+      video.removeEventListener("seeked", sync);
+      video.removeEventListener("loadedmetadata", reset);
+      video.removeEventListener("loadeddata", sync);
+      video.removeEventListener("ended", reset);
+      window.clearInterval(intervalId);
+    };
+  }, [activeAgent, sessions]);
+
+  const currentStep = useMemo(() => {
+    if (!session || !session.steps.length) return null;
+    const idx = Math.min(
+      session.steps.length - 1,
+      Math.floor(currentTime * session.feature_rate_hz)
+    );
+    return session.steps[idx];
+  }, [session, currentTime]);
+
+  if (!session || !currentStep) {
+    return (
+      <section id="demo" style={{ padding: "3rem 0" }}>
+        <div className="container-middle" style={{ maxWidth: "900px" }}>
+          <p className="separator">✺✺✺</p>
+          <h2 style={{ fontSize: "1.8rem", marginBottom: "0.5rem" }}>Demo</h2>
+          <div className="card" style={{ textAlign: "center", padding: "3rem" }}>
+            <p style={{ color: "var(--muted)" }}>Loading real agent rollouts...</p>
           </div>
         </div>
+      </section>
+    );
+  }
 
-        <div className="grid lg:grid-cols-[auto_1fr] gap-8 lg:gap-12 items-start">
-          {/* Left: iPhone */}
-          <DemoPhone videoIdx={currentIdx} onNext={scroll} isAgent={isAgent} />
+  const loadedSessions = sessions as SessionsData;
 
-          {/* Right: Brain + Metrics */}
-          <div className="space-y-6">
-            {/* Brain visualization */}
-            <div className="card overflow-hidden bg-[#111] relative" style={{ height: 380 }}>
-              <BrainScene activation={activation} spin={true} />
-              <div className="absolute bottom-3 right-3 z-10">
-                <span className="mono text-xs text-white/50 bg-black/40 px-2 py-1 rounded">
-                  {(activation * 100).toFixed(0)}% cortical
-                </span>
+  const brainDisplayActivation = Math.min(
+    0.9,
+    Math.max(0.1, (currentStep.activation - 0.005) / 0.045 * 0.8 + 0.1)
+  );
+
+  return (
+    <section ref={sectionRef} id="demo" style={{ padding: "3rem 0" }}>
+      <div className="container-middle" style={{ maxWidth: "900px" }}>
+        <p className="separator">✺✺✺</p>
+
+        <h2 style={{ fontSize: "1.8rem", marginBottom: "0.5rem" }}>Demo</h2>
+        <p style={{ color: "var(--muted)", marginBottom: "2rem", maxWidth: "700px" }}>
+          Real 30-second agent rollouts using the saved PPO checkpoints, the
+          precomputed TikTok embeddings, and the exported TRIBE v2 brain model.
+          Switch between the baseline and cortisol agents and watch the actual
+          selected TikToks and synchronized activations.
+        </p>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "0.75rem",
+            marginBottom: "2rem",
+            flexWrap: "wrap",
+          }}
+        >
+          {AGENT_ORDER.map((slug) => {
+            const item = loadedSessions[slug];
+            const isActive = slug === activeAgent;
+            return (
+              <button
+                key={slug}
+                onClick={() => {
+                  setActiveAgent(slug);
+                  setCurrentTime(0);
+                }}
+                className={isActive ? "btn btn-primary" : "btn"}
+                style={{ cursor: "pointer" }}
+              >
+                {item.title}
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: "2rem",
+            alignItems: "start",
+          }}
+        >
+          <DemoPhone
+            videoRef={videoRef}
+            session={session}
+            currentStep={currentStep}
+          />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                gap: "1rem",
+                alignItems: "stretch",
+              }}
+            >
+              <div
+                className="card"
+                style={{
+                  overflow: "hidden",
+                  background: "#fff",
+                  position: "relative",
+                  minHeight: "380px",
+                  padding: 0,
+                }}
+              >
+                <BrainScene activation={brainDisplayActivation} spin={true} bg="#ffffff" />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "0.75rem",
+                    left: "0.75rem",
+                    right: "0.75rem",
+                    zIndex: 10,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: "0.5rem",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <span
+                    className="mono"
+                    style={{
+                      fontSize: "0.7rem",
+                      color: "rgba(0,0,0,0.5)",
+                      background: "rgba(255,255,255,0.7)",
+                      padding: "0.25rem 0.5rem",
+                    }}
+                  >
+                    activation: {(currentStep.activation * 1000).toFixed(2)}×10⁻³
+                  </span>
+                  <span
+                    className="mono"
+                    style={{
+                      fontSize: "0.7rem",
+                      color: "rgba(0,0,0,0.5)",
+                      background: "rgba(255,255,255,0.7)",
+                      padding: "0.25rem 0.5rem",
+                    }}
+                  >
+                    t={currentTime.toFixed(1)}s · step {currentStep.step_idx + 1}/
+                    {session.steps.length}
+                  </span>
+                </div>
+              </div>
+
+              <div
+                className="card"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  gap: "1rem",
+                }}
+              >
+                <div>
+                  <p
+                    style={{
+                      fontSize: "0.7rem",
+                      color: "var(--muted)",
+                      marginBottom: "0.5rem",
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                    }}
+                  >
+                    Brain Region Activations (×10⁻³)
+                  </p>
+                  <RegionHeatmap regions={currentStep.region_activation} />
+                </div>
+                <BrainRotMeter level={currentStep.weighted_activation} />
               </div>
             </div>
 
-            <BrainRotMeter level={activation} />
+            <ActivationPlot
+              steps={session.steps}
+              currentIndex={currentStep.step_idx}
+            />
 
-            {/* Metric cards */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="card p-4 text-center">
-                <p className="text-2xl mono font-bold text-[var(--danger)]">
-                  {(activation * 100).toFixed(0)}%
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+                gap: "1rem",
+              }}
+            >
+              <div className="card" style={{ textAlign: "center" }}>
+                <p
+                  className="mono"
+                  style={{
+                    fontSize: "1.2rem",
+                    fontWeight: 700,
+                    color: "var(--danger)",
+                  }}
+                >
+                  {(currentStep.activation * 1000).toFixed(2)}
                 </p>
-                <p className="text-xs text-[var(--muted)] mt-1">
-                  Cortical activation
+                <p
+                  style={{
+                    fontSize: "0.65rem",
+                    color: "var(--muted)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  Mean activation (×10⁻³)
                 </p>
               </div>
-              <div className="card p-4 text-center">
-                <p className="text-2xl mono font-bold text-[var(--secondary)]">
-                  {totalReward.toFixed(2)}
+              <div className="card" style={{ textAlign: "center" }}>
+                <p
+                  className="mono"
+                  style={{
+                    fontSize: "1.2rem",
+                    fontWeight: 700,
+                    color: "var(--secondary)",
+                  }}
+                >
+                  {currentStep.cumulative_reward.toFixed(4)}
                 </p>
-                <p className="text-xs text-[var(--muted)] mt-1">
-                  Total reward
+                <p
+                  style={{
+                    fontSize: "0.65rem",
+                    color: "var(--muted)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  Cumulative reward
                 </p>
               </div>
-              <div className="card p-4 text-center">
-                <p className="text-2xl mono font-bold text-[var(--fg)]">
-                  {currentIdx + 1}/{DEMO_VIDEOS.length}
+              <div className="card" style={{ textAlign: "center" }}>
+                <p className="mono" style={{ fontSize: "1.2rem", fontWeight: 700 }}>
+                  c{currentStep.cluster_id}
                 </p>
-                <p className="text-xs text-[var(--muted)] mt-1">
-                  Videos watched
+                <p
+                  style={{
+                    fontSize: "0.65rem",
+                    color: "var(--muted)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  Selected cluster
+                </p>
+              </div>
+              <div className="card" style={{ textAlign: "center" }}>
+                <p className="mono" style={{ fontSize: "1.2rem", fontWeight: 700 }}>
+                  {currentStep.scroll ? "YES" : "NO"}
+                </p>
+                <p
+                  style={{
+                    fontSize: "0.65rem",
+                    color: "var(--muted)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  Scroll action
                 </p>
               </div>
             </div>

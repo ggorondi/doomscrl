@@ -1,23 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #FFFFFF;
-  --fg: #111827;
-  --primary: #111111;
-  --secondary: #8B5CF6;
-  --success: #16A34A;
-  --warning: #D97706;
-  --danger: #DC2626;
-  --surface: #FFFFFF;
-  --surface-alt: #F9FAFB;
-  --muted: #6B7280;
-  --border: #E5E7EB;
-  --border-strong: #D1D5DB;
-  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --bg: #ffffff;
+  --fg: #000000;
+  --link: #0000ee;
+  --muted: #555555;
+  --border: #d1d1d1;
+  --surface: #ffffff;
+  --surface-alt: #f5f5f5;
+  --danger: #cc0000;
+  --secondary: #6a3d99;
+  --success: #2a7a2a;
+  --warning: #b8860b;
 
-  --font-body: 'Roboto', system-ui, sans-serif;
-  --font-display: 'Montserrat', system-ui, sans-serif;
-  --font-mono: 'PT Mono', ui-monospace, monospace;
+  --font-body: 'Times New Roman', Times, Georgia, serif;
+  --font-display: 'Times New Roman', Times, Georgia, serif;
+  --font-mono: 'PT Mono', ui-monospace, 'Courier New', monospace;
 }
 
 * {
@@ -32,11 +30,23 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
+  font-weight: 700;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+a:hover {
+  opacity: 0.7;
 }
 
 .accent-text {
@@ -46,12 +56,49 @@ h1, h2, h3, h4, h5, h6 {
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 6px;
-  box-shadow: var(--card-shadow);
+  padding: 1rem;
 }
 
 .mono {
   font-family: var(--font-mono);
+}
+
+/* ✺✺✺ section separator */
+.separator {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--muted);
+  padding: 2rem 0;
+  letter-spacing: 0.3em;
+  user-select: none;
+}
+
+/* Simple link-style button */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: var(--fg);
+  opacity: 1;
+}
+
+.btn-primary {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
 }
 
 @keyframes pulse-glow {
@@ -61,4 +108,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .brain-glow {
   animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* Container matching reference website */
+.container-middle {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
 }

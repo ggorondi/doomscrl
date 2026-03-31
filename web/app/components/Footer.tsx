@@ -1,28 +1,29 @@
 export default function Footer() {
   return (
-    <footer className="py-10 md:py-12 px-6 md:px-10 bg-[var(--surface)]">
-      <div className="max-w-3xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+    <footer style={{ padding: "2rem 0 3rem" }}>
+      <div className="container-middle">
+        <p className="separator">✺✺✺</p>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "2rem", marginBottom: "2rem" }}>
           <div>
-            <h3 className="font-semibold text-base mb-2">
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "0.5rem" }}>
               brainrotmaxxer
             </h3>
-            <p className="text-sm text-[var(--muted)]">
+            <p style={{ fontSize: "0.9rem", color: "var(--muted)" }}>
               An RL-powered doomscroll optimizer that uses a real brain model
-              to maximize cortical activation. Built for Silly Hacks 2026.
+              to learn maximal cortical activation. Built for Silly Hacks 2026 Hackathon.
             </p>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider text-[var(--muted)]">
+            <h4 style={{ fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--muted)", marginBottom: "0.75rem" }}>
               Links
             </h4>
-            <ul className="space-y-2 text-sm">
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
               <li>
                 <a
                   href="https://github.com/ggorondi/brainrotmaxxer"
                   target="_blank"
-                  className="text-[var(--muted)] hover:text-[var(--fg)] transition"
                 >
                   GitHub Repository
                 </a>
@@ -31,7 +32,6 @@ export default function Footer() {
                 <a
                   href="https://huggingface.co/facebook/tribev2"
                   target="_blank"
-                  className="text-[var(--muted)] hover:text-[var(--fg)] transition"
                 >
                   TRIBE v2 Model
                 </a>
@@ -40,7 +40,6 @@ export default function Footer() {
                 <a
                   href="https://ai.meta.com/blog/tribe-v2-brain-predictive-foundation-model/"
                   target="_blank"
-                  className="text-[var(--muted)] hover:text-[var(--fg)] transition"
                 >
                   TRIBE v2 Blog Post
                 </a>
@@ -49,10 +48,10 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider text-[var(--muted)]">
+            <h4 style={{ fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--muted)", marginBottom: "0.75rem" }}>
               Built with
             </h4>
-            <ul className="space-y-2 text-sm text-[var(--muted)]">
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.25rem", fontSize: "0.9rem", color: "var(--muted)" }}>
               <li>TRIBE v2 (Meta FAIR)</li>
               <li>V-JEPA 2 + Wav2Vec-BERT</li>
               <li>Stable-Baselines3 (PPO)</li>
@@ -62,9 +61,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="text-center text-xs text-[var(--muted)]">
+        <div style={{ textAlign: "center", fontSize: "0.8rem", color: "var(--muted)" }}>
           <p>
-            This is a satirical hackathon project. Please doomscroll
+            This is a hackathon project. Please doomscroll
             responsibly.
           </p>
         </div>

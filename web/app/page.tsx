@@ -12,8 +12,8 @@ export default function Home() {
       <Hero />
       <Problem />
       <Architecture />
-      <Demo />
       <Results />
+      <Demo />
       <Conclusion />
       <Footer />
     </main>

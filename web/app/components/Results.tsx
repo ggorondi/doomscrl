@@ -1,154 +1,394 @@
 "use client";
 
-const placeholderResults = [
-  {
-    title: "Policy 1: Scroll Timing",
-    variant: "b — scroll_random_feed",
-    desc: "The agent learns to scroll away from low-activation videos within 2-3 seconds, while staying on high-activation content for 6-8 seconds.",
-    metrics: [
-      { label: "Avg reward", value: "---", note: "vs baseline" },
-      { label: "Scroll rate", value: "---", note: "scrolls/min" },
-      { label: "Improvement", value: "---", note: "over random" },
-    ],
-  },
-  {
-    title: "Policy 2: Scroll + Select",
-    variant: "a — select_baseline",
-    desc: "The agent additionally learns which video clusters maximize brain activation, consistently preferring high-engagement viral content.",
-    metrics: [
-      { label: "Avg reward", value: "---", note: "vs baseline" },
-      { label: "Top cluster", value: "---", note: "preferred" },
-      { label: "Improvement", value: "---", note: "over Policy 1" },
-    ],
-  },
-];
+import { useState, useEffect, useRef, useCallback } from "react";
 
-/* ── Placeholder chart bars ── */
-function PlaceholderChart({
+/* ── Types ── */
+interface TBSeries {
+  steps: number[];
+  values: number[];
+}
+
+interface EvalResults {
+  timesteps: number[];
+  results: { mean: number[]; std: number[] };
+  ep_lengths: { mean: number[]; std: number[] };
+}
+
+type TBData = Record<string, Record<string, TBSeries>>;
+type EvalData = Record<string, EvalResults>;
+
+/* ── Chart colors per variant ── */
+const VARIANT_COLORS: Record<string, string> = {
+  select_baseline: "#DC2626",
+  select_recurrent_lstm: "#8B5CF6",
+  select_cortisol: "#16A34A",
+};
+
+const VARIANT_LABELS: Record<string, string> = {
+  select_baseline: "Baseline",
+  select_recurrent_lstm: "Recurrent LSTM",
+  select_cortisol: "Cortisol Reward",
+};
+
+/* ── Canvas line chart ── */
+function LineChart({
+  data,
+  tag,
   title,
   subtitle,
-  bars = 50,
-  color = "var(--border-strong)",
+  height = 200,
+  variants,
+  yLabel,
 }: {
+  data: TBData;
+  tag: string;
   title: string;
   subtitle: string;
-  bars?: number;
-  color?: string;
+  height?: number;
+  variants?: string[];
+  yLabel?: string;
 }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const variantList = variants || Object.keys(data);
+
+  const draw = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    const W = rect.width;
+    const H = rect.height;
+    const pad = { top: 8, right: 12, bottom: 24, left: 48 };
+    const plotW = W - pad.left - pad.right;
+    const plotH = H - pad.top - pad.bottom;
+
+    ctx.clearRect(0, 0, W, H);
+
+    let allVals: number[] = [];
+    let maxStep = 0;
+    for (const v of variantList) {
+      const series = data[v]?.[tag];
+      if (!series) continue;
+      allVals = allVals.concat(series.values);
+      maxStep = Math.max(maxStep, ...series.steps);
+    }
+
+    if (allVals.length === 0) return;
+
+    const yMin = Math.min(...allVals);
+    const yMax = Math.max(...allVals);
+    const yRange = yMax - yMin || 1;
+    const yPad = yRange * 0.05;
+
+    ctx.strokeStyle = "#d1d1d1";
+    ctx.lineWidth = 0.5;
+    for (let i = 0; i <= 4; i++) {
+      const y = pad.top + (plotH * i) / 4;
+      ctx.beginPath();
+      ctx.moveTo(pad.left, y);
+      ctx.lineTo(W - pad.right, y);
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = "#999";
+    ctx.font = "10px 'PT Mono', monospace";
+    ctx.textAlign = "right";
+    for (let i = 0; i <= 4; i++) {
+      const val = yMax + yPad - ((yRange + yPad * 2) * i) / 4;
+      const y = pad.top + (plotH * i) / 4;
+      ctx.fillText(val > 100 ? val.toFixed(0) : val.toFixed(3), pad.left - 4, y + 3);
+    }
+
+    ctx.textAlign = "center";
+    ctx.fillText("0", pad.left, H - 4);
+    ctx.fillText(`${(maxStep / 1000).toFixed(0)}K`, W - pad.right, H - 4);
+
+    for (const v of variantList) {
+      const series = data[v]?.[tag];
+      if (!series || series.steps.length === 0) continue;
+
+      ctx.strokeStyle = VARIANT_COLORS[v] || "#999";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+
+      for (let i = 0; i < series.steps.length; i++) {
+        const x = pad.left + (series.steps[i] / maxStep) * plotW;
+        const y = pad.top + ((yMax + yPad - series.values[i]) / (yRange + yPad * 2)) * plotH;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+  }, [data, tag, variantList]);
+
+  useEffect(() => {
+    draw();
+    window.addEventListener("resize", draw);
+    return () => window.removeEventListener("resize", draw);
+  }, [draw]);
+
   return (
-    <div className="card p-6">
-      <div className="flex items-center justify-between mb-4">
+    <div className="card">
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
         <div>
-          <p className="text-sm font-semibold">{title}</p>
-          <p className="text-xs text-[var(--muted)]">{subtitle}</p>
+          <p style={{ fontSize: "0.9rem", fontWeight: 700 }}>{title}</p>
+          <p style={{ fontSize: "0.65rem", color: "var(--muted)" }}>{subtitle}</p>
         </div>
-        <span className="text-[10px] mono bg-[var(--surface-alt)] text-[var(--muted)] px-2 py-0.5 rounded border border-[var(--border)]">
-          PLACEHOLDER
-        </span>
+        {yLabel && (
+          <span className="mono" style={{ fontSize: "0.65rem", color: "var(--muted)", background: "var(--surface-alt)", padding: "0.15rem 0.4rem" }}>
+            {yLabel}
+          </span>
+        )}
       </div>
-      <div className="h-32 flex items-end gap-[2px]">
-        {Array.from({ length: bars }).map((_, i) => {
-          const progress = i / bars;
-          const base = 15 + Math.log(i + 1) * 15;
-          const noise = Math.sin(i * 0.7) * 8 + Math.cos(i * 1.3) * 5;
-          const trend = progress * 25;
-          const h = Math.min(95, Math.max(5, base + noise + trend));
-          return (
-            <div
-              key={i}
-              className="flex-1 rounded-t"
-              style={{
-                height: `${h}%`,
-                background: color,
-                opacity: 0.3 + progress * 0.7,
-              }}
-            />
-          );
-        })}
+      <canvas
+        ref={canvasRef}
+        style={{ width: "100%", height }}
+      />
+    </div>
+  );
+}
+
+/* ── Legend ── */
+function Legend({ variants }: { variants: string[] }) {
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center", marginBottom: "1.5rem" }}>
+      {variants.map((v) => (
+        <div key={v} style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+          <div
+            style={{ width: "0.75rem", height: "3px", borderRadius: "9999px", background: VARIANT_COLORS[v] }}
+          />
+          <span style={{ fontSize: "0.7rem", color: "var(--muted)" }}>
+            {VARIANT_LABELS[v] || v}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ── Variant summary card ── */
+function VariantSummary({
+  name,
+  data,
+  evalData,
+}: {
+  name: string;
+  data: Record<string, TBSeries>;
+  evalData?: EvalResults;
+}) {
+  const reward = data["rollout/ep_rew_mean"];
+  const lastReward = reward?.values[reward.values.length - 1] ?? 0;
+  const firstReward = reward?.values[0] ?? 0;
+  const improvement = firstReward > 0 ? ((lastReward - firstReward) / firstReward) * 100 : 0;
+
+  const evalMean = evalData?.results?.mean;
+  const evalLast = evalMean?.[evalMean.length - 1] ?? null;
+
+  return (
+    <div className="card">
+      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+        <div
+          style={{ width: "0.75rem", height: "0.75rem", borderRadius: "50%", background: VARIANT_COLORS[name] }}
+        />
+        <h3 style={{ fontSize: "0.9rem", fontWeight: 700 }}>
+          {VARIANT_LABELS[name]}
+        </h3>
       </div>
-      <div className="flex justify-between text-[10px] text-[var(--muted)] mt-2 mono">
-        <span>0</span>
-        <span>Training Steps</span>
-        <span>500K</span>
+      <p className="mono" style={{ fontSize: "0.65rem", color: "var(--muted)", marginBottom: "0.75rem" }}>{name}</p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.5rem" }}>
+        <div style={{ textAlign: "center" }}>
+          <p className="mono" style={{ fontSize: "1.1rem", fontWeight: 700, color: VARIANT_COLORS[name] }}>
+            {lastReward.toFixed(1)}
+          </p>
+          <p style={{ fontSize: "0.6rem", color: "var(--muted)" }}>Final reward</p>
+        </div>
+        <div style={{ textAlign: "center" }}>
+          <p className="mono" style={{ fontSize: "1.1rem", fontWeight: 700 }}>
+            {improvement > 0 ? "+" : ""}{improvement.toFixed(0)}%
+          </p>
+          <p style={{ fontSize: "0.6rem", color: "var(--muted)" }}>vs start</p>
+        </div>
+        <div style={{ textAlign: "center" }}>
+          <p className="mono" style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--muted)" }}>
+            {evalLast !== null ? evalLast.toFixed(1) : "---"}
+          </p>
+          <p style={{ fontSize: "0.6rem", color: "var(--muted)" }}>Eval mean</p>
+        </div>
       </div>
     </div>
   );
 }
 
 export default function Results() {
+  const [tbData, setTbData] = useState<TBData | null>(null);
+  const [evalData, setEvalData] = useState<EvalData | null>(null);
+
+  useEffect(() => {
+    fetch("/data/tb_data.json")
+      .then((r) => r.json())
+      .then(setTbData)
+      .catch(console.error);
+    fetch("/data/eval_data.json")
+      .then((r) => r.json())
+      .then(setEvalData)
+      .catch(console.error);
+  }, []);
+
+  const variants = [
+    "select_baseline",
+    "select_recurrent_lstm",
+    "select_cortisol",
+  ];
+
   return (
-    <section className="py-20 md:py-24 px-6 md:px-10 bg-[var(--surface)]">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-3 tracking-tight">
-          Results
+    <section style={{ padding: "3rem 0" }}>
+      <div className="container-middle" style={{ maxWidth: "900px" }}>
+        <p className="separator">✺✺✺</p>
+
+
+        <h2 style={{ fontSize: "1.8rem", marginBottom: "0.5rem" }}>
+          Training Results
         </h2>
-        <p className="text-[var(--muted)] text-sm md:text-base mb-10">
-          Training metrics and comparison across agent variants. Real data will
-          be populated from TensorBoard logs.
+        <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
+          They actually learn. Here's the metrics from training on 878 TikTok
+          videos, each for 500K timesteps.
         </p>
 
-        {/* Policy result cards */}
-        <div className="grid md:grid-cols-2 gap-4 mb-10">
-          {placeholderResults.map((result) => (
-            <div key={result.title} className="card p-5">
-              <h3 className="text-base font-semibold mb-1">{result.title}</h3>
-              <p className="text-[10px] mono text-[var(--muted)] mb-3">
-                {result.variant}
-              </p>
-              <p className="text-sm text-[var(--muted)] mb-6">{result.desc}</p>
-              <div className="grid grid-cols-3 gap-3">
-                {result.metrics.map((m) => (
-                  <div key={m.label} className="text-center">
-                    <p className="text-2xl mono font-bold text-[var(--border-strong)]">
-                      {m.value}
-                    </p>
-                    <p className="text-xs text-[var(--muted)] mt-1">
-                      {m.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
+        {!tbData ? (
+          <div className="card" style={{ padding: "3rem", textAlign: "center" }}>
+            <p style={{ color: "var(--muted)" }}>Loading training data...</p>
+          </div>
+        ) : (
+          <>
+            <Legend variants={variants} />
+
+            {/* Variant summary cards */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
+              {variants.map((v) => (
+                <VariantSummary
+                  key={v}
+                  name={v}
+                  data={tbData[v] || {}}
+                  evalData={evalData?.[v]}
+                />
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* Placeholder metric charts */}
-        <div className="grid md:grid-cols-2 gap-4 mb-6">
-          <PlaceholderChart
-            title="Episode Reward"
-            subtitle="Mean reward per episode over training"
-            color="var(--danger)"
-          />
-          <PlaceholderChart
-            title="Cortical Activation"
-            subtitle="Mean absolute activation across vertices"
-            color="var(--secondary)"
-          />
-        </div>
-        <div className="grid md:grid-cols-3 gap-4">
-          <PlaceholderChart
-            title="Watch Duration"
-            subtitle="Mean seconds per video"
-            bars={30}
-            color="var(--warning)"
-          />
-          <PlaceholderChart
-            title="Scroll Rate"
-            subtitle="Manual scrolls per episode"
-            bars={30}
-            color="var(--success)"
-          />
-          <PlaceholderChart
-            title="Cluster Preference"
-            subtitle="Video cluster selection distribution"
-            bars={10}
-            color="var(--primary)"
-          />
-        </div>
+            {/* Main charts */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
+              <LineChart
+                data={tbData}
+                tag="rollout/ep_rew_mean"
+                title="Episode Reward"
+                subtitle="Mean reward per episode over training"
+                variants={variants}
+                yLabel="reward"
+                height={220}
+              />
+              <LineChart
+                data={tbData}
+                tag="custom/reward_activation"
+                title="Cortical Activation"
+                subtitle="Mean absolute activation across 20,484 vertices"
+                variants={variants}
+                yLabel="activation"
+                height={220}
+              />
+            </div>
 
-        <p className="text-xs text-[var(--muted)] text-center mt-6 mono">
-          Placeholder charts — real TensorBoard data pending transfer from training pods.
-        </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
+              <LineChart
+                data={tbData}
+                tag="custom/reward_delta"
+                title="Activation Delta"
+                subtitle="‖Δactivation‖ between timesteps"
+                variants={variants}
+                yLabel="Δ"
+                height={180}
+              />
+              <LineChart
+                data={tbData}
+                tag="custom/reward_total"
+                title="Reward Total"
+                subtitle="Combined α·act + β·Δ reward"
+                variants={variants}
+                yLabel="reward"
+                height={180}
+              />
+              <LineChart
+                data={tbData}
+                tag="custom/mean_watch_steps_per_video"
+                title="Watch Duration"
+                subtitle="Mean steps per video before scrolling"
+                variants={variants}
+                yLabel="steps"
+                height={180}
+              />
+            </div>
+
+            {/* Region activations */}
+            <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginTop: "2rem", marginBottom: "1rem" }}>
+              Brain Region Activations
+            </h3>
+            <p style={{ color: "var(--muted)", fontSize: "0.9rem", marginBottom: "1rem" }}>
+              Mean activation per brain region across training (select_baseline).
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
+              {["LAD", "LAV", "LPD", "LPV", "RAD", "RAV", "RPD", "RPV"].map(
+                (region) => (
+                  <LineChart
+                    key={region}
+                    data={tbData}
+                    tag={`custom/region_activation/${region}`}
+                    title={region}
+                    subtitle=""
+                    variants={["select_baseline", "select_cortisol"]}
+                    height={100}
+                  />
+                )
+              )}
+            </div>
+
+            {/* Training diagnostics */}
+            <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginTop: "2rem", marginBottom: "1rem" }}>
+              Training Diagnostics
+            </h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
+              <LineChart
+                data={tbData}
+                tag="train/entropy_loss"
+                title="Entropy Loss"
+                subtitle="Policy exploration level"
+                variants={variants}
+                height={140}
+              />
+              <LineChart
+                data={tbData}
+                tag="train/explained_variance"
+                title="Explained Variance"
+                subtitle="Value function quality (1.0 = perfect)"
+                variants={variants}
+                height={140}
+              />
+              <LineChart
+                data={tbData}
+                tag="train/clip_fraction"
+                title="Clip Fraction"
+                subtitle="PPO clipping rate"
+                variants={variants}
+                height={140}
+              />
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

@@ -2,86 +2,60 @@ import Image from "next/image";
 
 export default function Problem() {
   return (
-    <section className="relative py-20 md:py-24 px-6 md:px-10 bg-[var(--surface)]">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-6 tracking-tight">
+    <section style={{ padding: "3rem 0" }}>
+      <div className="container-middle">
+        <p className="separator">✺✺✺</p>
+
+        <h2 style={{ fontSize: "1.8rem", marginBottom: "1rem" }}>
           The premise
         </h2>
 
-        <p className="text-base md:text-lg text-[var(--muted)] leading-relaxed mb-10">
-          Social media companies spend billions engineering recommendation
-          algorithms that keep you scrolling. They optimize for{" "}
-          <span className="text-[var(--fg)] font-medium">engagement</span>,{" "}
-          <span className="text-[var(--fg)] font-medium">retention</span>, and{" "}
-          <span className="text-[var(--fg)] font-medium">watch time</span>{" "}
-          &mdash; dancing around the uncomfortable truth that they&rsquo;re
-          essentially optimizing for how effectively they can hijack your
-          dopamine system.
-        </p>
-
-        <div className="card p-6 mb-10">
-          <p className="text-lg md:text-xl font-medium mb-3">
-            We asked:{" "}
-            <span className="accent-text">
-              what if we just did that explicitly?
-            </span>
-          </p>
-          <p className="text-[var(--muted)] text-sm md:text-base leading-relaxed">
-            Using Meta&rsquo;s own TRIBE v2 brain model to predict neural
-            activation, we train RL agents whose sole objective is to maximize
-            the rate at which your brain &ldquo;fries&rdquo; &mdash; maximizing
-            predicted cortical activation across 20,484 brain surface vertices
-            while doomscrolling through TikTok.
-          </p>
-        </div>
-
         {/* Monkey stimulus diagram */}
-        <div className="mb-10 flex justify-center">
-          <div className="relative max-w-md w-full">
-            <div className="card overflow-hidden">
-              <Image
-                src="/monkey-stimulus.png"
-                alt="Classic neuroscience experiment setup: monkey with recording electrode watching a stimulus screen, with juice reward mechanism — except we're doing this to ourselves, voluntarily, for free"
-                width={600}
-                height={500}
-                className="w-full h-auto"
-              />
-              <div className="p-4 bg-[var(--surface-alt)]">
-                <p className="text-xs text-[var(--muted)] text-center italic">
-                  &ldquo;What if we did this but the monkey is you and the
-                  stimulus screen is TikTok and the juice reward is
-                  dopamine?&rdquo;
-                </p>
-              </div>
-            </div>
+        <div style={{ marginBottom: "2rem", textAlign: "center" }}>
+          <div style={{ maxWidth: "28rem", margin: "0 auto" }}>
+            <Image
+              src="/monkey-stim.png"
+              alt="Classic neuroscience experiment setup: monkey with recording electrode watching a stimulus screen, with juice reward mechanism — except we're doing this to ourselves, voluntarily, for free"
+              width={600}
+              height={500}
+              className="image"
+            />
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-4">
-          {[
-            {
-              label: "Their approach",
-              desc: "Optimize engagement metrics as a proxy for dopamine hijacking. Don't talk about it.",
-              color: "text-[var(--muted)]",
-            },
-            {
-              label: "Our approach",
-              desc: "Directly optimize predicted brain activation using a state-of-the-art neural encoding model.",
-              color: "text-[var(--danger)]",
-            },
-            {
-              label: "The joke",
-              desc: "Cutting-edge AI and neuroscience applied to the dumbest possible use case: frying your brain on purpose.",
-              color: "text-[var(--secondary)]",
-            },
-          ].map((item) => (
-            <div key={item.label} className="card p-5">
-              <p className={`font-semibold mb-2 ${item.color}`}>
-                {item.label}
-              </p>
-              <p className="text-sm text-[var(--muted)]">{item.desc}</p>
-            </div>
-          ))}
+        <p style={{ color: "var(--muted)", marginBottom: "1rem" }}>
+          Social media companies spend billions engineering recommendation
+          algorithms that optimize for doomscroll-time.
+        </p>
+        <p style={{ color: "var(--muted)" }}>
+          But...
+        </p>
+        <div style={{ height: "2rem" }} />
+        <p style={{ color: "var(--muted)" }}>
+          What if we want to optimize for brainrot instead?
+        </p>
+        <p style={{ color: "var(--muted)" }}>
+          We could fit the same amount of dopamine in half the time!
+        </p>
+        <div style={{ height: "2rem" }} />
+        <p style={{ color: "var(--muted)" }}>
+          We can leverage Reinforcement Learning to train an agent to optimize the scrolling pattern with the explicit objective of maximizing predicted
+          cortical activation across 20,484 brain surface vertices during a tiktok session.
+        </p>
+        <p style={{ color: "var(--muted)" }}>
+          Bye bye manual scrolling.
+        </p>
+        {/* No thanks i use ai photo */}
+        <div style={{ marginBottom: "2rem", textAlign: "center" }}>
+          <div style={{ maxWidth: "28rem", margin: "0 auto" }}>
+            <Image
+              src="/nothanks.png"
+              alt="No thanks i use ai"
+              width={600}
+              height={500}
+              className="image"
+            />
+          </div>
         </div>
       </div>
     </section>
