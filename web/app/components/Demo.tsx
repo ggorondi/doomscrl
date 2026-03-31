@@ -358,7 +358,7 @@ function DemoPhone({
             autoPlay
             playsInline
             loop
-            preload="auto"
+            preload="metadata"
             style={{
               position: "absolute",
               inset: 0,
@@ -426,6 +426,7 @@ function DemoPhone({
                 padding: "0.15rem 0.5rem",
                 borderRadius: "9999px",
                 fontWeight: 700,
+                whiteSpace: "nowrap",
               }}
             >
               {session.title.toUpperCase()} AGENT
@@ -672,7 +673,7 @@ export default function Demo() {
     Math.min(
       1,
       0.25 +
-        ((currentStep.activation - activationStats.activationMin) / activationRange) * 0.75
+      ((currentStep.activation - activationStats.activationMin) / activationRange) * 0.75
     )
   );
 
@@ -713,7 +714,7 @@ export default function Demo() {
               color: activeAgent === "baseline" ? "#DD513A" : "var(--muted)",
             }}
           >
-            {loadedSessions.baseline.title}
+            dopamine
           </span>
           <button
             type="button"

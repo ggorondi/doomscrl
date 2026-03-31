@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useNearViewport } from "./useNearViewport";
 
 /* ── Types ── */
 interface TBSeries {
@@ -231,8 +232,12 @@ function VariantSummary({
 export default function Results() {
   const [tbData, setTbData] = useState<TBData | null>(null);
   const [evalData, setEvalData] = useState<EvalData | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const shouldLoad = useNearViewport(sectionRef, "600px 0px");
 
   useEffect(() => {
+    if (!shouldLoad) return;
+
     fetch("/data/tb_data.json")
       .then((r) => r.json())
       .then(setTbData)
@@ -241,7 +246,7 @@ export default function Results() {
       .then((r) => r.json())
       .then(setEvalData)
       .catch(console.error);
-  }, []);
+  }, [shouldLoad]);
 
   const variants = [
     "select_baseline",
@@ -250,7 +255,7 @@ export default function Results() {
   ];
 
   return (
-    <section style={{ padding: "3rem 0" }}>
+    <section ref={sectionRef} style={{ padding: "3rem 0" }}>
       <div className="container-middle" style={{ maxWidth: "900px" }}>
         <p className="separator">✺✺✺</p>
 
@@ -278,9 +283,11 @@ export default function Results() {
           </div>
         </div>
 
-        {!tbData ? (
+        {!shouldLoad || !tbData ? (
           <div className="card" style={{ padding: "3rem", textAlign: "center" }}>
-            <p style={{ color: "var(--muted)" }}>Loading training data...</p>
+            <p style={{ color: "var(--muted)" }}>
+              {shouldLoad ? "Loading training data..." : "Charts load as you scroll."}
+            </p>
           </div>
         ) : (
           <>

@@ -23,7 +23,7 @@ function useVideoFrame(src: string, seekTime: number): THREE.Texture | null {
     video.crossOrigin = "anonymous";
     video.muted = true;
     video.playsInline = true;
-    video.preload = "auto";
+    video.preload = "metadata";
 
     const canvas = document.createElement("canvas");
     canvas.width = 180;
@@ -43,12 +43,16 @@ function useVideoFrame(src: string, seekTime: number): THREE.Texture | null {
       video.src = "";
     };
 
-    video.addEventListener("seeked", handleSeeked);
-    video.addEventListener("loadeddata", () => {
+    const handleLoadedMetadata = () => {
       video.currentTime = Math.min(seekTime, video.duration - 0.1);
-    });
+    };
+
+    video.addEventListener("seeked", handleSeeked);
+    video.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     return () => {
+      video.removeEventListener("seeked", handleSeeked);
+      video.removeEventListener("loadedmetadata", handleLoadedMetadata);
       video.pause();
       video.src = "";
     };

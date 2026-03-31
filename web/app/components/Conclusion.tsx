@@ -1,8 +1,15 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import { useNearViewport } from "./useNearViewport";
 
 export default function Conclusion() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const shouldLoadVideos = useNearViewport(sectionRef, "400px 0px");
+
   return (
-    <section style={{ padding: "3rem 0" }}>
+    <section ref={sectionRef} style={{ padding: "3rem 0" }}>
       <div className="container-middle" style={{ textAlign: "center" }}>
         <p className="separator">✺✺✺</p>
 
@@ -32,11 +39,12 @@ export default function Conclusion() {
               how it feels to manually scroll
             </p>
             <video
-              src="/before_auto_scroll.mp4"
-              autoPlay
+              src={shouldLoadVideos ? "/before_auto_scroll.mp4" : undefined}
+              autoPlay={shouldLoadVideos}
               muted
               loop
               playsInline
+              preload="none"
               className="image"
               style={{ display: "block", width: "100%" }}
             />
@@ -53,11 +61,12 @@ export default function Conclusion() {
               how it feels when ai scrolls for you
             </p>
             <video
-              src="/after_auto_scroll.mp4"
-              autoPlay
+              src={shouldLoadVideos ? "/after_auto_scroll.mp4" : undefined}
+              autoPlay={shouldLoadVideos}
               muted
               loop
               playsInline
+              preload="none"
               className="image"
               style={{ display: "block", width: "100%" }}
             />
@@ -90,7 +99,7 @@ export default function Conclusion() {
             View on GitHub
           </a>
           <a
-            href="https://sillyhacks.dev"
+            href="https://sillyhacks.nyc/"
             target="_blank"
             rel="noopener noreferrer"
             className="btn"

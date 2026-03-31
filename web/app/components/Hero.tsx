@@ -20,6 +20,11 @@ export default function Hero() {
     []
   );
 
+  const scrollToDemo = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.getElementById("demo")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
   return (
     <section
       ref={sectionRef}
@@ -74,7 +79,7 @@ export default function Hero() {
           Training RL agents to optimize scrolling patterns to maximize for brainrot, using Meta's TRIBEv2 brain model to simulate neural activation.
         </p>
         <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center" }}>
-          <a href="#demo" className="btn btn-primary">
+          <a href="#demo" onClick={scrollToDemo} className="btn btn-primary">
             Demo
           </a>
           <a
