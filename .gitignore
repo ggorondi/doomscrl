@@ -25,7 +25,6 @@ wandb/
 node_modules/
 .next/
 .env
-web/public/videos/
 
 artifacts/
 .agents/
