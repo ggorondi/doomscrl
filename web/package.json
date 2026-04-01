@@ -11,20 +11,22 @@
     "@react-three/drei": "^10",
     "@react-three/fiber": "^9",
     "@react-three/postprocessing": "^3",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "framer-motion": "^12",
     "next": "^15",
+    "postprocessing": "^6",
     "react": "^19",
     "react-dom": "^19",
     "simplex-noise": "^4",
-    "three": "^0.174",
-    "postprocessing": "^6"
+    "three": "^0.174"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/three": "^0.174",
-    "typescript": "^5",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
