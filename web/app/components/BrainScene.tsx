@@ -45,17 +45,24 @@ function BrainMesh({
   spin = true,
   yRotation = 0,
   mouseOffset,
+  scale = 0.5,
 }: {
   meshData: BrainMeshData;
   activation?: number;
   spin?: boolean;
   yRotation?: number;
   mouseOffset?: { x: number; y: number };
+  scale?: number;
 }) {
   const groupRef = useRef<THREE.Group>(null!);
-  const activationRef = useRef(activation);
+  const materialRef = useRef<THREE.MeshStandardMaterial>(null);
+  const targetActivationRef = useRef(activation);
+  const displayActivationRef = useRef(activation);
   const lastUpdateRef = useRef(0);
-  activationRef.current = activation;
+
+  useEffect(() => {
+    targetActivationRef.current = activation;
+  }, [activation]);
 
   const { geometry, sulcalBase, noisePatterns } = useMemo(() => {
     const n = meshData.nVertices;
@@ -115,9 +122,16 @@ function BrainMesh({
     return { geometry: geo, sulcalBase: base, noisePatterns: patterns };
   }, [meshData]);
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     if (!groupRef.current) return;
     const t = clock.getElapsedTime();
+    const smoothing = 1 - Math.exp(-delta * 10);
+    displayActivationRef.current = THREE.MathUtils.lerp(
+      displayActivationRef.current,
+      targetActivationRef.current,
+      smoothing
+    );
+    const act = displayActivationRef.current;
 
     if (spin) {
       groupRef.current.rotation.y = t * 0.15;
@@ -131,8 +145,6 @@ function BrainMesh({
 
     if (t - lastUpdateRef.current < 1 / 15) return;
     lastUpdateRef.current = t;
-
-    const act = activationRef.current;
     const colors = geometry.attributes.color as THREE.BufferAttribute;
     const n = meshData.nVertices;
 
@@ -156,12 +168,17 @@ function BrainMesh({
       colors.array[i * 3 + 2] = base * (1 - colorMix) + hb * colorMix;
     }
     colors.needsUpdate = true;
+
+    if (materialRef.current) {
+      materialRef.current.emissiveIntensity = 0.45 + act * 2.2;
+    }
   });
 
   return (
-    <group ref={groupRef} rotation={[0, spin ? 0 : yRotation, 0]} scale={0.5}>
+    <group ref={groupRef} rotation={[0, spin ? 0 : yRotation, 0]} scale={scale}>
       <mesh geometry={geometry} rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
         <meshStandardMaterial
+          ref={materialRef}
           vertexColors
           roughness={0.42}
           metalness={0.08}
@@ -187,11 +204,13 @@ function BrainContent({
   spin,
   yRotation,
   mouseOffset,
+  scale,
 }: {
   activation: number;
   spin: boolean;
   yRotation: number;
   mouseOffset?: { x: number; y: number };
+  scale: number;
 }) {
   const [meshData, setMeshData] = useState<BrainMeshData | null>(null);
 
@@ -213,6 +232,7 @@ function BrainContent({
       spin={spin}
       yRotation={yRotation}
       mouseOffset={mouseOffset}
+      scale={scale}
     />
   );
 }
@@ -223,12 +243,14 @@ export default function BrainScene({
   spin = true,
   yRotation = 0,
   mouseOffset,
+  scale = 0.5,
 }: {
   activation?: number;
   bg?: string;
   spin?: boolean;
   yRotation?: number;
   mouseOffset?: { x: number; y: number };
+  scale?: number;
 }) {
   return (
     <Canvas
@@ -247,6 +269,7 @@ export default function BrainScene({
         spin={spin}
         yRotation={yRotation}
         mouseOffset={mouseOffset}
+        scale={scale}
       />
     </Canvas>
   );

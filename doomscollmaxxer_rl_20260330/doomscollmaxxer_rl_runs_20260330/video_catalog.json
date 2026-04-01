@@ -1,0 +1,2730 @@
+{
+  "7219601776272477482": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 11.0,
+    "play_count": 342570787,
+    "digg_count": 5482901,
+    "features_path": "artifacts/features/7219601776272477482.pt"
+  },
+  "7318665072786574622": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 13.0,
+    "play_count": 326121104,
+    "digg_count": 13984913,
+    "features_path": "artifacts/features/7318665072786574622.pt"
+  },
+  "7405077039516028193": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 61.0,
+    "play_count": 314200000,
+    "digg_count": 19700000,
+    "features_path": "artifacts/features/7405077039516028193.pt"
+  },
+  "7404183113464778030": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 60.0,
+    "play_count": 293385729,
+    "digg_count": 14096127,
+    "features_path": "artifacts/features/7404183113464778030.pt"
+  },
+  "7374499964082228523": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 17.0,
+    "play_count": 274733146,
+    "digg_count": 15679734,
+    "features_path": "artifacts/features/7374499964082228523.pt"
+  },
+  "7396892571705920799": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 29.0,
+    "play_count": 238498665,
+    "digg_count": 3955015,
+    "features_path": "artifacts/features/7396892571705920799.pt"
+  },
+  "7252393384923401515": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 67.0,
+    "play_count": 225847665,
+    "digg_count": 15354454,
+    "features_path": "artifacts/features/7252393384923401515.pt"
+  },
+  "7215992782366739755": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 41.0,
+    "play_count": 216340209,
+    "digg_count": 4911265,
+    "features_path": "artifacts/features/7215992782366739755.pt"
+  },
+  "7194819694761774382": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 10.0,
+    "play_count": 204312497,
+    "digg_count": 19187205,
+    "features_path": "artifacts/features/7194819694761774382.pt"
+  },
+  "7495980057786141994": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 16.0,
+    "play_count": 188252969,
+    "digg_count": 4043020,
+    "features_path": "artifacts/features/7495980057786141994.pt"
+  },
+  "7454667943415205163": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 60.0,
+    "play_count": 188125414,
+    "digg_count": 12251321,
+    "features_path": "artifacts/features/7454667943415205163.pt"
+  },
+  "7299225652048284961": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 64.0,
+    "play_count": 184731144,
+    "digg_count": 3924080,
+    "features_path": "artifacts/features/7299225652048284961.pt"
+  },
+  "7404292794094767402": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 28.0,
+    "play_count": 182138178,
+    "digg_count": 11618292,
+    "features_path": "artifacts/features/7404292794094767402.pt"
+  },
+  "7466710933218348295": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 10.0,
+    "play_count": 182000101,
+    "digg_count": 3006748,
+    "features_path": "artifacts/features/7466710933218348295.pt"
+  },
+  "7246362562839727406": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 7.0,
+    "play_count": 179391331,
+    "digg_count": 8705828,
+    "features_path": "artifacts/features/7246362562839727406.pt"
+  },
+  "7453477561163631918": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 84.0,
+    "play_count": 177117955,
+    "digg_count": 16104969,
+    "features_path": "artifacts/features/7453477561163631918.pt"
+  },
+  "7317484374331493674": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 70.0,
+    "play_count": 175527450,
+    "digg_count": 559285,
+    "features_path": "artifacts/features/7317484374331493674.pt"
+  },
+  "7347681547635428654": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 70.0,
+    "play_count": 171840520,
+    "digg_count": 2691145,
+    "features_path": "artifacts/features/7347681547635428654.pt"
+  },
+  "7459598110860299566": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 102.0,
+    "play_count": 171160916,
+    "digg_count": 5933950,
+    "features_path": "artifacts/features/7459598110860299566.pt"
+  },
+  "7359967654498618667": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 61.0,
+    "play_count": 170226439,
+    "digg_count": 4652122,
+    "features_path": "artifacts/features/7359967654498618667.pt"
+  },
+  "7464240953046387998": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 62.0,
+    "play_count": 169927921,
+    "digg_count": 10161206,
+    "features_path": "artifacts/features/7464240953046387998.pt"
+  },
+  "7422057267551423790": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 34.0,
+    "play_count": 168090028,
+    "digg_count": 21873468,
+    "features_path": "artifacts/features/7422057267551423790.pt"
+  },
+  "7439389203143740702": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 10.0,
+    "play_count": 166271559,
+    "digg_count": 799033,
+    "features_path": "artifacts/features/7439389203143740702.pt"
+  },
+  "7225846306609237294": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 7.0,
+    "play_count": 165246248,
+    "digg_count": 3113761,
+    "features_path": "artifacts/features/7225846306609237294.pt"
+  },
+  "7317349979318652191": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 50.0,
+    "play_count": 163436409,
+    "digg_count": 3164470,
+    "features_path": "artifacts/features/7317349979318652191.pt"
+  },
+  "7345941504155847982": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 12.0,
+    "play_count": 163138187,
+    "digg_count": 2054761,
+    "features_path": "artifacts/features/7345941504155847982.pt"
+  },
+  "7193510327533800747": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 28.0,
+    "play_count": 159582740,
+    "digg_count": 5233215,
+    "features_path": "artifacts/features/7193510327533800747.pt"
+  },
+  "7355645925949295878": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 61.0,
+    "play_count": 159275036,
+    "digg_count": 13010509,
+    "features_path": "artifacts/features/7355645925949295878.pt"
+  },
+  "7407498930625334559": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 61.0,
+    "play_count": 159092257,
+    "digg_count": 1859820,
+    "features_path": "artifacts/features/7407498930625334559.pt"
+  },
+  "7446503482988793131": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 96.0,
+    "play_count": 158456150,
+    "digg_count": 3385479,
+    "features_path": "artifacts/features/7446503482988793131.pt"
+  },
+  "7428748283171949866": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 9.0,
+    "play_count": 156422097,
+    "digg_count": 14375664,
+    "features_path": "artifacts/features/7428748283171949866.pt"
+  },
+  "7206008172765629739": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 16.0,
+    "play_count": 154232455,
+    "digg_count": 5637411,
+    "features_path": "artifacts/features/7206008172765629739.pt"
+  },
+  "7183313102237093163": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 8.0,
+    "play_count": 154179931,
+    "digg_count": 4269432,
+    "features_path": "artifacts/features/7183313102237093163.pt"
+  },
+  "7455040453239491870": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 9.0,
+    "play_count": 153159381,
+    "digg_count": 18200469,
+    "features_path": "artifacts/features/7455040453239491870.pt"
+  },
+  "7498540589986663726": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 33.0,
+    "play_count": 151328409,
+    "digg_count": 9141415,
+    "features_path": "artifacts/features/7498540589986663726.pt"
+  },
+  "7504725589929053482": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 6.0,
+    "play_count": 147725038,
+    "digg_count": 5858388,
+    "features_path": "artifacts/features/7504725589929053482.pt"
+  },
+  "7265794447600897322": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 14.0,
+    "play_count": 146681416,
+    "digg_count": 2523588,
+    "features_path": "artifacts/features/7265794447600897322.pt"
+  },
+  "7389283129413979397": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 13.0,
+    "play_count": 146440293,
+    "digg_count": 12185346,
+    "features_path": "artifacts/features/7389283129413979397.pt"
+  },
+  "7493981587005000990": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 31.0,
+    "play_count": 143360632,
+    "digg_count": 1941991,
+    "features_path": "artifacts/features/7493981587005000990.pt"
+  },
+  "7417183932510227743": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 14.0,
+    "play_count": 142332075,
+    "digg_count": 21542953,
+    "features_path": "artifacts/features/7417183932510227743.pt"
+  },
+  "7355978738867113249": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 14.0,
+    "play_count": 141782418,
+    "digg_count": 17872506,
+    "features_path": "artifacts/features/7355978738867113249.pt"
+  },
+  "7459023586485947691": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 5.0,
+    "play_count": 138874944,
+    "digg_count": 1707326,
+    "features_path": "artifacts/features/7459023586485947691.pt"
+  },
+  "7500822127549926686": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 65.0,
+    "play_count": 137080922,
+    "digg_count": 1449058,
+    "features_path": "artifacts/features/7500822127549926686.pt"
+  },
+  "7444600665327815966": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 16.0,
+    "play_count": 136600000,
+    "digg_count": 14900000,
+    "features_path": "artifacts/features/7444600665327815966.pt"
+  },
+  "7336487071323786539": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 15.0,
+    "play_count": 136504005,
+    "digg_count": 14275182,
+    "features_path": "artifacts/features/7336487071323786539.pt"
+  },
+  "7339833960438222126": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 12.0,
+    "play_count": 135644453,
+    "digg_count": 16053624,
+    "features_path": "artifacts/features/7339833960438222126.pt"
+  },
+  "7316581997718293806": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 8.0,
+    "play_count": 133587333,
+    "digg_count": 3966899,
+    "features_path": "artifacts/features/7316581997718293806.pt"
+  },
+  "7375956563216911649": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 69.0,
+    "play_count": 131843371,
+    "digg_count": 3059102,
+    "features_path": "artifacts/features/7375956563216911649.pt"
+  },
+  "7424232352722783518": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 17.0,
+    "play_count": 131500581,
+    "digg_count": 14784792,
+    "features_path": "artifacts/features/7424232352722783518.pt"
+  },
+  "7423616164774923566": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 18.0,
+    "play_count": 131491550,
+    "digg_count": 9432226,
+    "features_path": "artifacts/features/7423616164774923566.pt"
+  },
+  "7451269290801630510": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 27.0,
+    "play_count": 130876883,
+    "digg_count": 18185705,
+    "features_path": "artifacts/features/7451269290801630510.pt"
+  },
+  "7210572029609676078": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 11.0,
+    "play_count": 129643921,
+    "digg_count": 7349244,
+    "features_path": "artifacts/features/7210572029609676078.pt"
+  },
+  "7480642673347431723": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 58.0,
+    "play_count": 129279215,
+    "digg_count": 459426,
+    "features_path": "artifacts/features/7480642673347431723.pt"
+  },
+  "7226754712283041070": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 19.0,
+    "play_count": 127989912,
+    "digg_count": 7392214,
+    "features_path": "artifacts/features/7226754712283041070.pt"
+  },
+  "7367500435650907397": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 61.0,
+    "play_count": 125627791,
+    "digg_count": 13605310,
+    "features_path": "artifacts/features/7367500435650907397.pt"
+  },
+  "7199767970690944302": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 29.0,
+    "play_count": 124336947,
+    "digg_count": 3816124,
+    "features_path": "artifacts/features/7199767970690944302.pt"
+  },
+  "7196341026376682795": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 30.0,
+    "play_count": 124214553,
+    "digg_count": 2310479,
+    "features_path": "artifacts/features/7196341026376682795.pt"
+  },
+  "7275886702781041962": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 59.0,
+    "play_count": 123125336,
+    "digg_count": 5723822,
+    "features_path": "artifacts/features/7275886702781041962.pt"
+  },
+  "7431284959178018091": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 61.0,
+    "play_count": 121996169,
+    "digg_count": 3756040,
+    "features_path": "artifacts/features/7431284959178018091.pt"
+  },
+  "7269604372311559467": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 17.0,
+    "play_count": 121785342,
+    "digg_count": 13117920,
+    "features_path": "artifacts/features/7269604372311559467.pt"
+  },
+  "7489610198617771310": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 9.0,
+    "play_count": 121048563,
+    "digg_count": 11973078,
+    "features_path": "artifacts/features/7489610198617771310.pt"
+  },
+  "7286906062534429998": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 13.0,
+    "play_count": 121034935,
+    "digg_count": 1582897,
+    "features_path": "artifacts/features/7286906062534429998.pt"
+  },
+  "7454549599106223368": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 38.0,
+    "play_count": 120825937,
+    "digg_count": 3741475,
+    "features_path": "artifacts/features/7454549599106223368.pt"
+  },
+  "7507397847977839918": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 7.0,
+    "play_count": 120211169,
+    "digg_count": 3148567,
+    "features_path": "artifacts/features/7507397847977839918.pt"
+  },
+  "7403430738978213162": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 21.0,
+    "play_count": 120002279,
+    "digg_count": 16886321,
+    "features_path": "artifacts/features/7403430738978213162.pt"
+  },
+  "7316847806810017067": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 75.0,
+    "play_count": 119963024,
+    "digg_count": 2054304,
+    "features_path": "artifacts/features/7316847806810017067.pt"
+  },
+  "7284708565057686826": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 9.0,
+    "play_count": 119478734,
+    "digg_count": 617878,
+    "features_path": "artifacts/features/7284708565057686826.pt"
+  },
+  "7445703190089043230": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 24.0,
+    "play_count": 118203493,
+    "digg_count": 14386598,
+    "features_path": "artifacts/features/7445703190089043230.pt"
+  },
+  "7282907648129928494": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 26.0,
+    "play_count": 117439717,
+    "digg_count": 18322745,
+    "features_path": "artifacts/features/7282907648129928494.pt"
+  },
+  "7369715264423873838": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 60.0,
+    "play_count": 117309083,
+    "digg_count": 11372956,
+    "features_path": "artifacts/features/7369715264423873838.pt"
+  },
+  "7449904351809719594": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 15.0,
+    "play_count": 117249607,
+    "digg_count": 1022398,
+    "features_path": "artifacts/features/7449904351809719594.pt"
+  },
+  "7416867163589430571": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 11.0,
+    "play_count": 117161912,
+    "digg_count": 9218318,
+    "features_path": "artifacts/features/7416867163589430571.pt"
+  },
+  "7366532911283096878": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 60.0,
+    "play_count": 116867685,
+    "digg_count": 18405385,
+    "features_path": "artifacts/features/7366532911283096878.pt"
+  },
+  "7215310094232259883": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 49.0,
+    "play_count": 116450546,
+    "digg_count": 7374467,
+    "features_path": "artifacts/features/7215310094232259883.pt"
+  },
+  "7403897868693572910": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 29.0,
+    "play_count": 116385421,
+    "digg_count": 5743389,
+    "features_path": "artifacts/features/7403897868693572910.pt"
+  },
+  "7439804701446589727": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 29.0,
+    "play_count": 116018608,
+    "digg_count": 1131862,
+    "features_path": "artifacts/features/7439804701446589727.pt"
+  },
+  "7456926284979916062": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 8.0,
+    "play_count": 115563971,
+    "digg_count": 943691,
+    "features_path": "artifacts/features/7456926284979916062.pt"
+  },
+  "7423883364186213675": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 22.0,
+    "play_count": 112805583,
+    "digg_count": 7111523,
+    "features_path": "artifacts/features/7423883364186213675.pt"
+  },
+  "7452405944664771882": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 70.0,
+    "play_count": 112707540,
+    "digg_count": 1559731,
+    "features_path": "artifacts/features/7452405944664771882.pt"
+  },
+  "7419021096952810795": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 5.0,
+    "play_count": 112194640,
+    "digg_count": 10972859,
+    "features_path": "artifacts/features/7419021096952810795.pt"
+  },
+  "7291793345645432106": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 9.0,
+    "play_count": 111719438,
+    "digg_count": 3105408,
+    "features_path": "artifacts/features/7291793345645432106.pt"
+  },
+  "7301751148015258922": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 70.0,
+    "play_count": 111685449,
+    "digg_count": 12810792,
+    "features_path": "artifacts/features/7301751148015258922.pt"
+  },
+  "7345364902468472106": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 46.0,
+    "play_count": 111530947,
+    "digg_count": 4589779,
+    "features_path": "artifacts/features/7345364902468472106.pt"
+  },
+  "7152960235890642218": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 25.0,
+    "play_count": 110918908,
+    "digg_count": 11663558,
+    "features_path": "artifacts/features/7152960235890642218.pt"
+  },
+  "7284542118201249066": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 47.0,
+    "play_count": 110855799,
+    "digg_count": 1031557,
+    "features_path": "artifacts/features/7284542118201249066.pt"
+  },
+  "7366709400431643946": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 88.0,
+    "play_count": 110137297,
+    "digg_count": 3111249,
+    "features_path": "artifacts/features/7366709400431643946.pt"
+  },
+  "7312029241598577951": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 15.0,
+    "play_count": 110033169,
+    "digg_count": 3770502,
+    "features_path": "artifacts/features/7312029241598577951.pt"
+  },
+  "7295236907636935982": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 20.0,
+    "play_count": 109469786,
+    "digg_count": 7602213,
+    "features_path": "artifacts/features/7295236907636935982.pt"
+  },
+  "7262738264560454958": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 18.0,
+    "play_count": 109399866,
+    "digg_count": 5202623,
+    "features_path": "artifacts/features/7262738264560454958.pt"
+  },
+  "7334432076793400582": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 60.0,
+    "play_count": 109360527,
+    "digg_count": 6447653,
+    "features_path": "artifacts/features/7334432076793400582.pt"
+  },
+  "7304615685383048491": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 60.0,
+    "play_count": 108979149,
+    "digg_count": 2932250,
+    "features_path": "artifacts/features/7304615685383048491.pt"
+  },
+  "7420061867298622750": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 62.0,
+    "play_count": 108682103,
+    "digg_count": 2035787,
+    "features_path": "artifacts/features/7420061867298622750.pt"
+  },
+  "7461704412289846574": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 8.0,
+    "play_count": 108535790,
+    "digg_count": 1006342,
+    "features_path": "artifacts/features/7461704412289846574.pt"
+  },
+  "7371968854861286698": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 38.0,
+    "play_count": 108153442,
+    "digg_count": 8205228,
+    "features_path": "artifacts/features/7371968854861286698.pt"
+  },
+  "7448336569351736578": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 65.0,
+    "play_count": 108098041,
+    "digg_count": 4973516,
+    "features_path": "artifacts/features/7448336569351736578.pt"
+  },
+  "7358601337342414098": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 16.0,
+    "play_count": 107947500,
+    "digg_count": 5170830,
+    "features_path": "artifacts/features/7358601337342414098.pt"
+  },
+  "7260965002633350408": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 21.0,
+    "play_count": 107670716,
+    "digg_count": 874239,
+    "features_path": "artifacts/features/7260965002633350408.pt"
+  },
+  "7493982947817606422": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 60.0,
+    "play_count": 107489936,
+    "digg_count": 3210617,
+    "features_path": "artifacts/features/7493982947817606422.pt"
+  },
+  "7489965697485884715": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 64.0,
+    "play_count": 107380575,
+    "digg_count": 7540072,
+    "features_path": "artifacts/features/7489965697485884715.pt"
+  },
+  "7479845993626750238": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 81.0,
+    "play_count": 107087698,
+    "digg_count": 16326740,
+    "features_path": "artifacts/features/7479845993626750238.pt"
+  },
+  "7463778275005893930": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 9.0,
+    "play_count": 106890435,
+    "digg_count": 5340149,
+    "features_path": "artifacts/features/7463778275005893930.pt"
+  },
+  "7440882902730050862": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 13.0,
+    "play_count": 106673323,
+    "digg_count": 14063043,
+    "features_path": "artifacts/features/7440882902730050862.pt"
+  },
+  "7433621269368573214": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 8.0,
+    "play_count": 106504172,
+    "digg_count": 12405925,
+    "features_path": "artifacts/features/7433621269368573214.pt"
+  },
+  "7351766067892555050": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 61.0,
+    "play_count": 106497545,
+    "digg_count": 6157203,
+    "features_path": "artifacts/features/7351766067892555050.pt"
+  },
+  "7280556337417719073": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 74.0,
+    "play_count": 106221902,
+    "digg_count": 5406239,
+    "features_path": "artifacts/features/7280556337417719073.pt"
+  },
+  "7268466286319914282": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 68.0,
+    "play_count": 106042061,
+    "digg_count": 4489069,
+    "features_path": "artifacts/features/7268466286319914282.pt"
+  },
+  "7262408036193537322": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 77.0,
+    "play_count": 105927044,
+    "digg_count": 8590288,
+    "features_path": "artifacts/features/7262408036193537322.pt"
+  },
+  "7436728558766001439": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 25.0,
+    "play_count": 104857523,
+    "digg_count": 4417432,
+    "features_path": "artifacts/features/7436728558766001439.pt"
+  },
+  "7496330902843165994": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 10.0,
+    "play_count": 103481603,
+    "digg_count": 1328412,
+    "features_path": "artifacts/features/7496330902843165994.pt"
+  },
+  "7315137327804845342": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 62.0,
+    "play_count": 102540932,
+    "digg_count": 2386026,
+    "features_path": "artifacts/features/7315137327804845342.pt"
+  },
+  "7460342930453155114": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 10.0,
+    "play_count": 102239560,
+    "digg_count": 16469462,
+    "features_path": "artifacts/features/7460342930453155114.pt"
+  },
+  "7225095992138304810": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 12.0,
+    "play_count": 101919707,
+    "digg_count": 1561782,
+    "features_path": "artifacts/features/7225095992138304810.pt"
+  },
+  "7407102822203886879": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 67.0,
+    "play_count": 101291103,
+    "digg_count": 4929222,
+    "features_path": "artifacts/features/7407102822203886879.pt"
+  },
+  "7354527607641230635": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 62.0,
+    "play_count": 100900312,
+    "digg_count": 3300943,
+    "features_path": "artifacts/features/7354527607641230635.pt"
+  },
+  "7326065480437992734": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 59.0,
+    "play_count": 99951508,
+    "digg_count": 100728,
+    "features_path": "artifacts/features/7326065480437992734.pt"
+  },
+  "7436131313725345057": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 65.0,
+    "play_count": 99565726,
+    "digg_count": 10469752,
+    "features_path": "artifacts/features/7436131313725345057.pt"
+  },
+  "7445900615638584594": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 19.0,
+    "play_count": 99092457,
+    "digg_count": 1084104,
+    "features_path": "artifacts/features/7445900615638584594.pt"
+  },
+  "7498699366467931434": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 16.0,
+    "play_count": 98893516,
+    "digg_count": 2626353,
+    "features_path": "artifacts/features/7498699366467931434.pt"
+  },
+  "7381881229408242951": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 12.0,
+    "play_count": 98615795,
+    "digg_count": 240569,
+    "features_path": "artifacts/features/7381881229408242951.pt"
+  },
+  "7464694033483451690": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 8.0,
+    "play_count": 97859809,
+    "digg_count": 971802,
+    "features_path": "artifacts/features/7464694033483451690.pt"
+  },
+  "7348555755701783851": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 63.0,
+    "play_count": 97402271,
+    "digg_count": 7856469,
+    "features_path": "artifacts/features/7348555755701783851.pt"
+  },
+  "7472100406643117358": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 70.0,
+    "play_count": 97009149,
+    "digg_count": 4638428,
+    "features_path": "artifacts/features/7472100406643117358.pt"
+  },
+  "7441324889002216746": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 9.0,
+    "play_count": 96234819,
+    "digg_count": 417339,
+    "features_path": "artifacts/features/7441324889002216746.pt"
+  },
+  "7285553803254861098": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 60.0,
+    "play_count": 95971250,
+    "digg_count": 1299877,
+    "features_path": "artifacts/features/7285553803254861098.pt"
+  },
+  "7405062696602750241": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 76.0,
+    "play_count": 95910048,
+    "digg_count": 6672519,
+    "features_path": "artifacts/features/7405062696602750241.pt"
+  },
+  "7431954046367419680": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 16.0,
+    "play_count": 95905285,
+    "digg_count": 1365400,
+    "features_path": "artifacts/features/7431954046367419680.pt"
+  },
+  "7260328571103726891": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 25.0,
+    "play_count": 95900000,
+    "digg_count": 4800000,
+    "features_path": "artifacts/features/7260328571103726891.pt"
+  },
+  "7420890809630870830": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 29.0,
+    "play_count": 95844902,
+    "digg_count": 1736611,
+    "features_path": "artifacts/features/7420890809630870830.pt"
+  },
+  "7458274400001903905": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 8.0,
+    "play_count": 95693377,
+    "digg_count": 3440008,
+    "features_path": "artifacts/features/7458274400001903905.pt"
+  },
+  "7191383171202862382": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 11.0,
+    "play_count": 95171317,
+    "digg_count": 6657906,
+    "features_path": "artifacts/features/7191383171202862382.pt"
+  },
+  "7427958859605576990": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 10.0,
+    "play_count": 94915156,
+    "digg_count": 12783029,
+    "features_path": "artifacts/features/7427958859605576990.pt"
+  },
+  "7353268806611012910": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 60.0,
+    "play_count": 94689964,
+    "digg_count": 6886077,
+    "features_path": "artifacts/features/7353268806611012910.pt"
+  },
+  "7400558305862552878": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 34.0,
+    "play_count": 94479852,
+    "digg_count": 61984,
+    "features_path": "artifacts/features/7400558305862552878.pt"
+  },
+  "7478738601128267051": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 19.0,
+    "play_count": 93608004,
+    "digg_count": 11209177,
+    "features_path": "artifacts/features/7478738601128267051.pt"
+  },
+  "7202118026328591658": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 12.0,
+    "play_count": 93402815,
+    "digg_count": 425013,
+    "features_path": "artifacts/features/7202118026328591658.pt"
+  },
+  "7482836091377290498": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 9.0,
+    "play_count": 93260582,
+    "digg_count": 630899,
+    "features_path": "artifacts/features/7482836091377290498.pt"
+  },
+  "7178385653808368938": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 7.0,
+    "play_count": 92591383,
+    "digg_count": 1165339,
+    "features_path": "artifacts/features/7178385653808368938.pt"
+  },
+  "7447257266484514078": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 24.0,
+    "play_count": 92498799,
+    "digg_count": 13276790,
+    "features_path": "artifacts/features/7447257266484514078.pt"
+  },
+  "7274680359336365355": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 79.0,
+    "play_count": 92009278,
+    "digg_count": 8081459,
+    "features_path": "artifacts/features/7274680359336365355.pt"
+  },
+  "7138164587387505963": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 14.0,
+    "play_count": 91691564,
+    "digg_count": 3138266,
+    "features_path": "artifacts/features/7138164587387505963.pt"
+  },
+  "7250109466065112362": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 24.0,
+    "play_count": 91326460,
+    "digg_count": 921388,
+    "features_path": "artifacts/features/7250109466065112362.pt"
+  },
+  "7434660321953959198": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 8.0,
+    "play_count": 91289051,
+    "digg_count": 3991739,
+    "features_path": "artifacts/features/7434660321953959198.pt"
+  },
+  "7387306339518680366": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 13.0,
+    "play_count": 89959856,
+    "digg_count": 8881932,
+    "features_path": "artifacts/features/7387306339518680366.pt"
+  },
+  "7262380832810143019": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 74.0,
+    "play_count": 89337227,
+    "digg_count": 6228313,
+    "features_path": "artifacts/features/7262380832810143019.pt"
+  },
+  "7497528477441297710": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 35.0,
+    "play_count": 89066505,
+    "digg_count": 2044864,
+    "features_path": "artifacts/features/7497528477441297710.pt"
+  },
+  "7348088610047954219": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 26.0,
+    "play_count": 88992577,
+    "digg_count": 2598973,
+    "features_path": "artifacts/features/7348088610047954219.pt"
+  },
+  "7341852448547474731": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 60.0,
+    "play_count": 88733479,
+    "digg_count": 5994553,
+    "features_path": "artifacts/features/7341852448547474731.pt"
+  },
+  "7330805831115574558": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 23.0,
+    "play_count": 88171640,
+    "digg_count": 1018830,
+    "features_path": "artifacts/features/7330805831115574558.pt"
+  },
+  "7252552927330503979": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 17.0,
+    "play_count": 88013815,
+    "digg_count": 1212494,
+    "features_path": "artifacts/features/7252552927330503979.pt"
+  },
+  "7445592922252430638": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 6.0,
+    "play_count": 87900000,
+    "digg_count": 5000000,
+    "features_path": "artifacts/features/7445592922252430638.pt"
+  },
+  "7360674149561584942": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 12.0,
+    "play_count": 87897039,
+    "digg_count": 16877674,
+    "features_path": "artifacts/features/7360674149561584942.pt"
+  },
+  "7127648233106443526": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 44.0,
+    "play_count": 87801742,
+    "digg_count": 5824453,
+    "features_path": "artifacts/features/7127648233106443526.pt"
+  },
+  "7310279367031180590": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 61.0,
+    "play_count": 87666504,
+    "digg_count": 6830316,
+    "features_path": "artifacts/features/7310279367031180590.pt"
+  },
+  "7216827954993712426": {
+    "tier": "top",
+    "cluster_id": 2,
+    "duration": 17.0,
+    "play_count": 87572242,
+    "digg_count": 4105533,
+    "features_path": "artifacts/features/7216827954993712426.pt"
+  },
+  "7470286937157356843": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 14.0,
+    "play_count": 87532002,
+    "digg_count": 805180,
+    "features_path": "artifacts/features/7470286937157356843.pt"
+  },
+  "7445343559919897902": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 15.0,
+    "play_count": 87100850,
+    "digg_count": 437534,
+    "features_path": "artifacts/features/7445343559919897902.pt"
+  },
+  "7353001375418125611": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 9.0,
+    "play_count": 87028850,
+    "digg_count": 11668784,
+    "features_path": "artifacts/features/7353001375418125611.pt"
+  },
+  "7205192359418678571": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 10.0,
+    "play_count": 86835630,
+    "digg_count": 4064261,
+    "features_path": "artifacts/features/7205192359418678571.pt"
+  },
+  "7433443139035073822": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 13.0,
+    "play_count": 86281570,
+    "digg_count": 5874414,
+    "features_path": "artifacts/features/7433443139035073822.pt"
+  },
+  "7202268311458073902": {
+    "tier": "top",
+    "cluster_id": 0,
+    "duration": 60.0,
+    "play_count": 86247981,
+    "digg_count": 5346318,
+    "features_path": "artifacts/features/7202268311458073902.pt"
+  },
+  "7370464396415405354": {
+    "tier": "top",
+    "cluster_id": 1,
+    "duration": 60.0,
+    "play_count": 84965238,
+    "digg_count": 1204936,
+    "features_path": "artifacts/features/7370464396415405354.pt"
+  },
+  "7330307226940427566": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 25.0,
+    "play_count": 84821331,
+    "digg_count": 1975962,
+    "features_path": "artifacts/features/7330307226940427566.pt"
+  },
+  "7186871241779727662": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 9.0,
+    "play_count": 84685153,
+    "digg_count": 7930898,
+    "features_path": "artifacts/features/7186871241779727662.pt"
+  },
+  "7238366670312525098": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 60.0,
+    "play_count": 84474231,
+    "digg_count": 5225074,
+    "features_path": "artifacts/features/7238366670312525098.pt"
+  },
+  "7314071188362333471": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 63.0,
+    "play_count": 84390594,
+    "digg_count": 1699485,
+    "features_path": "artifacts/features/7314071188362333471.pt"
+  },
+  "7226038321842081030": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 10.0,
+    "play_count": 83581463,
+    "digg_count": 3307471,
+    "features_path": "artifacts/features/7226038321842081030.pt"
+  },
+  "7278356178365680939": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 8.0,
+    "play_count": 83447228,
+    "digg_count": 1116519,
+    "features_path": "artifacts/features/7278356178365680939.pt"
+  },
+  "7393493882706726186": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 15.0,
+    "play_count": 83278207,
+    "digg_count": 2210771,
+    "features_path": "artifacts/features/7393493882706726186.pt"
+  },
+  "7237006101684751658": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 61.0,
+    "play_count": 83238792,
+    "digg_count": 2988968,
+    "features_path": "artifacts/features/7237006101684751658.pt"
+  },
+  "7351394893266275626": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 66.0,
+    "play_count": 83197654,
+    "digg_count": 7254102,
+    "features_path": "artifacts/features/7351394893266275626.pt"
+  },
+  "7412277574484741407": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 15.0,
+    "play_count": 83076201,
+    "digg_count": 2162635,
+    "features_path": "artifacts/features/7412277574484741407.pt"
+  },
+  "7283215918451150122": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 26.0,
+    "play_count": 82333249,
+    "digg_count": 369296,
+    "features_path": "artifacts/features/7283215918451150122.pt"
+  },
+  "7313460728109829418": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 15.0,
+    "play_count": 80733304,
+    "digg_count": 7757140,
+    "features_path": "artifacts/features/7313460728109829418.pt"
+  },
+  "7253885794413202734": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 71.0,
+    "play_count": 80432098,
+    "digg_count": 5677832,
+    "features_path": "artifacts/features/7253885794413202734.pt"
+  },
+  "7181192808219397419": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 14.0,
+    "play_count": 79820533,
+    "digg_count": 17521565,
+    "features_path": "artifacts/features/7181192808219397419.pt"
+  },
+  "7271009686520892715": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 35.0,
+    "play_count": 79572649,
+    "digg_count": 1050631,
+    "features_path": "artifacts/features/7271009686520892715.pt"
+  },
+  "7374103826384604459": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 12.0,
+    "play_count": 79557309,
+    "digg_count": 10310161,
+    "features_path": "artifacts/features/7374103826384604459.pt"
+  },
+  "7269073623548185898": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 8.0,
+    "play_count": 79275250,
+    "digg_count": 566898,
+    "features_path": "artifacts/features/7269073623548185898.pt"
+  },
+  "7166472581132864770": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 15.0,
+    "play_count": 78765838,
+    "digg_count": 10331976,
+    "features_path": "artifacts/features/7166472581132864770.pt"
+  },
+  "7420571840273288491": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 89.0,
+    "play_count": 78466870,
+    "digg_count": 279479,
+    "features_path": "artifacts/features/7420571840273288491.pt"
+  },
+  "7288753961677622574": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 60.0,
+    "play_count": 78230775,
+    "digg_count": 3462613,
+    "features_path": "artifacts/features/7288753961677622574.pt"
+  },
+  "7232899426505854254": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 61.0,
+    "play_count": 77163051,
+    "digg_count": 4779547,
+    "features_path": "artifacts/features/7232899426505854254.pt"
+  },
+  "7286489123030912286": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 27.0,
+    "play_count": 77000000,
+    "digg_count": 9900000,
+    "features_path": "artifacts/features/7286489123030912286.pt"
+  },
+  "7148943768509631786": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 7.0,
+    "play_count": 76933159,
+    "digg_count": 3336499,
+    "features_path": "artifacts/features/7148943768509631786.pt"
+  },
+  "7248980926456450350": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 25.0,
+    "play_count": 76909519,
+    "digg_count": 5100821,
+    "features_path": "artifacts/features/7248980926456450350.pt"
+  },
+  "7337553644369366314": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 15.0,
+    "play_count": 76713534,
+    "digg_count": 9278803,
+    "features_path": "artifacts/features/7337553644369366314.pt"
+  },
+  "7259562383390166298": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 10.0,
+    "play_count": 76364782,
+    "digg_count": 1565001,
+    "features_path": "artifacts/features/7259562383390166298.pt"
+  },
+  "7261665762803207467": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 5.0,
+    "play_count": 75648714,
+    "digg_count": 12673697,
+    "features_path": "artifacts/features/7261665762803207467.pt"
+  },
+  "7277596345228102944": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 25.0,
+    "play_count": 75227814,
+    "digg_count": 3564457,
+    "features_path": "artifacts/features/7277596345228102944.pt"
+  },
+  "7309270750425271583": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 88.0,
+    "play_count": 75161043,
+    "digg_count": 12689108,
+    "features_path": "artifacts/features/7309270750425271583.pt"
+  },
+  "7327070706808704289": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 73.0,
+    "play_count": 74861505,
+    "digg_count": 2626568,
+    "features_path": "artifacts/features/7327070706808704289.pt"
+  },
+  "7304773499564903710": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 14.0,
+    "play_count": 74634285,
+    "digg_count": 8279633,
+    "features_path": "artifacts/features/7304773499564903710.pt"
+  },
+  "7285411681797197098": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 20.0,
+    "play_count": 73890288,
+    "digg_count": 2762835,
+    "features_path": "artifacts/features/7285411681797197098.pt"
+  },
+  "7396173560076569887": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 7.0,
+    "play_count": 73770977,
+    "digg_count": 8760458,
+    "features_path": "artifacts/features/7396173560076569887.pt"
+  },
+  "7296936756748848427": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 20.0,
+    "play_count": 73769276,
+    "digg_count": 8125854,
+    "features_path": "artifacts/features/7296936756748848427.pt"
+  },
+  "7192046861908233515": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 18.0,
+    "play_count": 73726809,
+    "digg_count": 3329884,
+    "features_path": "artifacts/features/7192046861908233515.pt"
+  },
+  "7273906931767495979": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 17.0,
+    "play_count": 73588948,
+    "digg_count": 12774135,
+    "features_path": "artifacts/features/7273906931767495979.pt"
+  },
+  "7166543469844958465": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 15.0,
+    "play_count": 72965320,
+    "digg_count": 7984151,
+    "features_path": "artifacts/features/7166543469844958465.pt"
+  },
+  "7270458709065731370": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 59.0,
+    "play_count": 72516478,
+    "digg_count": 5415671,
+    "features_path": "artifacts/features/7270458709065731370.pt"
+  },
+  "7400002322526391595": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 60.0,
+    "play_count": 72299013,
+    "digg_count": 1135967,
+    "features_path": "artifacts/features/7400002322526391595.pt"
+  },
+  "7344935382833843498": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 7.0,
+    "play_count": 72280541,
+    "digg_count": 4472604,
+    "features_path": "artifacts/features/7344935382833843498.pt"
+  },
+  "7363417951791533358": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 15.0,
+    "play_count": 72036382,
+    "digg_count": 5336052,
+    "features_path": "artifacts/features/7363417951791533358.pt"
+  },
+  "7310247652799728942": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 63.0,
+    "play_count": 71907133,
+    "digg_count": 5131752,
+    "features_path": "artifacts/features/7310247652799728942.pt"
+  },
+  "7215739459785002246": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 13.0,
+    "play_count": 71735912,
+    "digg_count": 3204537,
+    "features_path": "artifacts/features/7215739459785002246.pt"
+  },
+  "7335065541750672686": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 15.0,
+    "play_count": 71296366,
+    "digg_count": 4242516,
+    "features_path": "artifacts/features/7335065541750672686.pt"
+  },
+  "7172510131178065195": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 19.0,
+    "play_count": 71211730,
+    "digg_count": 2757705,
+    "features_path": "artifacts/features/7172510131178065195.pt"
+  },
+  "7237857396884901125": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 32.0,
+    "play_count": 71200000,
+    "digg_count": 9900000,
+    "features_path": "artifacts/features/7237857396884901125.pt"
+  },
+  "7320973135627586862": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 14.0,
+    "play_count": 71145279,
+    "digg_count": 9513877,
+    "features_path": "artifacts/features/7320973135627586862.pt"
+  },
+  "7210308105052228907": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 14.0,
+    "play_count": 71029852,
+    "digg_count": 3525896,
+    "features_path": "artifacts/features/7210308105052228907.pt"
+  },
+  "7379482449283403054": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 10.0,
+    "play_count": 71000000,
+    "digg_count": 8200000,
+    "features_path": "artifacts/features/7379482449283403054.pt"
+  },
+  "7326225013789543710": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 94.0,
+    "play_count": 70909196,
+    "digg_count": 848848,
+    "features_path": "artifacts/features/7326225013789543710.pt"
+  },
+  "7346991804320959786": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 25.0,
+    "play_count": 70700000,
+    "digg_count": 14300000,
+    "features_path": "artifacts/features/7346991804320959786.pt"
+  },
+  "7211333452791303470": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 30.0,
+    "play_count": 69931727,
+    "digg_count": 6330559,
+    "features_path": "artifacts/features/7211333452791303470.pt"
+  },
+  "7347805050867174699": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 62.0,
+    "play_count": 69677394,
+    "digg_count": 2396995,
+    "features_path": "artifacts/features/7347805050867174699.pt"
+  },
+  "7184501852560477482": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 56.0,
+    "play_count": 69369528,
+    "digg_count": 6642738,
+    "features_path": "artifacts/features/7184501852560477482.pt"
+  },
+  "7308788964582821152": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 35.0,
+    "play_count": 69365873,
+    "digg_count": 4694307,
+    "features_path": "artifacts/features/7308788964582821152.pt"
+  },
+  "7390037827334966571": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 65.0,
+    "play_count": 69212653,
+    "digg_count": 4508229,
+    "features_path": "artifacts/features/7390037827334966571.pt"
+  },
+  "7232705126832540930": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 72.0,
+    "play_count": 69078428,
+    "digg_count": 1723623,
+    "features_path": "artifacts/features/7232705126832540930.pt"
+  },
+  "7308164451293744386": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 60.0,
+    "play_count": 69052251,
+    "digg_count": 3931834,
+    "features_path": "artifacts/features/7308164451293744386.pt"
+  },
+  "7256175071092362542": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 55.0,
+    "play_count": 68692270,
+    "digg_count": 5230828,
+    "features_path": "artifacts/features/7256175071092362542.pt"
+  },
+  "7332173569561988395": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 89.0,
+    "play_count": 68298867,
+    "digg_count": 3439748,
+    "features_path": "artifacts/features/7332173569561988395.pt"
+  },
+  "7343593475138391338": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 11.0,
+    "play_count": 68173833,
+    "digg_count": 2322276,
+    "features_path": "artifacts/features/7343593475138391338.pt"
+  },
+  "7173301228745526570": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 8.0,
+    "play_count": 68035250,
+    "digg_count": 273026,
+    "features_path": "artifacts/features/7173301228745526570.pt"
+  },
+  "7380849525629488426": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 10.0,
+    "play_count": 67892719,
+    "digg_count": 12694647,
+    "features_path": "artifacts/features/7380849525629488426.pt"
+  },
+  "7283631083118218501": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 56.0,
+    "play_count": 67677730,
+    "digg_count": 6772613,
+    "features_path": "artifacts/features/7283631083118218501.pt"
+  },
+  "7204298155297344811": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 60.0,
+    "play_count": 67606476,
+    "digg_count": 4184879,
+    "features_path": "artifacts/features/7204298155297344811.pt"
+  },
+  "7114731821744835886": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 20.0,
+    "play_count": 67526880,
+    "digg_count": 1193638,
+    "features_path": "artifacts/features/7114731821744835886.pt"
+  },
+  "7312259814824955154": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 60.0,
+    "play_count": 67430805,
+    "digg_count": 7043221,
+    "features_path": "artifacts/features/7312259814824955154.pt"
+  },
+  "7203551485030927662": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 95.0,
+    "play_count": 66504885,
+    "digg_count": 6998130,
+    "features_path": "artifacts/features/7203551485030927662.pt"
+  },
+  "7370895776899288366": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 12.0,
+    "play_count": 66347290,
+    "digg_count": 10526258,
+    "features_path": "artifacts/features/7370895776899288366.pt"
+  },
+  "7188733170387258630": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 12.0,
+    "play_count": 66322996,
+    "digg_count": 5280520,
+    "features_path": "artifacts/features/7188733170387258630.pt"
+  },
+  "7191656940962024750": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 29.0,
+    "play_count": 66093629,
+    "digg_count": 673883,
+    "features_path": "artifacts/features/7191656940962024750.pt"
+  },
+  "7328067082350759211": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 50.0,
+    "play_count": 65938303,
+    "digg_count": 1213853,
+    "features_path": "artifacts/features/7328067082350759211.pt"
+  },
+  "7169892734524820742": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 6.0,
+    "play_count": 65415860,
+    "digg_count": 2283535,
+    "features_path": "artifacts/features/7169892734524820742.pt"
+  },
+  "7309320024274029829": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 5.0,
+    "play_count": 65393470,
+    "digg_count": 5693667,
+    "features_path": "artifacts/features/7309320024274029829.pt"
+  },
+  "7255129936153840942": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 59.0,
+    "play_count": 65337702,
+    "digg_count": 7379218,
+    "features_path": "artifacts/features/7255129936153840942.pt"
+  },
+  "7231601907163352363": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 11.0,
+    "play_count": 65194623,
+    "digg_count": 898664,
+    "features_path": "artifacts/features/7231601907163352363.pt"
+  },
+  "7353674808745381163": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 24.0,
+    "play_count": 64819251,
+    "digg_count": 82522,
+    "features_path": "artifacts/features/7353674808745381163.pt"
+  },
+  "7340096708900048170": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 9.0,
+    "play_count": 64783852,
+    "digg_count": 8711731,
+    "features_path": "artifacts/features/7340096708900048170.pt"
+  },
+  "7355721984791022880": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 14.0,
+    "play_count": 64740091,
+    "digg_count": 1891146,
+    "features_path": "artifacts/features/7355721984791022880.pt"
+  },
+  "7303573002736700715": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 91.0,
+    "play_count": 64481792,
+    "digg_count": 3621128,
+    "features_path": "artifacts/features/7303573002736700715.pt"
+  },
+  "7238683371864411398": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 7.0,
+    "play_count": 64474203,
+    "digg_count": 2263659,
+    "features_path": "artifacts/features/7238683371864411398.pt"
+  },
+  "7274499820256136494": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 15.0,
+    "play_count": 64412858,
+    "digg_count": 336214,
+    "features_path": "artifacts/features/7274499820256136494.pt"
+  },
+  "7162233073273310510": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 22.0,
+    "play_count": 64392487,
+    "digg_count": 12141791,
+    "features_path": "artifacts/features/7162233073273310510.pt"
+  },
+  "7249506500434021678": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 48.0,
+    "play_count": 63694547,
+    "digg_count": 14737067,
+    "features_path": "artifacts/features/7249506500434021678.pt"
+  },
+  "7249419795282578731": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 72.0,
+    "play_count": 63678948,
+    "digg_count": 284020,
+    "features_path": "artifacts/features/7249419795282578731.pt"
+  },
+  "7181237423102233899": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 7.0,
+    "play_count": 63494396,
+    "digg_count": 1505559,
+    "features_path": "artifacts/features/7181237423102233899.pt"
+  },
+  "7215817236743916846": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 59.0,
+    "play_count": 63121297,
+    "digg_count": 2012605,
+    "features_path": "artifacts/features/7215817236743916846.pt"
+  },
+  "7329391022411189547": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 9.0,
+    "play_count": 63035272,
+    "digg_count": 11363660,
+    "features_path": "artifacts/features/7329391022411189547.pt"
+  },
+  "7294098580166495493": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 12.0,
+    "play_count": 62891158,
+    "digg_count": 1610669,
+    "features_path": "artifacts/features/7294098580166495493.pt"
+  },
+  "7254717498422086939": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 6.0,
+    "play_count": 62741466,
+    "digg_count": 6956078,
+    "features_path": "artifacts/features/7254717498422086939.pt"
+  },
+  "7277266203473644842": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 67.0,
+    "play_count": 62734612,
+    "digg_count": 7314441,
+    "features_path": "artifacts/features/7277266203473644842.pt"
+  },
+  "7124529648561589546": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 6.0,
+    "play_count": 62407943,
+    "digg_count": 1171636,
+    "features_path": "artifacts/features/7124529648561589546.pt"
+  },
+  "7332669392326675758": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 61.0,
+    "play_count": 61813770,
+    "digg_count": 4701362,
+    "features_path": "artifacts/features/7332669392326675758.pt"
+  },
+  "7303594540277992747": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 12.0,
+    "play_count": 61663939,
+    "digg_count": 1183282,
+    "features_path": "artifacts/features/7303594540277992747.pt"
+  },
+  "7248562326817918254": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 12.0,
+    "play_count": 61636595,
+    "digg_count": 2742172,
+    "features_path": "artifacts/features/7248562326817918254.pt"
+  },
+  "7327776876448025902": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 15.0,
+    "play_count": 61576781,
+    "digg_count": 844229,
+    "features_path": "artifacts/features/7327776876448025902.pt"
+  },
+  "7360094817302400298": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 22.0,
+    "play_count": 61290715,
+    "digg_count": 6436142,
+    "features_path": "artifacts/features/7360094817302400298.pt"
+  },
+  "7386266615387557151": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 62.0,
+    "play_count": 60855383,
+    "digg_count": 7175406,
+    "features_path": "artifacts/features/7386266615387557151.pt"
+  },
+  "7134454710660238638": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 13.0,
+    "play_count": 60794030,
+    "digg_count": 6758933,
+    "features_path": "artifacts/features/7134454710660238638.pt"
+  },
+  "7319604310398995758": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 57.0,
+    "play_count": 60552943,
+    "digg_count": 4326814,
+    "features_path": "artifacts/features/7319604310398995758.pt"
+  },
+  "7211256026975374638": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 11.0,
+    "play_count": 60471953,
+    "digg_count": 4800207,
+    "features_path": "artifacts/features/7211256026975374638.pt"
+  },
+  "7249891174826200362": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 27.0,
+    "play_count": 60294843,
+    "digg_count": 6239168,
+    "features_path": "artifacts/features/7249891174826200362.pt"
+  },
+  "7330072423410273579": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 15.0,
+    "play_count": 59672150,
+    "digg_count": 134238,
+    "features_path": "artifacts/features/7330072423410273579.pt"
+  },
+  "7214576891565542662": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 87.0,
+    "play_count": 59646874,
+    "digg_count": 9792794,
+    "features_path": "artifacts/features/7214576891565542662.pt"
+  },
+  "7290783967102586158": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 49.0,
+    "play_count": 59574844,
+    "digg_count": 6558423,
+    "features_path": "artifacts/features/7290783967102586158.pt"
+  },
+  "7249109795678981418": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 25.0,
+    "play_count": 59417136,
+    "digg_count": 725099,
+    "features_path": "artifacts/features/7249109795678981418.pt"
+  },
+  "7279604740592258337": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 62.0,
+    "play_count": 59367891,
+    "digg_count": 3489367,
+    "features_path": "artifacts/features/7279604740592258337.pt"
+  },
+  "7311428680062995755": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 7.0,
+    "play_count": 59329764,
+    "digg_count": 4241675,
+    "features_path": "artifacts/features/7311428680062995755.pt"
+  },
+  "7327054237504998702": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 77.0,
+    "play_count": 59187667,
+    "digg_count": 1821699,
+    "features_path": "artifacts/features/7327054237504998702.pt"
+  },
+  "7299485127975931178": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 18.0,
+    "play_count": 59128341,
+    "digg_count": 9609391,
+    "features_path": "artifacts/features/7299485127975931178.pt"
+  },
+  "7316695494351195435": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 41.0,
+    "play_count": 59079541,
+    "digg_count": 6696997,
+    "features_path": "artifacts/features/7316695494351195435.pt"
+  },
+  "7265681737886207275": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 59.0,
+    "play_count": 58709091,
+    "digg_count": 4037478,
+    "features_path": "artifacts/features/7265681737886207275.pt"
+  },
+  "7331481082010914081": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 61.0,
+    "play_count": 58585516,
+    "digg_count": 1743351,
+    "features_path": "artifacts/features/7331481082010914081.pt"
+  },
+  "7416429342869212462": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 14.0,
+    "play_count": 58482219,
+    "digg_count": 4814116,
+    "features_path": "artifacts/features/7416429342869212462.pt"
+  },
+  "7287213048085957893": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 46.0,
+    "play_count": 58380923,
+    "digg_count": 2209457,
+    "features_path": "artifacts/features/7287213048085957893.pt"
+  },
+  "7326064207080869163": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 63.0,
+    "play_count": 58341924,
+    "digg_count": 2512309,
+    "features_path": "artifacts/features/7326064207080869163.pt"
+  },
+  "7183712381955017989": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 23.0,
+    "play_count": 58341505,
+    "digg_count": 5716903,
+    "features_path": "artifacts/features/7183712381955017989.pt"
+  },
+  "7397078496188583200": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 98.0,
+    "play_count": 58301304,
+    "digg_count": 4045345,
+    "features_path": "artifacts/features/7397078496188583200.pt"
+  },
+  "7174662663534808363": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 10.0,
+    "play_count": 58046774,
+    "digg_count": 8892910,
+    "features_path": "artifacts/features/7174662663534808363.pt"
+  },
+  "7314114384253553966": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 59.0,
+    "play_count": 57926789,
+    "digg_count": 2966771,
+    "features_path": "artifacts/features/7314114384253553966.pt"
+  },
+  "7278436612457975083": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 36.0,
+    "play_count": 57911653,
+    "digg_count": 5703115,
+    "features_path": "artifacts/features/7278436612457975083.pt"
+  },
+  "7410144599991225631": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 35.0,
+    "play_count": 57634293,
+    "digg_count": 7440224,
+    "features_path": "artifacts/features/7410144599991225631.pt"
+  },
+  "7203733602377436459": {
+    "tier": "high",
+    "cluster_id": 3,
+    "duration": 9.0,
+    "play_count": 57620618,
+    "digg_count": 2592698,
+    "features_path": "artifacts/features/7203733602377436459.pt"
+  },
+  "7326811319829646634": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 35.0,
+    "play_count": 57423793,
+    "digg_count": 1146351,
+    "features_path": "artifacts/features/7326811319829646634.pt"
+  },
+  "7320587698786405678": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 76.0,
+    "play_count": 57287342,
+    "digg_count": 1002152,
+    "features_path": "artifacts/features/7320587698786405678.pt"
+  },
+  "7123228702720150830": {
+    "tier": "high",
+    "cluster_id": 5,
+    "duration": 44.0,
+    "play_count": 57250551,
+    "digg_count": 8710810,
+    "features_path": "artifacts/features/7123228702720150830.pt"
+  },
+  "7273673090276625696": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 73.0,
+    "play_count": 57146463,
+    "digg_count": 2090751,
+    "features_path": "artifacts/features/7273673090276625696.pt"
+  },
+  "7296365145465359659": {
+    "tier": "high",
+    "cluster_id": 4,
+    "duration": 40.0,
+    "play_count": 57144367,
+    "digg_count": 2577093,
+    "features_path": "artifacts/features/7296365145465359659.pt"
+  },
+  "7212183057842015534": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 29.0,
+    "play_count": 2487321,
+    "digg_count": 329079,
+    "features_path": "artifacts/features/7212183057842015534.pt"
+  },
+  "7241680194807827754": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 60.0,
+    "play_count": 476748,
+    "digg_count": 10965,
+    "features_path": "artifacts/features/7241680194807827754.pt"
+  },
+  "7267954737729916202": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 6.0,
+    "play_count": 548306,
+    "digg_count": 102375,
+    "features_path": "artifacts/features/7267954737729916202.pt"
+  },
+  "7228675264006409515": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 9.0,
+    "play_count": 38380819,
+    "digg_count": 5730475,
+    "features_path": "artifacts/features/7228675264006409515.pt"
+  },
+  "7256119829839711534": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 83.0,
+    "play_count": 161758,
+    "digg_count": 18827,
+    "features_path": "artifacts/features/7256119829839711534.pt"
+  },
+  "7224726551558966574": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 62.0,
+    "play_count": 523923,
+    "digg_count": 24917,
+    "features_path": "artifacts/features/7224726551558966574.pt"
+  },
+  "7222167779707964718": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 18.0,
+    "play_count": 1639332,
+    "digg_count": 74908,
+    "features_path": "artifacts/features/7222167779707964718.pt"
+  },
+  "7227549986542636331": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 9.0,
+    "play_count": 561688,
+    "digg_count": 47745,
+    "features_path": "artifacts/features/7227549986542636331.pt"
+  },
+  "7286932098055720238": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 54.0,
+    "play_count": 246302,
+    "digg_count": 18726,
+    "features_path": "artifacts/features/7286932098055720238.pt"
+  },
+  "7284669139241717000": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 17.0,
+    "play_count": 1191083,
+    "digg_count": 66514,
+    "features_path": "artifacts/features/7284669139241717000.pt"
+  },
+  "7272960178704698629": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 9.0,
+    "play_count": 1774422,
+    "digg_count": 79890,
+    "features_path": "artifacts/features/7272960178704698629.pt"
+  },
+  "7251329605653613866": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 46.0,
+    "play_count": 374613,
+    "digg_count": 34909,
+    "features_path": "artifacts/features/7251329605653613866.pt"
+  },
+  "7275832473089527086": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 26.0,
+    "play_count": 988236,
+    "digg_count": 98324,
+    "features_path": "artifacts/features/7275832473089527086.pt"
+  },
+  "7278820395363405099": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 11.0,
+    "play_count": 1487270,
+    "digg_count": 154460,
+    "features_path": "artifacts/features/7278820395363405099.pt"
+  },
+  "7275520492797185323": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 50.0,
+    "play_count": 718813,
+    "digg_count": 91354,
+    "features_path": "artifacts/features/7275520492797185323.pt"
+  },
+  "7282529131776970015": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 5.0,
+    "play_count": 396294,
+    "digg_count": 44878,
+    "features_path": "artifacts/features/7282529131776970015.pt"
+  },
+  "7260998120002080043": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 76.0,
+    "play_count": 246112,
+    "digg_count": 32210,
+    "features_path": "artifacts/features/7260998120002080043.pt"
+  },
+  "7272003233013386542": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 11.0,
+    "play_count": 116966,
+    "digg_count": 17956,
+    "features_path": "artifacts/features/7272003233013386542.pt"
+  },
+  "7235059974223711531": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 57.0,
+    "play_count": 875157,
+    "digg_count": 75698,
+    "features_path": "artifacts/features/7235059974223711531.pt"
+  },
+  "7275791764856851754": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 66.0,
+    "play_count": 539837,
+    "digg_count": 30243,
+    "features_path": "artifacts/features/7275791764856851754.pt"
+  },
+  "7183905772802231594": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 26.0,
+    "play_count": 1896354,
+    "digg_count": 271166,
+    "features_path": "artifacts/features/7183905772802231594.pt"
+  },
+  "7267234530988166432": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 61.0,
+    "play_count": 889605,
+    "digg_count": 119042,
+    "features_path": "artifacts/features/7267234530988166432.pt"
+  },
+  "7240940634687802667": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 33.0,
+    "play_count": 840794,
+    "digg_count": 46787,
+    "features_path": "artifacts/features/7240940634687802667.pt"
+  },
+  "7271760922304138501": {
+    "tier": "random",
+    "cluster_id": 8,
+    "duration": 105.0,
+    "play_count": 1204290,
+    "digg_count": 24575,
+    "features_path": "artifacts/features/7271760922304138501.pt"
+  },
+  "7275780550726569258": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 18.0,
+    "play_count": 32509103,
+    "digg_count": 1638779,
+    "features_path": "artifacts/features/7275780550726569258.pt"
+  },
+  "7231725859382545707": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 43.0,
+    "play_count": 201615,
+    "digg_count": 18768,
+    "features_path": "artifacts/features/7231725859382545707.pt"
+  },
+  "7054176452723494146": {
+    "tier": "random",
+    "cluster_id": 8,
+    "duration": 17.0,
+    "play_count": 212940,
+    "digg_count": 23298,
+    "features_path": "artifacts/features/7054176452723494146.pt"
+  },
+  "7265842253829213486": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 28.0,
+    "play_count": 432466,
+    "digg_count": 29930,
+    "features_path": "artifacts/features/7265842253829213486.pt"
+  },
+  "7271972966911446274": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 75.0,
+    "play_count": 293777,
+    "digg_count": 20403,
+    "features_path": "artifacts/features/7271972966911446274.pt"
+  },
+  "7196871154542398762": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 19.0,
+    "play_count": 1066501,
+    "digg_count": 67082,
+    "features_path": "artifacts/features/7196871154542398762.pt"
+  },
+  "7284646943299718446": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 8.0,
+    "play_count": 792823,
+    "digg_count": 101205,
+    "features_path": "artifacts/features/7284646943299718446.pt"
+  },
+  "7250484711464815918": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 61.0,
+    "play_count": 474862,
+    "digg_count": 23800,
+    "features_path": "artifacts/features/7250484711464815918.pt"
+  },
+  "7184248141082905902": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 27.0,
+    "play_count": 1931148,
+    "digg_count": 131929,
+    "features_path": "artifacts/features/7184248141082905902.pt"
+  },
+  "7290966624977308970": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 7.0,
+    "play_count": 259993,
+    "digg_count": 43306,
+    "features_path": "artifacts/features/7290966624977308970.pt"
+  },
+  "7261036751223885098": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 83.0,
+    "play_count": 190814,
+    "digg_count": 8680,
+    "features_path": "artifacts/features/7261036751223885098.pt"
+  },
+  "7181284016157412654": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 27.0,
+    "play_count": 783377,
+    "digg_count": 18210,
+    "features_path": "artifacts/features/7181284016157412654.pt"
+  },
+  "7253490926012615978": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 62.0,
+    "play_count": 417992,
+    "digg_count": 43921,
+    "features_path": "artifacts/features/7253490926012615978.pt"
+  },
+  "7190412242666507563": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 12.0,
+    "play_count": 1708382,
+    "digg_count": 99093,
+    "features_path": "artifacts/features/7190412242666507563.pt"
+  },
+  "7236408927980670209": {
+    "tier": "random",
+    "cluster_id": 8,
+    "duration": 23.0,
+    "play_count": 1518390,
+    "digg_count": 125084,
+    "features_path": "artifacts/features/7236408927980670209.pt"
+  },
+  "7190781545291140357": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 64.0,
+    "play_count": 345800,
+    "digg_count": 54896,
+    "features_path": "artifacts/features/7190781545291140357.pt"
+  },
+  "7291084809361820971": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 15.0,
+    "play_count": 3234416,
+    "digg_count": 74697,
+    "features_path": "artifacts/features/7291084809361820971.pt"
+  },
+  "7216723851349118250": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 5.0,
+    "play_count": 668839,
+    "digg_count": 16800,
+    "features_path": "artifacts/features/7216723851349118250.pt"
+  },
+  "7278148966074633518": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 12.0,
+    "play_count": 173230,
+    "digg_count": 29725,
+    "features_path": "artifacts/features/7278148966074633518.pt"
+  },
+  "7213109659018956078": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 22.0,
+    "play_count": 1294523,
+    "digg_count": 92011,
+    "features_path": "artifacts/features/7213109659018956078.pt"
+  },
+  "7196117918873177386": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 59.0,
+    "play_count": 478905,
+    "digg_count": 100888,
+    "features_path": "artifacts/features/7196117918873177386.pt"
+  },
+  "7231911810876673323": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 33.0,
+    "play_count": 677839,
+    "digg_count": 14587,
+    "features_path": "artifacts/features/7231911810876673323.pt"
+  },
+  "7184601838845562158": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 28.0,
+    "play_count": 1431250,
+    "digg_count": 158935,
+    "features_path": "artifacts/features/7184601838845562158.pt"
+  },
+  "7272799549247196459": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 89.0,
+    "play_count": 2996576,
+    "digg_count": 188843,
+    "features_path": "artifacts/features/7272799549247196459.pt"
+  },
+  "7290233293805587755": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 8.0,
+    "play_count": 2128127,
+    "digg_count": 306280,
+    "features_path": "artifacts/features/7290233293805587755.pt"
+  },
+  "7285783399824919850": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 11.0,
+    "play_count": 2124065,
+    "digg_count": 176115,
+    "features_path": "artifacts/features/7285783399824919850.pt"
+  },
+  "7273962688105975083": {
+    "tier": "random",
+    "cluster_id": 7,
+    "duration": 41.0,
+    "play_count": 243519,
+    "digg_count": 22969,
+    "features_path": "artifacts/features/7273962688105975083.pt"
+  },
+  "7258063061305527595": {
+    "tier": "random",
+    "cluster_id": 6,
+    "duration": 15.0,
+    "play_count": 596535,
+    "digg_count": 46905,
+    "features_path": "artifacts/features/7258063061305527595.pt"
+  }
+}

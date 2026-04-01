@@ -265,7 +265,7 @@ export default function Results() {
         </h2>
         <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
           <strong>They actually learn!</strong> Kinda. Here's the metrics from training the agents on 878 TikTok
-          videos, each for 500K timesteps.
+          videos, each for 500K timesteps (equivalent to ~70 hours of doomscrolling).
         </p>
         <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
           They basically learned to <strong>reward hack</strong> the env by scrolling as fast as possible (2Hz, the brain models frequency), which conveniently seems to <strong>fry the brain</strong> the most. They learn this behavior even when they have explicit penalties for fast scrolling.
@@ -366,7 +366,7 @@ export default function Results() {
               Mean activation per brain region across training (select_baseline).
             </p>
             <div style={{ overflowX: "auto", marginBottom: "1rem" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "1rem", minWidth: "850px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "0.5rem", minWidth: "832px" }}>
                 {["LAD", "LAV", "LPD", "LPV", "RAD", "RAV", "RPD", "RPV"].map(
                   (region) => (
                     <LineChart

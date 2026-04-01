@@ -36,7 +36,7 @@ export default function Conclusion() {
                 color: "var(--muted)",
               }}
             >
-              how it feels to manually scroll
+              how it feels to scroll manually
             </p>
             <video
               src={shouldLoadVideos ? "/before_auto_scroll.mp4" : undefined}
@@ -58,7 +58,7 @@ export default function Conclusion() {
                 color: "var(--muted)",
               }}
             >
-              how it feels when ai scrolls for you
+              how it feels to let ai scroll for you
             </p>
             <video
               src={shouldLoadVideos ? "/after_auto_scroll.mp4" : undefined}

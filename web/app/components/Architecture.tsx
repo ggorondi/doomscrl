@@ -11,7 +11,7 @@ const pipelineNodes = [
     id: "videos",
     label: "TikTok Videos",
     detail: "878 videos selected from the TikTok-10M dataset",
-    sub: "Clustered into 9 groups by similarity",
+    sub: "Clustered with K-means",
   },
   {
     id: "brain",
@@ -22,7 +22,7 @@ const pipelineNodes = [
   {
     id: "agent",
     label: "RL Scrolling Agent",
-    detail: "PPO learns when to scroll and what video cluster to select next",
+    detail: "PPO learns when to scroll and what video to select next",
     sub: "Reward = avg activation + delta",
   },
 ];
@@ -119,7 +119,7 @@ export default function Architecture() {
         </div>
 
         <p style={{ fontSize: "1.06rem", color: "var(--muted)", marginBottom: "2rem" }}>
-        We simulate how each moment in a TikTok session would activate the brain with a <strong>pretrained FmriEncoder</strong>, derive a heuristic for <em>dopamine usage</em> to use as a reward signal, and then train an RL agent to discover the scrolling behavior that produces the <strong>highest overall activation</strong>.
+        We simulate how each moment in a TikTok scrolling session would activate the brain with a <strong>pretrained FmriEncoder</strong>, derive a heuristic for <em>dopamine usage</em> from the activations to use as a reward signal, and then train an RL agent (PPO-Clip) to discover the scrolling behavior and recommendation algorithm that produces the <strong>highest overall brainrot</strong>.
         </p>
 
         <div
@@ -153,7 +153,7 @@ export default function Architecture() {
         {/* ── Detailed pipeline diagram ── */}
         <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: "0.5rem" }}>Architecture</h3>
         <p style={{ fontSize: "1.08rem", color: "var(--muted)", marginBottom: "1rem" }}>
-          Full RL data flow from raw video, through the FmriEncoder transformer, to brain activation predictions, reward computation, and PPO agent actions: scrolling and next video selection.
+          Full RL data flow from raw video, through the FmriEncoder transformer, brain activation, reward computation, and PPO agent actions: scrolling and video selection.
         </p>
         <div
           style={{

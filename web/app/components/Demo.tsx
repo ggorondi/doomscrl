@@ -108,16 +108,6 @@ function BrainRotMeter({
   const range = Math.max(maxLevel - minLevel, 1e-6);
   const normalized = Math.max(0, Math.min((level - minLevel) / range, 1));
   const displayPct = 70 + normalized * 20;
-  const label =
-    displayPct < 20
-      ? "MINIMAL"
-      : displayPct < 40
-        ? "WARMING UP"
-        : displayPct < 60
-          ? "ENGAGED"
-          : displayPct < 80
-            ? "LOCKED IN"
-            : "BRAIN MELTING";
 
   return (
     <div style={{ width: "100%" }}>
@@ -137,7 +127,7 @@ function BrainRotMeter({
             color: `hsl(${(1 - displayPct / 100) * 120}, 70%, 40%)`,
           }}
         >
-          {label} {Math.round(displayPct)}%
+          {Math.round(displayPct)}%
         </span>
       </div>
       <div
@@ -168,7 +158,7 @@ function RegionHeatmap({ regions }: { regions: number[] }) {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(4, 1fr)",
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
         gap: "0.25rem",
       }}
     >
@@ -397,54 +387,6 @@ function DemoPhone({
               Start demo
             </button>
           )}
-          <div
-            style={{
-              position: "absolute",
-              top: "0.5rem",
-              left: 0,
-              right: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "0 1rem",
-              zIndex: 10,
-              pointerEvents: "none",
-            }}
-          >
-            <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.68rem" }}>
-              9:41
-            </span>
-            <span style={{ color: "#fff", fontSize: "0.78rem", fontWeight: 700 }}>
-              {session.title}
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.68rem" }}>
-              100%
-            </span>
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              top: "2.5rem",
-              left: "50%",
-              transform: "translateX(-50%)",
-              zIndex: 10,
-              pointerEvents: "none",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "0.68rem",
-                background: "var(--danger)",
-                color: "#fff",
-                padding: "0.15rem 0.5rem",
-                borderRadius: "9999px",
-                fontWeight: 700,
-                whiteSpace: "nowrap",
-              }}
-            >
-              {session.title.toUpperCase()} AGENT
-            </span>
-          </div>
           <div
             style={{
               position: "absolute",
@@ -765,7 +707,7 @@ export default function Demo() {
 
         <h2 style={{ fontSize: "1.8rem", marginBottom: "0.5rem" }}>Demo</h2>
         <p style={{ color: "var(--muted)", marginBottom: "2rem", maxWidth: "700px" }}>
-          Heres a demo of the actual trained agents scrolling for you for a 30-second session.
+          Heres a demo of the actual trained agents scrolling for you and curating the feed for a 30-second session.
           Switch between the baseline (dopaminemaxx) and cortisol agents and watch the actual
           selected TikToks and synchronized activations.
         </p>
@@ -921,7 +863,7 @@ export default function Demo() {
                     marginTop: "0.25rem",
                   }}
                 >
-                  Selected cluster
+                  Cluster
                 </p>
               </div>
               <div className="card" style={{ textAlign: "center", padding: "0.85rem 0.6rem" }}>
@@ -943,9 +885,10 @@ export default function Demo() {
 
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem", flex: "1 1 420px" }}>
             <div
+              className="demo-brain-row"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                gridTemplateColumns: "minmax(0, 3fr) minmax(0, 2fr)",
                 gap: "1rem",
                 alignItems: "stretch",
               }}
@@ -956,11 +899,11 @@ export default function Demo() {
                   overflow: "hidden",
                   background: "#fff",
                   position: "relative",
-                  minHeight: "380px",
+                  minHeight: "390px",
                   padding: 0,
                 }}
               >
-                <BrainScene activation={brainDisplayActivation} spin={true} bg="#ffffff" />
+                <BrainScene activation={brainDisplayActivation} spin={true} bg="#ffffff" scale={0.58} />
                 <div
                   style={{
                     position: "absolute",
@@ -1042,8 +985,6 @@ export default function Demo() {
           </div>
         </div>
       </div>
-
-
     </section>
   );
 }

@@ -32,7 +32,7 @@ export default function Problem() {
         </p>
         <div style={{ height: "2rem" }} />
         <p style={{ color: "var(--muted)" }}>
-          What if we want to optimize for <em>doomscroll-intensity</em> instead?
+          What if we wanted to optimize for <em>doomscroll-intensity</em> instead?
         </p>
         <div style={{ height: "2rem" }} />
         <p style={{ color: "var(--muted)" }}>

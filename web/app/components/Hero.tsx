@@ -22,7 +22,20 @@ export default function Hero() {
 
   const scrollToDemo = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    document.getElementById("demo")?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    const scrollToDemoSection = (behavior: ScrollBehavior) => {
+      const demoSection = document.getElementById("demo");
+      if (!demoSection) return;
+
+      const top = demoSection.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior });
+    };
+
+    scrollToDemoSection("smooth");
+
+    // Results charts lazy-load below the fold and shift layout after the first scroll starts.
+    window.setTimeout(() => scrollToDemoSection("auto"), 450);
+    window.setTimeout(() => scrollToDemoSection("auto"), 1000);
   }, []);
 
   return (
@@ -31,7 +44,7 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
     >
-      <div className="container-middle" style={{ textAlign: "center" }}>
+      <div className="container-middle" style={{ textAlign: "center", maxWidth: "860px" }}>
         {/* 3D scene — brain + video sphere — contained above title */}
         <div
           style={{
@@ -71,12 +84,12 @@ export default function Hero() {
           style={{
             fontSize: "1.24rem",
             color: "var(--muted)",
-            maxWidth: "620px",
+            maxWidth: "744px",
             margin: "0 auto 1.5rem",
             lineHeight: 1.6,
           }}
         >
-          Training RL agents to optimize TikTok scrolling patterns for maximal brainrot, using Meta's TRIBEv2 brain-response model.
+          Training <strong>Reinforcement Learning</strong> agents to optimize TikTok scrolling patterns for maximal <em>brainrot</em>, using Meta's <strong>TRIBEv2</strong> brain-response Transformer model.
         </p>
         <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center" }}>
           <a href="#demo" onClick={scrollToDemo} className="btn btn-primary">
