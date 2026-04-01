@@ -65,25 +65,25 @@ export default function Hero() {
             letterSpacing: "-0.02em",
           }}
         >
-          brainrotmaxxer
+          doomscRL
         </h1>
         <p
           style={{
-            fontSize: "1.1rem",
+            fontSize: "1.24rem",
             color: "var(--muted)",
-            maxWidth: "480px",
+            maxWidth: "620px",
             margin: "0 auto 1.5rem",
             lineHeight: 1.6,
           }}
         >
-          Training RL agents to optimize scrolling patterns to maximize for brainrot, using Meta's TRIBEv2 brain model to simulate neural activation.
+          Training RL agents to optimize TikTok scrolling patterns for maximal brainrot, using Meta's TRIBEv2 brain-response model.
         </p>
         <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center" }}>
           <a href="#demo" onClick={scrollToDemo} className="btn btn-primary">
             Demo
           </a>
           <a
-            href="https://github.com/ggorondi/brainrotmaxxer"
+            href="https://github.com/ggorondi/doomscrl"
             target="_blank"
             rel="noopener noreferrer"
             className="btn"
@@ -91,6 +91,17 @@ export default function Hero() {
             GitHub
           </a>
         </div>
+        <p
+          aria-hidden="true"
+          style={{
+            paddingTop: "1rem",
+            fontSize: "1.4rem",
+            color: "var(--muted)",
+            lineHeight: 1,
+          }}
+        >
+          ↓
+        </p>
       </div>
     </section>
   );

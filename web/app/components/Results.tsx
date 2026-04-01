@@ -142,10 +142,10 @@ function LineChart({
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
         <div>
           <p style={{ fontSize: "0.9rem", fontWeight: 700 }}>{title}</p>
-          <p style={{ fontSize: "0.65rem", color: "var(--muted)" }}>{subtitle}</p>
+          <p style={{ fontSize: "0.75rem", color: "var(--muted)" }}>{subtitle}</p>
         </div>
         {yLabel && (
-          <span className="mono" style={{ fontSize: "0.65rem", color: "var(--muted)", background: "var(--surface-alt)", padding: "0.15rem 0.4rem" }}>
+          <span className="mono" style={{ fontSize: "0.75rem", color: "var(--muted)", background: "var(--surface-alt)", padding: "0.15rem 0.4rem" }}>
             {yLabel}
           </span>
         )}
@@ -167,7 +167,7 @@ function Legend({ variants }: { variants: string[] }) {
           <div
             style={{ width: "0.75rem", height: "3px", borderRadius: "9999px", background: VARIANT_COLORS[v] }}
           />
-          <span style={{ fontSize: "0.7rem", color: "var(--muted)" }}>
+          <span style={{ fontSize: "0.8rem", color: "var(--muted)" }}>
             {VARIANT_LABELS[v] || v}
           </span>
         </div>
@@ -204,25 +204,25 @@ function VariantSummary({
           {VARIANT_LABELS[name]}
         </h3>
       </div>
-      <p className="mono" style={{ fontSize: "0.65rem", color: "var(--muted)", marginBottom: "0.75rem" }}>{name}</p>
+      <p className="mono" style={{ fontSize: "0.75rem", color: "var(--muted)", marginBottom: "0.75rem" }}>{name}</p>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.5rem" }}>
         <div style={{ textAlign: "center" }}>
           <p className="mono" style={{ fontSize: "1.1rem", fontWeight: 700, color: VARIANT_COLORS[name] }}>
             {lastReward.toFixed(1)}
           </p>
-          <p style={{ fontSize: "0.6rem", color: "var(--muted)" }}>Final reward</p>
+          <p style={{ fontSize: "0.7rem", color: "var(--muted)" }}>Final reward</p>
         </div>
         <div style={{ textAlign: "center" }}>
           <p className="mono" style={{ fontSize: "1.1rem", fontWeight: 700 }}>
             {improvement > 0 ? "+" : ""}{improvement.toFixed(0)}%
           </p>
-          <p style={{ fontSize: "0.6rem", color: "var(--muted)" }}>vs start</p>
+          <p style={{ fontSize: "0.7rem", color: "var(--muted)" }}>vs start</p>
         </div>
         <div style={{ textAlign: "center" }}>
           <p className="mono" style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--muted)" }}>
             {evalLast !== null ? evalLast.toFixed(1) : "---"}
           </p>
-          <p style={{ fontSize: "0.6rem", color: "var(--muted)" }}>Eval mean</p>
+          <p style={{ fontSize: "0.7rem", color: "var(--muted)" }}>Eval mean</p>
         </div>
       </div>
     </div>
@@ -264,11 +264,12 @@ export default function Results() {
           Training Results
         </h2>
         <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
-          They actually kinda learn! Here's the metrics from training the agents on 878 TikTok
+          <strong>They actually learn!</strong> Kinda. Here's the metrics from training the agents on 878 TikTok
           videos, each for 500K timesteps.
         </p>
         <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
-          They basically learned to reward hack the env by scrolling as fast as possible, which conveniently seems to fry the brain the most. They learn this behavior even when they have explicit penalties for fast-video switching.
+          They basically learned to <strong>reward hack</strong> the env by scrolling as fast as possible (2Hz, the brain models frequency), which conveniently seems to <strong>fry the brain</strong> the most. They learn this behavior even when they have explicit penalties for fast scrolling.
+          Technically speaking, this is what we asked for though.
         </p>
 
         <div style={{ marginBottom: "2rem", textAlign: "center" }}>
@@ -361,23 +362,25 @@ export default function Results() {
             <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginTop: "2rem", marginBottom: "1rem" }}>
               Brain Region Activations
             </h3>
-            <p style={{ color: "var(--muted)", fontSize: "0.9rem", marginBottom: "1rem" }}>
+            <p style={{ color: "var(--muted)", fontSize: "1.04rem", marginBottom: "1rem" }}>
               Mean activation per brain region across training (select_baseline).
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
-              {["LAD", "LAV", "LPD", "LPV", "RAD", "RAV", "RPD", "RPV"].map(
-                (region) => (
-                  <LineChart
-                    key={region}
-                    data={tbData}
-                    tag={`custom/region_activation/${region}`}
-                    title={region}
-                    subtitle=""
-                    variants={["select_baseline", "select_cortisol"]}
-                    height={100}
-                  />
-                )
-              )}
+            <div style={{ overflowX: "auto", marginBottom: "1rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "1rem", minWidth: "850px" }}>
+                {["LAD", "LAV", "LPD", "LPV", "RAD", "RAV", "RPD", "RPV"].map(
+                  (region) => (
+                    <LineChart
+                      key={region}
+                      data={tbData}
+                      tag={`custom/region_activation/${region}`}
+                      title={region}
+                      subtitle=""
+                      variants={["select_baseline", "select_cortisol"]}
+                      height={100}
+                    />
+                  )
+                )}
+              </div>
             </div>
 
             {/* Training diagnostics */}

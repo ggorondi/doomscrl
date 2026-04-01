@@ -7,7 +7,7 @@ export default function Footer() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "2rem", marginBottom: "2rem" }}>
           <div>
             <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "0.5rem" }}>
-              brainrotmaxxer
+              doomscRL
             </h3>
             <p style={{ fontSize: "0.9rem", color: "var(--muted)" }}>
               An RL-powered doomscroll optimizer that uses a real brain model
@@ -22,7 +22,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
               <li>
                 <a
-                  href="https://github.com/ggorondi/brainrotmaxxer"
+                  href="https://github.com/ggorondi/doomscrl"
                   target="_blank"
                 >
                   GitHub Repository
@@ -42,6 +42,14 @@ export default function Footer() {
                   target="_blank"
                 >
                   TRIBE v2 Blog Post
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://sillyhacks.nyc/"
+                  target="_blank"
+                >
+                  Silly Hacks 2026
                 </a>
               </li>
             </ul>

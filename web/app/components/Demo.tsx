@@ -83,6 +83,19 @@ function sampleInferno(t: number): [number, number, number] {
   ];
 }
 
+function lerp(a: number, b: number, t: number) {
+  return a + (b - a) * t;
+}
+
+function lerpArray(a: number[], b: number[], t: number) {
+  const len = Math.min(a.length, b.length);
+  const out = new Array<number>(len);
+  for (let i = 0; i < len; i++) {
+    out[i] = lerp(a[i], b[i], t);
+  }
+  return out;
+}
+
 function BrainRotMeter({
   level,
   minLevel,
@@ -112,7 +125,7 @@ function BrainRotMeter({
         style={{
           display: "flex",
           justifyContent: "space-between",
-          fontSize: "0.75rem",
+          fontSize: "0.82rem",
           marginBottom: "0.25rem",
         }}
       >
@@ -175,7 +188,7 @@ function RegionHeatmap({ regions }: { regions: number[] }) {
             <p
               className="mono"
               style={{
-                fontSize: "0.6rem",
+                fontSize: "0.68rem",
                 fontWeight: 700,
                 color: intensity > 0.5 ? "#fff" : "var(--fg)",
               }}
@@ -185,7 +198,7 @@ function RegionHeatmap({ regions }: { regions: number[] }) {
             <p
               className="mono"
               style={{
-                fontSize: "0.55rem",
+                fontSize: "0.62rem",
                 color: intensity > 0.5 ? "#fff" : "var(--muted)",
               }}
             >
@@ -244,7 +257,7 @@ function ActivationPlot({
     <div className="card">
       <p
         style={{
-          fontSize: "0.7rem",
+          fontSize: "0.78rem",
           color: "var(--muted)",
           marginBottom: "0.5rem",
           fontWeight: 700,
@@ -289,7 +302,7 @@ function ActivationPlot({
           display: "flex",
           gap: "1rem",
           marginTop: "0.5rem",
-          fontSize: "0.7rem",
+          fontSize: "0.78rem",
           color: "var(--muted)",
         }}
       >
@@ -378,7 +391,7 @@ function DemoPhone({
                 transform: "translateX(50%)",
                 zIndex: 20,
                 pointerEvents: "auto",
-                fontSize: "0.8rem",
+                fontSize: "0.88rem",
               }}
             >
               Start demo
@@ -398,13 +411,13 @@ function DemoPhone({
               pointerEvents: "none",
             }}
           >
-            <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.6rem" }}>
+            <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.68rem" }}>
               9:41
             </span>
-            <span style={{ color: "#fff", fontSize: "0.7rem", fontWeight: 700 }}>
+            <span style={{ color: "#fff", fontSize: "0.78rem", fontWeight: 700 }}>
               {session.title}
             </span>
-            <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.6rem" }}>
+            <span style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.68rem" }}>
               100%
             </span>
           </div>
@@ -420,7 +433,7 @@ function DemoPhone({
           >
             <span
               style={{
-                fontSize: "0.6rem",
+                fontSize: "0.68rem",
                 background: "var(--danger)",
                 color: "#fff",
                 padding: "0.15rem 0.5rem",
@@ -445,13 +458,13 @@ function DemoPhone({
               pointerEvents: "none",
             }}
           >
-            <p style={{ color: "#fff", fontSize: "0.6rem", fontWeight: 700 }}>
+            <p style={{ color: "#fff", fontSize: "0.68rem", fontWeight: 700 }}>
               @{session.title.toLowerCase()}_agent
             </p>
             <p
               style={{
                 color: "rgba(255,255,255,0.78)",
-                fontSize: "0.55rem",
+                fontSize: "0.62rem",
                 marginTop: "0.15rem",
               }}
             >
@@ -617,13 +630,72 @@ export default function Demo() {
     };
   }, [session]);
 
-  const currentStep = useMemo(() => {
+  const playbackState = useMemo(() => {
     if (!session || !session.steps.length) return null;
-    const idx = Math.min(
-      session.steps.length - 1,
-      Math.floor(currentTime * session.feature_rate_hz)
-    );
-    return session.steps[idx];
+
+    const rawIndex = Math.max(0, currentTime * session.feature_rate_hz);
+    const currentIdx = Math.min(session.steps.length - 1, Math.floor(rawIndex));
+    const nextIdx = Math.min(session.steps.length - 1, currentIdx + 1);
+    const mix = Math.max(0, Math.min(rawIndex - currentIdx, 1));
+    const currentStep = session.steps[currentIdx];
+    const nextStep = session.steps[nextIdx];
+
+    const interpolatedStep: SessionStep =
+      currentIdx === nextIdx
+        ? currentStep
+        : {
+            ...currentStep,
+            time_seconds: currentTime,
+            reward: lerp(currentStep.reward, nextStep.reward, mix),
+            cumulative_reward: lerp(
+              currentStep.cumulative_reward,
+              nextStep.cumulative_reward,
+              mix
+            ),
+            activation: lerp(currentStep.activation, nextStep.activation, mix),
+            delta: lerp(currentStep.delta, nextStep.delta, mix),
+            weighted_activation: lerp(
+              currentStep.weighted_activation,
+              nextStep.weighted_activation,
+              mix
+            ),
+            weighted_delta: lerp(
+              currentStep.weighted_delta,
+              nextStep.weighted_delta,
+              mix
+            ),
+            switch_penalty: lerp(
+              currentStep.switch_penalty,
+              nextStep.switch_penalty,
+              mix
+            ),
+            short_dwell_penalty: lerp(
+              currentStep.short_dwell_penalty,
+              nextStep.short_dwell_penalty,
+              mix
+            ),
+            watch_frac: lerp(currentStep.watch_frac, nextStep.watch_frac, mix),
+            session_frac: lerp(currentStep.session_frac, nextStep.session_frac, mix),
+            play_count: lerp(currentStep.play_count, nextStep.play_count, mix),
+            digg_count: lerp(currentStep.digg_count, nextStep.digg_count, mix),
+            duration: lerp(currentStep.duration, nextStep.duration, mix),
+            region_activation: lerpArray(
+              currentStep.region_activation,
+              nextStep.region_activation,
+              mix
+            ),
+            region_delta: lerpArray(
+              currentStep.region_delta,
+              nextStep.region_delta,
+              mix
+            ),
+          };
+
+    return {
+      rawIndex,
+      currentStep,
+      interpolatedStep,
+    };
   }, [session, currentTime]);
 
   const activationStats = useMemo(() => {
@@ -646,7 +718,7 @@ export default function Demo() {
     };
   }, [session]);
 
-  if (!session || !currentStep) {
+  if (!session || !playbackState) {
     return (
       <section id="demo" style={{ padding: "3rem 0" }}>
         <div className="container-middle" style={{ maxWidth: "900px" }}>
@@ -663,6 +735,7 @@ export default function Demo() {
   const loadedSessions = sessions as SessionsData;
   const comparisonAgent = activeAgent === "baseline" ? "cortisol" : "baseline";
   const comparisonSession = loadedSessions[comparisonAgent];
+  const { rawIndex, currentStep, interpolatedStep } = playbackState;
 
   const activationRange = Math.max(
     activationStats.activationMax - activationStats.activationMin,
@@ -673,7 +746,7 @@ export default function Demo() {
     Math.min(
       1,
       0.25 +
-      ((currentStep.activation - activationStats.activationMin) / activationRange) * 0.75
+      ((interpolatedStep.activation - activationStats.activationMin) / activationRange) * 0.75
     )
   );
 
@@ -693,7 +766,7 @@ export default function Demo() {
         <h2 style={{ fontSize: "1.8rem", marginBottom: "0.5rem" }}>Demo</h2>
         <p style={{ color: "var(--muted)", marginBottom: "2rem", maxWidth: "700px" }}>
           Heres a demo of the actual trained agents scrolling for you for a 30-second session.
-          Switch between the baseline and cortisol agents and watch the actual
+          Switch between the baseline (dopaminemaxx) and cortisol agents and watch the actual
           selected TikToks and synchronized activations.
         </p>
 
@@ -709,12 +782,12 @@ export default function Demo() {
           <span
             className="mono"
             style={{
-              fontSize: "0.82rem",
+              fontSize: "0.9rem",
               fontWeight: activeAgent === "baseline" ? 700 : 500,
               color: activeAgent === "baseline" ? "#DD513A" : "var(--muted)",
             }}
           >
-            dopamine
+            Dopamine
           </span>
           <button
             type="button"
@@ -754,7 +827,7 @@ export default function Demo() {
           <span
             className="mono"
             style={{
-              fontSize: "0.82rem",
+              fontSize: "0.9rem",
               fontWeight: activeAgent === "cortisol" ? 700 : 500,
               color: activeAgent === "cortisol" ? "#7A3CF0" : "var(--muted)",
             }}
@@ -804,11 +877,11 @@ export default function Demo() {
                     color: "var(--danger)",
                   }}
                 >
-                  {(currentStep.activation * 1000).toFixed(2)}
+                  {(interpolatedStep.activation * 1000).toFixed(2)}
                 </p>
                 <p
                   style={{
-                    fontSize: "0.62rem",
+                    fontSize: "0.72rem",
                     color: "var(--muted)",
                     marginTop: "0.25rem",
                   }}
@@ -825,11 +898,11 @@ export default function Demo() {
                     color: "var(--secondary)",
                   }}
                 >
-                  {currentStep.cumulative_reward.toFixed(3)}
+                  {interpolatedStep.cumulative_reward.toFixed(3)}
                 </p>
                 <p
                   style={{
-                    fontSize: "0.62rem",
+                    fontSize: "0.72rem",
                     color: "var(--muted)",
                     marginTop: "0.25rem",
                   }}
@@ -843,7 +916,7 @@ export default function Demo() {
                 </p>
                 <p
                   style={{
-                    fontSize: "0.62rem",
+                    fontSize: "0.72rem",
                     color: "var(--muted)",
                     marginTop: "0.25rem",
                   }}
@@ -857,7 +930,7 @@ export default function Demo() {
                 </p>
                 <p
                   style={{
-                    fontSize: "0.62rem",
+                    fontSize: "0.72rem",
                     color: "var(--muted)",
                     marginTop: "0.25rem",
                   }}
@@ -904,24 +977,24 @@ export default function Demo() {
                   <span
                     className="mono"
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "0.78rem",
                       color: "rgba(0,0,0,0.5)",
                       background: "rgba(255,255,255,0.7)",
                       padding: "0.25rem 0.5rem",
                     }}
                   >
-                    activation: {(currentStep.activation * 1000).toFixed(2)}×10⁻³
+                    activation: {(interpolatedStep.activation * 1000).toFixed(2)}×10⁻³
                   </span>
                   <span
                     className="mono"
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "0.78rem",
                       color: "rgba(0,0,0,0.5)",
                       background: "rgba(255,255,255,0.7)",
                       padding: "0.25rem 0.5rem",
                     }}
                   >
-                    t={currentTime.toFixed(1)}s · step {currentStep.step_idx + 1}/
+                    t={currentTime.toFixed(1)}s · sample {currentStep.step_idx + 1}/
                     {session.steps.length}
                   </span>
                 </div>
@@ -939,7 +1012,7 @@ export default function Demo() {
                 <div>
                   <p
                     style={{
-                      fontSize: "0.7rem",
+                      fontSize: "0.78rem",
                       color: "var(--muted)",
                       marginBottom: "0.5rem",
                       fontWeight: 700,
@@ -949,10 +1022,10 @@ export default function Demo() {
                   >
                     Brain Region Activations (×10⁻³)
                   </p>
-                  <RegionHeatmap regions={currentStep.region_activation} />
+                  <RegionHeatmap regions={interpolatedStep.region_activation} />
                 </div>
                 <BrainRotMeter
-                  level={currentStep.weighted_activation}
+                  level={interpolatedStep.weighted_activation}
                   minLevel={activationStats.weightedActivationMin}
                   maxLevel={activationStats.weightedActivationMax}
                 />
@@ -962,7 +1035,7 @@ export default function Demo() {
             <ActivationPlot
               steps={session.steps}
               comparisonSteps={comparisonSession?.steps}
-              currentIndex={currentStep.step_idx}
+              currentIndex={rawIndex}
               currentLabel={session.title.toLowerCase()}
               comparisonLabel={comparisonSession?.title.toLowerCase()}
             />

@@ -1,4 +1,4 @@
-# brainrotmaxxer
+# doomscrl
 
 RL policies trained to maximize simulated dopamine usage and 'brain-frying' during doomscrolling, using Meta's TRIBE v2 brain model as the reward signal for a tiktok-feed controlling RL agent.
 
@@ -95,9 +95,9 @@ ssh root@213.173.102.171 -p 15595 -i ~/.ssh/id_ed25519
 
 Copy artifacts back:
 ```bash
-rsync -avz remote:brainrotmaxxer/artifacts/features/ artifacts/features/
-rsync -avz remote:brainrotmaxxer/models/tribev2/fmri_encoder.pt models/tribev2/
-rsync -avz remote:brainrotmaxxer/artifacts/video_catalog.json artifacts/
+rsync -avz remote:doomscrl/artifacts/features/ artifacts/features/
+rsync -avz remote:doomscrl/models/tribev2/fmri_encoder.pt models/tribev2/
+rsync -avz remote:doomscrl/artifacts/video_catalog.json artifacts/
 ```
 
 ## Training

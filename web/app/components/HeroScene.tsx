@@ -131,10 +131,18 @@ function VideoPlane({
 }
 
 /* ── Rotating sphere of video frames ── */
-function VideoSphere() {
+function VideoSphere({
+  numVideos = 72,
+  radius = 2.8,
+  rotationSpeed = 0.001,
+  position = [0, 0, 0],
+}: {
+  numVideos?: number;
+  radius?: number;
+  rotationSpeed?: number;
+  position?: [number, number, number];
+}) {
   const groupRef = useRef<THREE.Group>(null!);
-  const numVideos = 72;
-  const radius = 2.8;
 
   const points = useMemo(() => fibonacciSphere(numVideos, radius), []);
   const center = useMemo(() => new THREE.Vector3(0, 0, 0), []);
@@ -147,12 +155,12 @@ function VideoSphere() {
 
   useFrame(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += 0.001; // half speed
+      groupRef.current.rotation.y += rotationSpeed;
     }
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} position={position}>
       {points.map((pos, i) => (
         <VideoPlane
           key={i}

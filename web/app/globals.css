@@ -24,13 +24,14 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 17.5px;
 }
 
 body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 19.5px;
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -66,7 +67,7 @@ a:hover {
 /* ✺✺✺ section separator */
 .separator {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.35rem;
   color: var(--muted);
   padding: 2rem 0;
   letter-spacing: 0.3em;
@@ -81,7 +82,7 @@ a:hover {
   color: var(--fg);
   text-decoration: none;
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.08rem;
   transition: border-color 0.2s;
   cursor: pointer;
 }

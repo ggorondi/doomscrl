@@ -21,7 +21,7 @@ const pipelineNodes = [
   },
   {
     id: "agent",
-    label: "RL Brainrot Agent",
+    label: "RL Scrolling Agent",
     detail: "PPO learns when to scroll and what video cluster to select next",
     sub: "Reward = avg activation + delta",
   },
@@ -83,24 +83,21 @@ export default function Architecture() {
       <div className="container-middle" style={{ maxWidth: "900px" }}>
         <p className="separator">✺✺✺</p>
 
-        <h2 style={{ fontSize: "1.8rem", marginBottom: "0.5rem" }}>
+        <h2 style={{ fontSize: "1.95rem", marginBottom: "0.5rem" }}>
           How?
         </h2>
-        <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
-          Theres three parts:
-        </p>
 
         {/* ── Pipeline ── */}
         <div style={{ display: "flex", alignItems: "stretch", gap: "0.75rem", marginBottom: "2.5rem" }}>
           {pipelineNodes.map((node, i) => (
             <div key={node.id} style={{ display: "flex", alignItems: "center", gap: "0.75rem", flex: 1 }}>
               <div className="card" style={{ flex: 1 }}>
-                <p className="mono" style={{ fontSize: "0.75rem", fontWeight: 700, marginBottom: "0.35rem", color: "var(--muted)" }}>
+                <p className="mono" style={{ fontSize: "0.95rem", fontWeight: 700, marginBottom: "0.35rem", color: "var(--muted)" }}>
                   {String(i + 1)}
                 </p>
-                <h3 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "0.35rem" }}>{node.label}</h3>
-                <p style={{ fontSize: "0.85rem", color: "var(--muted)", marginBottom: "0.35rem" }}>{node.detail}</p>
-                <p style={{ fontSize: "0.75rem", color: "var(--muted)", opacity: 0.7 }}>
+                <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: "0.35rem" }}>{node.label}</h3>
+                <p style={{ fontSize: "1.02rem", color: "var(--muted)", marginBottom: "0.35rem" }}>{node.detail}</p>
+                <p style={{ fontSize: "0.95rem", color: "var(--muted)", opacity: 0.7 }}>
                   {node.sub}
                 </p>
               </div>
@@ -110,7 +107,7 @@ export default function Architecture() {
                   style={{
                     alignSelf: "center",
                     color: "var(--muted)",
-                    fontSize: "1.2rem",
+                    fontSize: "1.35rem",
                     flexShrink: 0,
                   }}
                 >
@@ -121,8 +118,8 @@ export default function Architecture() {
           ))}
         </div>
 
-        <p style={{ color: "var(--muted)", marginBottom: "2rem" }}>
-          The PPO agent uses the brain-activation-derived reward signal to learn to model the tiktok feeds expected brain activation, and scroll accordingly.
+        <p style={{ fontSize: "1.06rem", color: "var(--muted)", marginBottom: "2rem" }}>
+        We simulate how each moment in a TikTok session would activate the brain with a <strong>pretrained FmriEncoder</strong>, derive a heuristic for <em>dopamine usage</em> to use as a reward signal, and then train an RL agent to discover the scrolling behavior that produces the <strong>highest overall activation</strong>.
         </p>
 
         <div
@@ -154,36 +151,45 @@ export default function Architecture() {
         </div>
 
         {/* ── Detailed pipeline diagram ── */}
-        <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: "0.5rem" }}>Architecture</h3>
-        <p style={{ fontSize: "0.9rem", color: "var(--muted)", marginBottom: "1rem" }}>
-          Full RL data flow from raw video through the FmriEncoder transformer to brain activation predictions and reward computation.
+        <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: "0.5rem" }}>Architecture</h3>
+        <p style={{ fontSize: "1.08rem", color: "var(--muted)", marginBottom: "1rem" }}>
+          Full RL data flow from raw video, through the FmriEncoder transformer, to brain activation predictions, reward computation, and PPO agent actions: scrolling and next video selection.
         </p>
-        <div style={{ marginBottom: "2.5rem" }}>
-          <PipelineDiagram />
-        </div>
+        <div
+          style={{
+            width: "min(1060px, calc(100vw - 2rem))",
+            marginLeft: "50%",
+            transform: "translateX(-50%)",
+            marginBottom: "2.5rem",
+          }}
+        >
+          <div style={{ marginBottom: "2.5rem" }}>
+            <PipelineDiagram />
+          </div>
 
-        {/* ── Technical details ── */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
-          {techDetails.map((section) => (
-            <div key={section.title} className="card">
-              <h3 style={{ fontSize: "0.9rem", fontWeight: 700, marginBottom: "0.75rem" }}>{section.title}</h3>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                {section.items.map((item, i) => (
-                  <li key={i} style={{ fontSize: "0.8rem", color: "var(--muted)", lineHeight: 1.6, marginBottom: "0.5rem", display: "flex", gap: "0.5rem" }}>
-                    <span style={{ color: "var(--border)", flexShrink: 0 }}>•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* ── Technical details ── */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
+            {techDetails.map((section) => (
+              <div key={section.title} className="card">
+                <h3 style={{ fontSize: "1.08rem", fontWeight: 700, marginBottom: "0.75rem" }}>{section.title}</h3>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                  {section.items.map((item, i) => (
+                    <li key={i} style={{ fontSize: "0.98rem", color: "var(--muted)", lineHeight: 1.6, marginBottom: "0.5rem", display: "flex", gap: "0.5rem" }}>
+                      <span style={{ color: "var(--border)", flexShrink: 0 }}>•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* ── Trained variants ── */}
-        <h3 style={{ fontSize: "1.2rem", fontWeight: 700, marginBottom: "0.5rem" }}>Trained variants</h3>
-        <p style={{ fontSize: "0.9rem", color: "var(--muted)", marginBottom: "1.5rem" }}>
-          Three agent configurations exploring different RL setups and
-          reward signals.
+        <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: "0.5rem" }}>Trained variants</h3>
+        <p style={{ fontSize: "1.08rem", color: "var(--muted)", marginBottom: "1.5rem" }}>
+          We explore three agent configurations with different RL setups and
+          reward functions.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
           {variants.map((v) => (
@@ -195,7 +201,7 @@ export default function Architecture() {
                   borderRadius: "50%",
                   background: "var(--fg)",
                   color: "var(--bg)",
-                  fontSize: "0.7rem",
+                  fontSize: "0.88rem",
                   fontWeight: 700,
                   display: "flex",
                   alignItems: "center",
@@ -204,12 +210,12 @@ export default function Architecture() {
                 }}>
                   {v.id}
                 </span>
-                <span className="mono" style={{ fontSize: "0.75rem", color: "var(--muted)" }}>
+                <span className="mono" style={{ fontSize: "0.95rem", color: "var(--muted)" }}>
                   {v.env}
                 </span>
               </div>
-              <h4 className="mono" style={{ fontSize: "0.85rem", fontWeight: 700, marginBottom: "0.25rem" }}>{v.name}</h4>
-              <p style={{ fontSize: "0.8rem", color: "var(--muted)", lineHeight: 1.5 }}>
+              <h4 className="mono" style={{ fontSize: "1.02rem", fontWeight: 700, marginBottom: "0.25rem" }}>{v.name}</h4>
+              <p style={{ fontSize: "0.98rem", color: "var(--muted)", lineHeight: 1.5 }}>
                 {v.desc}
               </p>
             </div>
@@ -217,12 +223,12 @@ export default function Architecture() {
         </div>
         <div style={{ height: "2rem" }} />
 
-        <p style={{ fontSize: "0.9rem", color: "var(--muted)", marginBottom: "1rem" }}>
-          Training was done on 5x RTX PRO 4500 instances for about 12 hours. About $30.
+        <p style={{ fontSize: "1.08rem", color: "var(--muted)", marginBottom: "1rem" }}>
+          Training was run on 5x RTX PRO 4500 instances for about 12 hours. About $30.
         </p>
         {/* RunPod training screenshot */}
         <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
-          <div style={{ maxWidth: "40rem", margin: "0 auto" }}>
+          <div style={{ width: "100%", maxWidth: "100%", margin: "0 auto" }}>
             <Image
               src="/runpod.png"
               alt="Training runs on RunPod GPU instances"

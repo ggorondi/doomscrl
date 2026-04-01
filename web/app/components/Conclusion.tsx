@@ -30,7 +30,7 @@ export default function Conclusion() {
           <div>
             <p
               style={{
-                fontSize: "0.8rem",
+                fontSize: "0.96rem",
                 fontWeight: 700,
                 marginBottom: "0.75rem",
                 color: "var(--muted)",
@@ -52,7 +52,7 @@ export default function Conclusion() {
           <div>
             <p
               style={{
-                fontSize: "0.8rem",
+                fontSize: "0.96rem",
                 fontWeight: 700,
                 marginBottom: "0.75rem",
                 color: "var(--muted)",
@@ -74,7 +74,7 @@ export default function Conclusion() {
         </div>
 
         <p style={{ maxWidth: "42rem", margin: "1.5rem auto 0", color: "var(--muted)" }}>
-          we have created the perfect doomscroller, it can fit your 4 hour sessions into a single hour and a half. Use the model responsibly.
+          We have created the optimal doomscroller, applying literal state-of-the-art technology to the problem of maximizing dopamine consumption. This could counter-intuitively save you time and energy. Possibly. Use the model responsibly.
         </p>
 
         <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
@@ -91,7 +91,7 @@ export default function Conclusion() {
 
         <div style={{ marginTop: "2rem", display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "center" }}>
           <a
-            href="https://github.com/ggorondi/brainrotmaxxer"
+            href="https://github.com/ggorondi/doomscrl"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary"

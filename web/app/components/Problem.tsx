@@ -25,22 +25,18 @@ export default function Problem() {
 
         <p style={{ color: "var(--muted)", marginBottom: "1rem" }}>
           Social media companies spend billions engineering recommendation
-          algorithms that optimize for doomscroll-time.
+          algorithms that optimize for <em>doomscroll-time</em>.
         </p>
         <p style={{ color: "var(--muted)" }}>
           But...
         </p>
         <div style={{ height: "2rem" }} />
         <p style={{ color: "var(--muted)" }}>
-          What if we want to optimize for brainrot instead?
-        </p>
-        <p style={{ color: "var(--muted)" }}>
-          We could fit the same amount of dopamine into half the time!
+          What if we want to optimize for <em>doomscroll-intensity</em> instead?
         </p>
         <div style={{ height: "2rem" }} />
         <p style={{ color: "var(--muted)" }}>
-          We can leverage Reinforcement Learning to train an agent to optimize the scrolling pattern with the explicit objective of maximizing predicted
-          cortical activation across brain surface vertices during a tiktok session.
+          We can leverage <strong>Reinforcement Learning</strong> to train an agent to optimize the scrolling pattern with the explicit objective of maximizing <strong>predicted cortical activation</strong> across brain surface vertices during a tiktok session.
         </p>
         <div style={{ height: "2rem" }} />
 
