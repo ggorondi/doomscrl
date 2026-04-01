@@ -25,15 +25,15 @@ export default function Footer() {
                   href="https://github.com/ggorondi/doomscrl"
                   target="_blank"
                 >
-                  GitHub Repository
+                  GitHub Repo
                 </a>
               </li>
               <li>
                 <a
-                  href="https://huggingface.co/facebook/tribev2"
+                  href="https://x.com/gradientpull"
                   target="_blank"
                 >
-                  TRIBE v2 Model
+                  @gradientpull
                 </a>
               </li>
               <li>
