@@ -127,8 +127,96 @@ a:hover {
   grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
 }
 
+.architecture-side-phones {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: opacity 0.25s ease;
+}
+
+.architecture-side-phone {
+  position: absolute;
+  top: 50%;
+  width: clamp(132px, 13.5vw, 176px);
+  transition: transform 0.3s ease, opacity 0.25s ease;
+  will-change: transform, opacity;
+}
+
+.architecture-side-phone-frame {
+  position: relative;
+  background: #030303;
+  border-radius: 2rem;
+  padding: 0.55rem;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.26);
+}
+
+.architecture-side-phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4.6rem;
+  height: 1.1rem;
+  background: #030303;
+  border-radius: 0 0 0.8rem 0.8rem;
+  z-index: 2;
+}
+
+.architecture-side-phone-screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.55rem;
+  aspect-ratio: 9 / 19.5;
+  background: #000;
+}
+
+.architecture-side-phone-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.architecture-side-phone-homebar {
+  position: absolute;
+  bottom: 0.22rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5.2rem;
+  height: 0.2rem;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 9999px;
+}
+
+.architecture-side-phone-button {
+  position: absolute;
+  top: calc(100% + 0.7rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  pointer-events: auto;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid #111;
+  border-radius: 0.8rem;
+  background: #111;
+  color: #fff;
+  font-size: 0.92rem;
+  line-height: 1.25;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
 @media (max-width: 760px) {
   .demo-brain-row {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1260px) {
+  .architecture-side-phones {
+    display: none;
   }
 }

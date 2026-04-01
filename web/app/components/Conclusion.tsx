@@ -74,7 +74,7 @@ export default function Conclusion() {
         </div>
 
         <p style={{ maxWidth: "42rem", margin: "1.5rem auto 0", color: "var(--muted)" }}>
-          We have created the optimal doomscroller, applying literal state-of-the-art technology to the problem of maximizing dopamine consumption. This could counter-intuitively save you time and energy. Possibly. Use the model responsibly.
+          We have created the optimal doomscroller, applying literal state-of-the-art technology to the problem of maximizing dopamine depletion. This could counter-intuitively save you time and energy. Possibly. Use the model responsibly.
         </p>
 
         <div style={{ marginTop: "1.5rem", textAlign: "center" }}>

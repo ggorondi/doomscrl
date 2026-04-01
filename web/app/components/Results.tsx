@@ -255,7 +255,7 @@ export default function Results() {
   ];
 
   return (
-    <section ref={sectionRef} style={{ padding: "3rem 0" }}>
+    <section id="results" ref={sectionRef} style={{ padding: "3rem 0" }}>
       <div className="container-middle" style={{ maxWidth: "900px" }}>
         <p className="separator">✺✺✺</p>
 

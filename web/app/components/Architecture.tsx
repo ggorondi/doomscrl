@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const PipelineDiagram = dynamic(() => import("./PipelineDiagram"), { ssr: false });
+
+const subwayVideoSrc = "/architecture/subway-surfers-720p.mp4";
 
 /* ── Pipeline node data ── */
 const pipelineNodes = [
@@ -78,8 +81,106 @@ const variants = [
 ];
 
 export default function Architecture() {
+  const architectureHeadingRef = useRef<HTMLHeadingElement | null>(null);
+  const runCostRef = useRef<HTMLParagraphElement | null>(null);
+  const [entryPresence, setEntryPresence] = useState(0);
+  const [exitPresence, setExitPresence] = useState(1);
+
+  const scrollToResults = useCallback(() => {
+    const scrollToResultsSection = (behavior: ScrollBehavior) => {
+      const resultsSection = document.getElementById("results");
+      if (!resultsSection) return;
+
+      const top = resultsSection.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior });
+    };
+
+    scrollToResultsSection("smooth");
+    window.setTimeout(() => scrollToResultsSection("auto"), 450);
+    window.setTimeout(() => scrollToResultsSection("auto"), 1000);
+  }, []);
+
+  useEffect(() => {
+    const updateSectionProgress = () => {
+      const viewportHeight = window.innerHeight || 1;
+
+      const headingRect = architectureHeadingRef.current?.getBoundingClientRect();
+      const runCostRect = runCostRef.current?.getBoundingClientRect();
+      if (!headingRect || !runCostRect) return;
+
+      const headingCenterY = headingRect.top + headingRect.height / 2;
+      const entryStartY = viewportHeight * 0.62;
+      const entryEndY = viewportHeight * 0.5;
+      const nextEntryPresence = Math.max(
+        0,
+        Math.min(1, (entryStartY - headingCenterY) / (entryStartY - entryEndY))
+      );
+      setEntryPresence(nextEntryPresence);
+
+      const runCostCenterY = runCostRect.top + runCostRect.height / 2;
+      const exitStartY = viewportHeight * 0.64;
+      const exitEndY = viewportHeight * 0.5;
+      const nextExitPresence = Math.max(
+        0,
+        Math.min(1, (runCostCenterY - exitEndY) / (exitStartY - exitEndY))
+      );
+      setExitPresence(nextExitPresence);
+    };
+
+    updateSectionProgress();
+    window.addEventListener("scroll", updateSectionProgress, { passive: true });
+    window.addEventListener("resize", updateSectionProgress);
+
+    return () => {
+      window.removeEventListener("scroll", updateSectionProgress);
+      window.removeEventListener("resize", updateSectionProgress);
+    };
+  }, []);
+
+  const phonePresence = entryPresence * exitPresence;
+
+  const leftPhoneTransform = `translate3d(${(-140 + phonePresence * 140).toFixed(1)}%, -50%, 0)`;
+
   return (
-    <section style={{ padding: "3rem 0" }}>
+    <section style={{ padding: "3rem 0", position: "relative" }}>
+      <div
+        className="architecture-side-phones"
+        style={{
+          opacity: phonePresence,
+        }}
+      >
+        <div
+          className="architecture-side-phone"
+          style={{
+            left: "clamp(0.75rem, calc((100vw - 1180px) / 2), 4rem)",
+            transform: leftPhoneTransform,
+          }}
+        >
+          <div className="architecture-side-phone-frame">
+            <div className="architecture-side-phone-notch" />
+            <div className="architecture-side-phone-screen">
+              <video
+                src={subwayVideoSrc}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="architecture-side-phone-video"
+              />
+            </div>
+            <div className="architecture-side-phone-homebar" />
+          </div>
+          <button
+            type="button"
+            onClick={scrollToResults}
+            className="architecture-side-phone-button"
+          >
+            "just put the results in the bag lil bro"
+          </button>
+        </div>
+      </div>
+
       <div className="container-middle" style={{ maxWidth: "900px" }}>
         <p className="separator">✺✺✺</p>
 
@@ -121,37 +222,8 @@ export default function Architecture() {
         <p style={{ fontSize: "1.06rem", color: "var(--muted)", marginBottom: "2rem" }}>
         We simulate how each moment in a TikTok scrolling session would activate the brain with a <strong>pretrained FmriEncoder</strong>, derive a heuristic for <em>dopamine usage</em> from the activations to use as a reward signal, and then train an RL agent (PPO-Clip) to discover the scrolling behavior and recommendation algorithm that produces the <strong>highest overall brainrot</strong>.
         </p>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "1rem",
-            marginBottom: "2.5rem",
-          }}
-        >
-          <div className="card" style={{ textAlign: "center" }}>
-            <Image
-              src="/gem.gif"
-              alt="Gem reward visualization"
-              width={640}
-              height={360}
-              className="image"
-            />
-          </div>
-          <div className="card" style={{ textAlign: "center" }}>
-            <Image
-              src="/coal.gif"
-              alt="Coal reward visualization"
-              width={640}
-              height={360}
-              className="image"
-            />
-          </div>
-        </div>
-
         {/* ── Detailed pipeline diagram ── */}
-        <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: "0.5rem" }}>Architecture</h3>
+        <h3 ref={architectureHeadingRef} style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: "0.5rem" }}>Architecture</h3>
         <p style={{ fontSize: "1.08rem", color: "var(--muted)", marginBottom: "1rem" }}>
           Full RL data flow from raw video, through the FmriEncoder transformer, brain activation, reward computation, and PPO agent actions: scrolling and video selection.
         </p>
@@ -223,7 +295,7 @@ export default function Architecture() {
         </div>
         <div style={{ height: "2rem" }} />
 
-        <p style={{ fontSize: "1.08rem", color: "var(--muted)", marginBottom: "1rem" }}>
+        <p ref={runCostRef} style={{ fontSize: "1.08rem", color: "var(--muted)", marginBottom: "1rem" }}>
           Training was run on 5x RTX PRO 4500 instances for about 12 hours. About $30.
         </p>
         {/* RunPod training screenshot */}
